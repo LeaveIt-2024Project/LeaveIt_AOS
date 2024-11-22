@@ -13,7 +13,9 @@ import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 
 class ShowPlaceView : Fragment(){
     private lateinit var binding : FragmentShowplaceviewBinding
-    private lateinit var adapter: ShowPlaceViewRecyclerViewAdapter
+    private lateinit var tourAdapter: ShowPlaceViewRecyclerViewAdapter
+    private lateinit var cultureAdapter : ShowPlaceViewRecyclerViewAdapter
+    private lateinit var festivalAdapter : ShowPlaceViewRecyclerViewAdapter
     private val viewModel: ShowPlaceViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,17 +31,42 @@ class ShowPlaceView : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.testGetValue()
 
-        viewModel.currentData.observe(this){
-            adapter.submitList(it)
-        }
+        observeData()
+
 
     }
 
     private fun initAdapter(){
         binding.tourAttraction.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        adapter = ShowPlaceViewRecyclerViewAdapter()
-        binding.tourAttraction.adapter = adapter
+        binding.culture.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        binding.festival.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+
+        tourAdapter = ShowPlaceViewRecyclerViewAdapter()
+        festivalAdapter = ShowPlaceViewRecyclerViewAdapter()
+        cultureAdapter = ShowPlaceViewRecyclerViewAdapter()
+
+
+        binding.tourAttraction.adapter = tourAdapter
+        binding.culture.adapter = cultureAdapter
+        binding.festival.adapter = festivalAdapter
+    }
+
+    private fun observeData(){
+        viewModel.testGetValue() // 테스트 API 호출
+
+
+        // 옵저버 패턴으로 데이터 변경 감지 후 각 어댑터에 데이터 넣기
+        viewModel.tourAttractionData.observe(this){
+            tourAdapter.submitList(it)
+        }
+
+        viewModel.cultureData.observe(this){
+            cultureAdapter.submitList(it)
+        }
+
+        viewModel.festivalData.observe(this){
+            festivalAdapter.submitList(it)
+        }
     }
 }

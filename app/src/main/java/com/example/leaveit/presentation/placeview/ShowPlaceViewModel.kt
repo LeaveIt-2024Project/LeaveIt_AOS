@@ -7,8 +7,14 @@ import com.example.leaveit.domain.usecase.GetFeedUseCase
 
 class ShowPlaceViewModel : ViewModel() {
 
-    private val _currentData : MutableLiveData<List<ShowPlaceModel>?> by lazy { MutableLiveData() }
-    val currentData : LiveData<List<ShowPlaceModel>?> = _currentData
+    private val _tourAttractionData : MutableLiveData<List<ShowPlaceModel>?> by lazy { MutableLiveData() }
+    val tourAttractionData : LiveData<List<ShowPlaceModel>?> = _tourAttractionData
+
+    private val _cultureData : MutableLiveData<List<ShowPlaceModel>?> by lazy { MutableLiveData() }
+    val cultureData : LiveData<List<ShowPlaceModel>?> = _cultureData
+
+    private val _festivalData : MutableLiveData<List<ShowPlaceModel>?> by lazy { MutableLiveData() }
+    val festivalData : LiveData<List<ShowPlaceModel>?> = _festivalData
 
     fun getFeedData(){
         // TODO 피드 서버 API 구현되면 Domain 로직에서 GetFeedUseCase를 통해 데이터 가져오기
@@ -23,9 +29,21 @@ class ShowPlaceViewModel : ViewModel() {
             ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
         )
 
-        _currentData.apply {
+        _tourAttractionData.apply {
             value = initdata
         }
+
+        _cultureData.apply {
+            value = initdata
+        }
+
+        _festivalData.apply {
+            value = initdata
+        }
+
+
+
+
     }
 
 }
