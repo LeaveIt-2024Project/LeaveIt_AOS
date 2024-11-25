@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
+    //코틀린 kapt 사용을 위해 선언
+    id("kotlin-kapt")
+    //hilt 플러그인 사용을 위해 선언
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -36,6 +42,9 @@ android {
     viewBinding {
         enable = true
     }
+    kapt{
+        correctErrorTypes =  true
+    }
 }
 
 dependencies {
@@ -57,4 +66,10 @@ dependencies {
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.11.0")
+
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-compiler:2.48.1")
+
+
 }
