@@ -1,8 +1,7 @@
 package com.example.leaveit.domain.model
 
-import com.example.leaveit.presentation.placeview.ShowPlaceModel
-import com.example.leaveit.presentation.placeview.ShowPlaceModelMapper
-import com.example.leaveit.remote.RemoteMapper
+import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModel
+import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModelMapper
 
 data class PlaceDomainModel(
     val addr : String,
@@ -19,7 +18,7 @@ data class PlaceDomainModel(
     val sigungucode : Int,
     val tel : String,
     val title : String
-) : ShowPlaceModelMapper<ShowPlaceModel>{
+) : ShowPlaceModelMapper<ShowPlaceModel> {
     override fun toPlaceModel(): ShowPlaceModel {
         return ShowPlaceModel(
             contentId = contentId,

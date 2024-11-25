@@ -1,9 +1,8 @@
-package com.example.leaveit.presentation.placeview
+package com.example.leaveit.presentation.placeview.showplaceview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.leaveit.domain.usecase.GetFeedUseCase
 
 class ShowPlaceViewModel : ViewModel() {
 

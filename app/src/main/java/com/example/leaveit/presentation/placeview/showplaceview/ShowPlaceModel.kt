@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview
+package com.example.leaveit.presentation.placeview.showplaceview
 
 data class ShowPlaceModel(
     val contentId : Int,

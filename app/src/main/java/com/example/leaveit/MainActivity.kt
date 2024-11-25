@@ -1,16 +1,10 @@
 package com.example.leaveit
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.leaveit.databinding.ActivityMainBinding
-import com.example.leaveit.domain.testHiltClass
-import com.example.leaveit.presentation.placeview.ShowPlaceView
+import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
