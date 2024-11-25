@@ -42,6 +42,9 @@ android {
     viewBinding {
         enable = true
     }
+    dataBinding{
+        enable = true
+    }
     kapt{
         correctErrorTypes =  true
     }
