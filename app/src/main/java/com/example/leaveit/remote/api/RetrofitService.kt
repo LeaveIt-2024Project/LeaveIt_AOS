@@ -1,13 +1,18 @@
 package com.example.leaveit.remote.api
 
+import com.example.leaveit.remote.api.place.PlaceApi
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService{
-    private const val BASE_URL  = "https://api.github.com/"
+    private const val BASE_URL  = "http://apis.data.go.kr/B551011/KorService1/"
+    var gson= GsonBuilder().setLenient().create()
 
     val retrofit: Retrofit = Retrofit.Builder() //레트로핏 객체 선언
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
+
+    val retrofitService : PlaceApi = retrofit.create(PlaceApi::class.java)
 }

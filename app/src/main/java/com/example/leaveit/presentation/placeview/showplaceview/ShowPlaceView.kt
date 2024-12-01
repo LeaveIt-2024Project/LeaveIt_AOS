@@ -90,7 +90,7 @@ class ShowPlaceView : Fragment(){
         }
     }
 
-    private fun moveToSelectRegionView(context : Context,contentId : Int){
+    private fun moveToSelectRegionView(context : Context,contentId : String){
         val downloadIntent = Intent(context, SelectRegionView::class.java).apply {
             this.putExtra("data",contentId)
         }

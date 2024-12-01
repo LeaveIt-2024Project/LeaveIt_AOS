@@ -1,7 +1,9 @@
 package com.example.leaveit.domain.model
 
-import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModel
+import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModelList
 import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModelMapper
+import kotlinx.coroutines.Deferred
 
 data class PlaceDomainModel(
     val addr : String,
@@ -9,21 +11,29 @@ data class PlaceDomainModel(
     val cat1 : String,
     val cat2 : String,
     val cat3 : String,
-    val contentId : Int,
-    val contenttypeid : Int,
-    val image : Int,
-    val image2 : Int,
+    val contentId : String,
+    val contenttypeid : String,
+    val image : String,
+    val image2 : String,
     val mapx: String,
     val mapy : String,
     val sigungucode : Int,
     val tel : String,
     val title : String
-) : ShowPlaceModelMapper<ShowPlaceModel> {
-    override fun toPlaceModel(): ShowPlaceModel {
-        return ShowPlaceModel(
-            contentId = contentId,
-            title = title,
-            image= image.toString()
-        )
+)
+
+data class PlaceDomainListModel(
+    val placeDomainEntity : List<PlaceDomainModel>
+): ShowPlaceModelMapper {
+    override suspend fun toPlaceModel(temp : Deferred<PlaceDomainListModel>): SelectRegionModelList {
+        val result = temp.await().placeDomainEntity.map {entity ->
+            SelectRegionModel(
+                contentId = entity.contentId,
+                title = entity.title,
+                image= entity.image
+            )
+        }
+
+        return SelectRegionModelList(placeViewEntity = result)
     }
 }

@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortpopularityBinding
-import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModel
+import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SortPopularityFragment : Fragment() {
     private lateinit var binding : FragmentSortpopularityBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
+    private val viewModel : SelectRegionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +27,12 @@ class SortPopularityFragment : Fragment() {
         binding = FragmentSortpopularityBinding.inflate(layoutInflater)
         initAdapter()
         handleTabLayout()
+
+
+
+//        viewModel.places.observe(viewLifecycleOwner){
+//            binding.testTextView.text = it.get(0).title
+//        }
 
         return binding.root
     }
@@ -39,15 +48,15 @@ class SortPopularityFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
         val initdata1 = listOf(
-            ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
+            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
         )
 
         val initdata2 = listOf(
-            ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-            ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-            ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
+            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
+            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
+            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
         )
         adapter = SelectRegionRecyclerAdapter()
         adapter.submitList(initdata1)
@@ -58,15 +67,15 @@ class SortPopularityFragment : Fragment() {
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             val initdata1 = listOf(
-                ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                ShowPlaceModel(contentId = 1 , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
+                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
             )
 
             val initdata2 = listOf(
-                ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-                ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-                ShowPlaceModel(contentId = 1 , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
+                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
+                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
+                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
             )
 
             override fun onTabSelected(tab: TabLayout.Tab?) {

@@ -2,19 +2,20 @@ package com.example.leaveit.presentation.placeview.selectregionview
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.example.leaveit.BuildConfig
 import com.example.leaveit.R
 import com.example.leaveit.databinding.ActivitySelectregionviewBinding
-import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectRegionView : AppCompatActivity() {
     private lateinit var binding : ActivitySelectregionviewBinding
-
+    private val viewModel: SelectRegionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,12 @@ class SelectRegionView : AppCompatActivity() {
 
         // contentId 가져오기
         val test = intent.getIntExtra("data",0)
+
+        viewModel.getPlaceInfo("12","31")
+        Log.d(TAG,"TEST : ${BuildConfig.TOUR_API_KEY}")
+        viewModel.places.observe(this, Observer {
+            binding.testText.text = it[0].title
+        })
         
         binding.topTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 

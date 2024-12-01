@@ -13,6 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/testText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbarlayout"
             android:layout_width="match_parent"
@@ -54,6 +65,7 @@
 
 
         </com.google.android.material.tabs.TabLayout>
+
         <FrameLayout
             android:id="@+id/selectregion_fragment_container"
             android:layout_width="match_parent"
@@ -61,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topTabLayout"/>
+            app:layout_constraintTop_toBottomOf="@id/topTabLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
