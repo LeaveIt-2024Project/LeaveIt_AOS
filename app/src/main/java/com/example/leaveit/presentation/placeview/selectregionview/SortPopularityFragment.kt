@@ -23,22 +23,12 @@ class SortPopularityFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSortpopularityBinding.inflate(layoutInflater)
         initAdapter()
         handleTabLayout()
 
-
-
-//        viewModel.places.observe(viewLifecycleOwner){
-//            binding.testTextView.text = it.get(0).title
-//        }
-
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     private fun initAdapter(){
@@ -47,56 +37,32 @@ class SortPopularityFragment : Fragment() {
         binding.sortRecyclerView.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.VERTICAL, false)
 
-        val initdata1 = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
-        )
-
-        val initdata2 = listOf(
-            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
+        val testInitdata1 = listOf(
+            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
         )
         adapter = SelectRegionRecyclerAdapter()
-        adapter.submitList(initdata1)
+        adapter.submitList(testInitdata1)
         binding.sortRecyclerView.adapter = adapter
     }
 
     private fun handleTabLayout(){
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
-            val initdata1 = listOf(
-                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "서울 타워","http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg")
-            )
-
-            val initdata2 = listOf(
-                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "가나아트파크","http://tong.visitkorea.or.kr/cms/resource/46/2010746_image2_1.jpg")
+            val testInitdata1 = listOf(
+                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
             )
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
-
-                when(position){ // 포지션 별 분기
-                    0 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(initdata1)}
-                    1 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(initdata2)}
-                }
-
-
-//                select?.let { // 선택한 프레그먼트로 액티비티의 프래그먼트 컨테이너 변경
-//                    supportFragmentManager.beginTransaction().replace(
-//                        R.id.selectregion_fragment_container,
-//                        it
-//                    ).commit()
-//                }
+                    when(position){ // 포지션 별 분기
+                        0 -> {
+                            Log.d(TAG,"${position} 위치")
+                            adapter.submitList(testInitdata1)}
+                        1 -> {
+                            Log.d(TAG,"${position} 위치")
+                            adapter.submitList(testInitdata1)}
+                    }
 
                 Log.d(SelectRegionView.TAG,"${position}이 선택되었습니다")
             }

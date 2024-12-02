@@ -35,7 +35,7 @@ data class body(
             try {
                 PlaceDataModel(
                     addr1 = entity.addr1 ?: "알 수 없음",
-                    areacode = entity.areacode ?: "알 수 없음",
+                    areacode = entity.areacode ?: 0,
                     cat1 = entity.cat1 ?: "N/A",
                     cat2 = entity.cat2 ?: "N/A",
                     cat3 = entity.cat3 ?: "N/A",
@@ -72,7 +72,7 @@ data class PlaceEntityList(
             try {
                 PlaceDataModel(
                     addr1 = entity.addr1 ?: "알 수 없음",
-                    areacode = entity.areacode ?: "알 수 없음",
+                    areacode = entity.areacode ?: 0,
                     cat1 = entity.cat1 ?: "N/A",
                     cat2 = entity.cat2 ?: "N/A",
                     cat3 = entity.cat3 ?: "N/A",
@@ -101,7 +101,7 @@ data class PlaceEntitiy(
 
     @SerializedName("addr1") val addr1: String,
     @SerializedName("addr2") val addr2: String?,
-    @SerializedName("areacode") val areacode: String,
+    @SerializedName("areacode") val areacode: Int,
     @SerializedName("booktour") val booktour: String,
     @SerializedName("cat1") val cat1: String,
     @SerializedName("cat2") val cat2: String,

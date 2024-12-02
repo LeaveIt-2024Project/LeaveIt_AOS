@@ -7,7 +7,7 @@ import kotlinx.coroutines.Deferred
 
 data class PlaceDataModel(
     val addr1 : String,
-    val areacode : String,
+    val areacode : Int,
     val cat1 : String,
     val cat2 : String,
     val cat3 : String,

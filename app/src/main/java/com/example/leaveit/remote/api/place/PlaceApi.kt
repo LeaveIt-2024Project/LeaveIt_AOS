@@ -11,13 +11,23 @@ interface PlaceApi {
 
     //지역별로 관광지 가져오는 GET Method
     @GET("areaBasedList1")
-    suspend fun getSortRegionItemFlow(
+    suspend fun getAllRegionPlace(
         @Query("MobileOS") mobileOs : String = "AND",
         @Query("MobileApp") mobileApp : String = "AppTest",
         @Query("serviceKey") serviceKey : String,
         @Query("contentTypeId") contentTypedId : String,
-        @Query("numOfRows") numOfRows : String = "10",
-        @Query("areaCode") areaCode : String,
+        @Query("numOfRows") numOfRows : String = "13112",
+        @Query("_type") type : String = "json"
+    ) : firstResponse
+
+    @GET("areaBasedList1")
+    suspend fun getSortByRegionPlace(
+        @Query("MobileOS") mobileOs : String = "AND",
+        @Query("MobileApp") mobileApp : String = "AppTest",
+        @Query("serviceKey") serviceKey : String,
+        @Query("contentTypeId") contentTypedId : String,
+        @Query("numOfRows") numOfRows : String = "13112",
+        @Query("areaCode") areaCode : String?,
         @Query("_type") type : String = "json"
     ) : firstResponse
 }

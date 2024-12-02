@@ -7,7 +7,7 @@ import kotlinx.coroutines.Deferred
 
 data class PlaceDomainModel(
     val addr : String,
-    val areacode : String,
+    val areacode : Int,
     val cat1 : String,
     val cat2 : String,
     val cat3 : String,
@@ -29,8 +29,10 @@ data class PlaceDomainListModel(
         val result = temp.await().placeDomainEntity.map {entity ->
             SelectRegionModel(
                 contentId = entity.contentId,
+                contentTypeId = entity.contenttypeid,
                 title = entity.title,
-                image= entity.image
+                image= entity.image,
+                areaCode = entity.areacode
             )
         }
 

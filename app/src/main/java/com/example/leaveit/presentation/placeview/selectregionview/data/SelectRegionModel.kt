@@ -2,8 +2,10 @@ package com.example.leaveit.presentation.placeview.selectregionview.data
 
 data class SelectRegionModel(
     val contentId : String,
+    val contentTypeId : String,
     val title : String,
-    val image : String
+    val image : String,
+    val areaCode : Int
 )
 
 data class SelectRegionModelList(

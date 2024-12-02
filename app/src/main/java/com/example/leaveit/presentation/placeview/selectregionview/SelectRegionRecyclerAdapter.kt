@@ -36,8 +36,9 @@ class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionR
     inner class SelectRegionRecyclerViewRecyclerViewHolder(private val binding: ItemSortRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: SelectRegionModel) {
+            binding.placeRegionText.text = sortRegionText(model.areaCode)
 
-            binding.contentNameTextView.text = model.title
+            binding.placeTitleText.text = model.title
 
             Glide.with(binding.root)
                 .load(model.image)
@@ -67,8 +68,35 @@ class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionR
             ): Boolean {
                 return oldItem == newItem
             }
-
-
         }
+    }
+
+
+    //가져온 리스트의 areaCode를 텍스트로 변환
+    fun sortRegionText(number: Int) : String{
+        var result : String = ""
+        when(number){
+            1 -> result = "서울"
+            2 -> result = "인천"
+            3 -> result = "대전"
+            4 -> result = "대구"
+            5 -> result = "광주"
+            6 -> result = "부산"
+            7 -> result = "울산"
+            8 -> result = "세종"
+            31 -> result = "경기도"
+            32 -> result = "강원도"
+            33 -> result = "충북"
+            34 -> result = "충남"
+            35 -> result = "경북"
+            36 -> result = "경남"
+            37 -> result = "전북"
+            38 -> result = "전남"
+            39 -> result = "제주"
+            else -> result = "정보없음"
+        }
+
+
+        return result
     }
 }

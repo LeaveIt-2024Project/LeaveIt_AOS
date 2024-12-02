@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.leaveit.BuildConfig
 import com.example.leaveit.R
 import com.example.leaveit.databinding.ActivitySelectregionviewBinding
@@ -32,13 +31,10 @@ class SelectRegionView : AppCompatActivity() {
         }
 
         // contentId 가져오기
-        val test = intent.getIntExtra("data",0)
+        //val test = intent.getIntExtra("data",0)
 
-        viewModel.getPlaceInfo("12","31")
+
         Log.d(TAG,"TEST : ${BuildConfig.TOUR_API_KEY}")
-        viewModel.places.observe(this, Observer {
-            binding.testText.text = it[0].title
-        })
         
         binding.topTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 

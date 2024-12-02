@@ -1,7 +1,5 @@
 package com.example.leaveit.domain.usecase
 
-import com.example.leaveit.domain.model.PlaceDomainListModel
-
 interface GetPlaceRepositoryInterface {
-    suspend fun getPlaceRepository(contentTypedId : String, areaCode : String) : PlaceDomainListModel
+    //관광지 레포지 인터페이스
 }
