@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,6 +25,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        var properties = Properties()
+        properties.load(FileInputStream("local.properties"))
+
+
+        buildConfigField("String", "TOUR_API_KEY", properties.getProperty("TOUR_API_KEY"))
+
+
     }
 
     buildTypes {
@@ -42,8 +54,14 @@ android {
     viewBinding {
         enable = true
     }
+    dataBinding{
+        enable = true
+    }
     kapt{
         correctErrorTypes =  true
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -70,6 +88,10 @@ dependencies {
     //Hilt
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-compiler:2.48.1")
+
+    //koroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
 
 
 }

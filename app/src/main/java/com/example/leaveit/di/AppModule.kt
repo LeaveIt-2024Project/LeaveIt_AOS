@@ -1,6 +1,6 @@
-package com.example.leaveit.domain
+package com.example.leaveit.di
 
-import android.app.Application
+import com.example.leaveit.domain.testHiltClass
 import com.example.leaveit.remote.api.RetrofitService
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun testHilt() : testHiltClass{
+    fun testHilt() : testHiltClass {
         return testHiltClass()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetofitService() : RetrofitService {
+        return RetrofitService
     }
 }
