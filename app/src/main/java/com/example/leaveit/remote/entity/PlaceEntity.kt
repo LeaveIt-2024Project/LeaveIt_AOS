@@ -3,7 +3,7 @@ package com.example.leaveit.remote.entity
 import android.util.Log
 import com.example.leaveit.data.model.PlaceDataModel
 import com.example.leaveit.data.model.PlaceViewDataModelList
-import com.example.leaveit.remote.RemoteMapper
+import com.example.leaveit.remote.placeview.PlaceEntityMapper
 import com.google.gson.annotations.SerializedName
 
 data class firstResponse(
@@ -25,7 +25,7 @@ data class header(
 
 data class body(
     @SerializedName("items") val placeEntityList : PlaceEntityList
-) : RemoteMapper<PlaceViewDataModelList> {
+) : PlaceEntityMapper<PlaceViewDataModelList> {
     override suspend fun toData(temp: response): PlaceViewDataModelList {
         if (temp.body?.placeEntityList?.placeListEntity.isNullOrEmpty()) {
             throw Exception("placeEntityList 또는 placeListEntity가 비어 있습니다.")
@@ -62,7 +62,7 @@ data class body(
 
 data class PlaceEntityList(
     @SerializedName("item") val placeListEntity: List<PlaceEntitiy>
-) : RemoteMapper<response> {
+) : PlaceEntityMapper<response> {
     override suspend fun toData(temp: response): PlaceViewDataModelList {
         if (temp.body?.placeEntityList?.placeListEntity.isNullOrEmpty()) {
             throw Exception("placeEntityList 또는 placeListEntity가 비어 있습니다.")

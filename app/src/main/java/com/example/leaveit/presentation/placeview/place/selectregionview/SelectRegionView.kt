@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.selectregionview
+package com.example.leaveit.presentation.placeview.place.selectregionview
 
 import android.os.Bundle
 import android.util.Log
@@ -43,8 +43,10 @@ class SelectRegionView : AppCompatActivity() {
                 var select: Fragment? = null
 
                 when(position){ // 포지션 별 분기
-                    0 -> {select = SortRegionFragment()}
-                    1 -> {select = SortPopularityFragment()}
+                    0 -> {select = SortRegionFragment()
+                    }
+                    1 -> {select = SortPopularityFragment()
+                    }
                 }
 
 

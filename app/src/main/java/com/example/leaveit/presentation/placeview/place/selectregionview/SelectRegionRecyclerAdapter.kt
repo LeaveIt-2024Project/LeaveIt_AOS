@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.selectregionview
+package com.example.leaveit.presentation.placeview.place.selectregionview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemSortRecyclerviewBinding
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
 class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
     diffUtil
@@ -15,7 +15,7 @@ class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionR
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder {
+    ): SelectRegionRecyclerViewRecyclerViewHolder {
         return SelectRegionRecyclerViewRecyclerViewHolder(
             ItemSortRecyclerviewBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -26,7 +26,7 @@ class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionR
     }
 
     override fun onBindViewHolder(
-        holder: SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder,
+        holder: SelectRegionRecyclerViewRecyclerViewHolder,
         position: Int
     ) {
         //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능

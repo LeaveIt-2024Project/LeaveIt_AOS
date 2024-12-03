@@ -3,7 +3,7 @@ package com.example.leaveit
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.leaveit.databinding.ActivityMainBinding
-import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceView
+import com.example.leaveit.presentation.placeview.place.showplaceview.ShowPlaceView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container,ShowPlaceView())
+                .add(R.id.fragment_container, ShowPlaceView())
                 .commit()
         }
     }

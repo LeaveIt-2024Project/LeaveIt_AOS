@@ -1,9 +1,9 @@
-package com.example.leaveit.presentation.placeview.showplaceview
+package com.example.leaveit.presentation.placeview.place.showplaceview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
 class ShowPlaceViewModel : ViewModel() {
 
