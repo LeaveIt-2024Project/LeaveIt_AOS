@@ -15,56 +15,84 @@
         app:layout_constraintVertical_weight="0.1">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userImg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
             android:layout_weight="0.1"
             android:src="@drawable/ic_launcher_background" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
             android:layout_weight="0.5">
 
-            <TextView
-                android:id="@+id/userNinckName"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reviewInfoContainer"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center"
-                android:text="사용자닉네임"
-                app:layout_constraintBottom_toTopOf="@id/placeRegionText"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/likeBtn"
+                app:layout_constraintHorizontal_weight="0.3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/placeRegionText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="경기도"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userNinckName" />
+                <TextView
+                    android:id="@+id/userNinckName"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left|bottom"
+                    android:text="사용자닉네임"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    app:layout_constraintBottom_toTopOf="@id/placeRegionText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="0.1" />
 
-            <TextView
-                android:id="@+id/regiDateText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="2024. 11. 06"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/placeRegionText"
-                app:layout_constraintTop_toBottomOf="@id/userNinckName" />
+                <TextView
+                    android:id="@+id/placeRegionText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left"
+                    android:text="경기도"
+                    android:textColor="#434343"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/regiDateText"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/userNinckName"
+                    app:layout_constraintVertical_weight="0.1" />
 
-            <ImageButton
+                <TextView
+                    android:id="@+id/regiDateText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="2024. 11. 06"
+                    android:textColor="#4E4E4E"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0.2"
+                    app:layout_constraintStart_toEndOf="@id/placeRegionText"
+                    app:layout_constraintTop_toBottomOf="@id/userNinckName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/likeBtn"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="36dp"
                 android:background="@color/white"
-                android:src="@drawable/chat_btn"
+                android:src="@drawable/likeimg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/likeCountText"
-                app:layout_constraintStart_toEndOf="@id/regiDateText"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintHorizontal_weight="0.1"
+                app:layout_constraintStart_toEndOf="@id/reviewInfoContainer"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/likeCountText"
@@ -72,18 +100,21 @@
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:text="7"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/starImage"
+                app:layout_constraintHorizontal_weight="0.1"
                 app:layout_constraintStart_toEndOf="@id/likeBtn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/starImage"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/star_icon"
+                android:layout_height="36dp"
+                android:src="@drawable/review_star_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/starCountText"
+                app:layout_constraintHorizontal_weight="0.1"
                 app:layout_constraintStart_toEndOf="@id/likeCountText"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,8 +122,12 @@
                 android:id="@+id/starCountText"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:gravity="center"
+                android:text="7"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.1"
                 app:layout_constraintStart_toEndOf="@id/starImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,6 +159,9 @@
         android:id="@+id/contentTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="8dp"
+        android:text="테스트"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
