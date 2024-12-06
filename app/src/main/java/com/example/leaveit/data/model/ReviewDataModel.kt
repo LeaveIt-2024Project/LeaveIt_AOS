@@ -1,5 +1,6 @@
 package com.example.leaveit.data.model
 
+import android.graphics.Bitmap
 import java.sql.Timestamp
 
 data class ReviewDataModel(
@@ -8,7 +9,7 @@ data class ReviewDataModel(
     val userImg : String,
     val writeUserNickname : String,
     val content : String,
-    val feedImage : List<ByteArray>, // 바이트로 받아서 비트맵으로 변환
+    val feedImage : List<Bitmap>,
     val likeCount : Int,
     val writeDate : Timestamp,
     val starCount : Int,

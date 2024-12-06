@@ -145,10 +145,13 @@
         app:layout_constraintTop_toBottomOf="@id/topContentLayer"
         app:layout_constraintVertical_weight="0.6" />
 
-    <me.relex.circleindicator.CircleIndicator3
+    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:id="@+id/reviewIndicator"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:dotsColor="#31511E"
         app:layout_constraintBottom_toTopOf="@id/contentTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -166,5 +169,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reviewIndicator"
-        app:layout_constraintVertical_weight="0.3" />
+        app:layout_constraintVertical_weight="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

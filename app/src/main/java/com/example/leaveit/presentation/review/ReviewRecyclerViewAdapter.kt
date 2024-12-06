@@ -32,6 +32,7 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
     ) {
         //내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
         holder.bind(currentList[position])
+        //holder.imageBind(currentList[position])
     }
 
     inner class ReviewRecyclerViewHolder(private val binding :ItemReviewRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -42,17 +43,29 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
             binding.likeCountText.text = data.likeCount.toString()
             binding.starCountText.text = data.starCount.toString()
 
+            val test = listOf(
+                "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg",
+                "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg",
+                "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
+            )
+
             // 리뷰 글쓴이 프로필 사진
             Glide.with(binding.root)
                 .load(data.userImg)
                 .fitCenter()
                 .into(binding.userImg)
+
+            val imageAdapter = ReviewViewPagerAdapter(test)
+            binding.imageViewPager.adapter = imageAdapter
+            binding.reviewIndicator.attachTo(binding.imageViewPager)
         }
 
-        fun imageBind(data: ReviewDataModel,position: Int){
-            val imageAdapter = ReviewViewPagerAdapter(data.feedImage)
-            binding.imageViewPager.adapter = imageAdapter
-        }
+        // 뷰페이저 어댑터 초기화
+//        fun imageBind(data: ReviewDataModel){
+//
+//            val imageAdapter = ReviewViewPagerAdapter(test)
+//            binding.imageViewPager.adapter = imageAdapter
+//        }
 
     }
 
@@ -74,5 +87,7 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
                 return oldItem.feedUid == newItem.feedUid
             }
         }
+
+        val TAG = "ReviewRecyclerViewAdapter"
     }
 }

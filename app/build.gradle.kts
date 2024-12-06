@@ -97,7 +97,7 @@ dependencies {
 
     //ViewPager2 & indicator
     implementation("androidx.viewpager2:viewpager2:1.1.0")
-    implementation ("me.relex:circleindicator:2.1.6")
+    implementation("com.tbuonomo:dotsindicator:5.0")
 
 
 

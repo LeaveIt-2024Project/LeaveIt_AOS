@@ -1,12 +1,11 @@
 package com.example.leaveit.presentation.review
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemReviewViewpagerBinding
 
-class ReviewViewPagerAdapter(val image : List<ByteArray>) :
+class ReviewViewPagerAdapter(val image : List<String>) :
     RecyclerView.Adapter<ReviewViewPagerAdapter.ReviewViewPagerViewHolder>() {
 
 
@@ -31,12 +30,11 @@ class ReviewViewPagerAdapter(val image : List<ByteArray>) :
 
     inner class ReviewViewPagerViewHolder(private val binding : ItemReviewViewpagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(image : ByteArray){
+            fun bind(image: String){
                 Glide.with(binding.root.context)
                     .load(image)
-                    .fitCenter()
+                    .centerCrop()
                     .into(binding.reviewViewPagerImage)
             }
     }
-
 }
