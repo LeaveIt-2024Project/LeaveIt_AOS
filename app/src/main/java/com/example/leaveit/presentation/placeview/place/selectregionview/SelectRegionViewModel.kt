@@ -1,8 +1,8 @@
-package com.example.leaveit.presentation.placeview.selectregionview
+package com.example.leaveit.presentation.placeview.place.selectregionview
 
 import androidx.lifecycle.ViewModel
-import com.example.leaveit.domain.usecase.GetPlaceUseCase
-import com.example.leaveit.domain.usecase.GetPlaceUseCaseInterface
+import com.example.leaveit.domain.usecase.place.GetPlaceUseCase
+import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

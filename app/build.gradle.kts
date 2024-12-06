@@ -1,4 +1,4 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -91,6 +91,14 @@ dependencies {
 
     //koroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    //circleImageView
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //ViewPager2 & indicator
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
 
 
 

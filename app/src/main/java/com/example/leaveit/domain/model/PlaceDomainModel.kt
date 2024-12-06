@@ -1,8 +1,8 @@
 package com.example.leaveit.domain.model
 
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModelList
-import com.example.leaveit.presentation.placeview.showplaceview.ShowPlaceModelMapper
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModelList
+import com.example.leaveit.presentation.placeview.place.showplaceview.ShowPlaceModelMapper
 import kotlinx.coroutines.Deferred
 
 data class PlaceDomainModel(

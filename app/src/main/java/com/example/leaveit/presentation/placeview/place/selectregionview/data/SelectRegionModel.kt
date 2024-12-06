@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.selectregionview.data
+package com.example.leaveit.presentation.placeview.place.selectregionview.data
 
 data class SelectRegionModel(
     val contentId : String,

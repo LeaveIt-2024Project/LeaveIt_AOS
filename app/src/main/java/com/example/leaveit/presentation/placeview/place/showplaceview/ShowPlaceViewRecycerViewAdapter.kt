@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.showplaceview
+package com.example.leaveit.presentation.placeview.place.showplaceview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemShowplaceRecyclerviewBinding
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
 class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit)) :
     ListAdapter<SelectRegionModel, ShowPlaceViewRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(

@@ -1,6 +1,6 @@
-package com.example.leaveit.domain.usecase
+package com.example.leaveit.domain.usecase.place
 
-import com.example.leaveit.presentation.placeview.selectregionview.data.SelectRegionModelList
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModelList
 import javax.inject.Inject
 
 class GetPlaceUseCase @Inject constructor() : GetPlaceUseCaseInterface {

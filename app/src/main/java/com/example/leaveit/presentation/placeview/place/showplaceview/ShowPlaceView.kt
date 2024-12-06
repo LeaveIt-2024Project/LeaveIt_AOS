@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.showplaceview
+package com.example.leaveit.presentation.placeview.place.showplaceview
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 import com.example.leaveit.domain.testHiltClass
-import com.example.leaveit.presentation.placeview.selectregionview.SelectRegionView
+import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

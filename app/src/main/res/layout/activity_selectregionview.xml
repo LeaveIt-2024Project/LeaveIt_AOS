@@ -6,29 +6,12 @@
 
         <variable
             name="data"
-            type="com.example.leaveit.presentation.placeview.selectregionview.SelectRegionView" />
+            type="com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbarlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                app:menu="@menu/testtopbar"
-                app:title="가자it" />
-        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/topTabLayout"
@@ -37,7 +20,7 @@
             android:backgroundTint="#F6FCDF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbarlayout"
+            app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="#31511E"
             app:tabSelectedTextColor="#31511E"
             app:tabTextAppearance="@style/CustomTopTabTextAppearance">>

@@ -1,6 +1,6 @@
 package com.example.leaveit.data.placeview
 
-import com.example.leaveit.domain.usecase.GetPlaceRepositoryInterface
+import com.example.leaveit.domain.usecase.place.GetPlaceRepositoryInterface
 import javax.inject.Inject
 
 
