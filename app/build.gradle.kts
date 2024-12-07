@@ -29,8 +29,8 @@ android {
         var properties = Properties()
         properties.load(FileInputStream("local.properties"))
 
-
         buildConfigField("String", "TOUR_API_KEY", properties.getProperty("TOUR_API_KEY"))
+        manifestPlaceholders["MAP_API_KEY"] = properties["MAP_API_KEY"] as Any
 
 
     }
@@ -98,6 +98,9 @@ dependencies {
     //ViewPager2 & indicator
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
+
+    // 네이버 지도 SDK
+    implementation("com.naver.maps:map-sdk:3.20.0")
 
 
 
