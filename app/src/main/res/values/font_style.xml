@@ -4,4 +4,9 @@
     <style name="customTextViewFontStyle" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/juafontdata</item>
     </style>
+    <style name="toptapBarLayoutTitle" parent="@android:style/Widget.DeviceDefault.TextView">
+        <item name="android:textColor">#31511E</item>
+        <item name="android:fontFamily">@font/juafontdata</item>
+        <item name="android:textSize">28sp</item>
+    </style>
 </resources>

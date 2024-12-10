@@ -1,18 +1,15 @@
 package com.example.leaveit
 
 import android.os.Bundle
-import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.leaveit.databinding.ActivityMainBinding
-import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
+import com.example.leaveit.presentation.review.makereview.SelectPlaceForReview
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    lateinit var binding : ActivityMainBinding
-
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,24 +17,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
 
-//        if(savedInstanceState == null){
-//            val mapFragment = supportFragmentManager.beginTransaction()
-//                .add(R.id.fragment_container, SelectPlaceForReview())
-//                .commit()
-//        }
-
-        val fm = supportFragmentManager
-        val mapFragment = fm.findFragmentById(R.id.fragment_container) as MapFragment?
-            ?: MapFragment.newInstance().also {
-                fm.beginTransaction().add(R.id.fragment_container, it).commit()
-            }
-
-        mapFragment.getMapAsync(this)
-
+        if(savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, SelectPlaceForReview())
+                .commit()
+        }
     }
 
-    @UiThread
-    override fun onMapReady(p0: NaverMap) {
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+    companion object {
+        val TAG = "MainActivity"
     }
 }
