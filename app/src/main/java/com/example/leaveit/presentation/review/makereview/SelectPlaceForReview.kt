@@ -1,5 +1,6 @@
 package com.example.leaveit.presentation.review.makereview
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,7 +30,19 @@ import com.naver.maps.map.overlay.OverlayImage
 class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
 
     lateinit var binding : FragmentSelectplaceforreviewBinding
+    lateinit var parentActivity: MainActivity
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 상단바 초기화
+        initTopBar()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        parentActivity = context as MainActivity
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,10 +57,6 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
             ?: MapFragment.newInstance().also {
                 fm.beginTransaction().add(R.id.map_view, it).commit()
             }
-
-
-        // 상단바 초기화
-        initTopBar()
 
 
         mapFragment.getMapAsync(this)
@@ -153,7 +162,7 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
         // TopAppBar 메뉴 변경해야돔
         // 참고 : https://developer.android.com/jetpack/androidx/releases/activity?hl=ko#1.4.0-alpha01
 
-        requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.topAppBar).title = "지역을 선택하세요"
+        requireActivity().title = "지역을 선택하세요"
 
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -161,11 +170,10 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                menuItem.title = "지역을 선택하세요" // 타이틀 텍스트 설정
                 return when(menuItem.itemId){
                     R.id.selectPlace_gotoMyPage ->{
                         // 마이페이지 이동하는 인텐트 여기 설정
-                        parentFragmentManager.beginTransaction()
+                        Log.d(TAG,"테스트")
                         true
                     }
                     else -> false
