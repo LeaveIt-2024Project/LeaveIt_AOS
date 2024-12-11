@@ -149,6 +149,10 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
     }
 
     private fun initTopBar(){
+        // setHasOptionsMenu(true) 이거 deprecated되서 MenuProvider 사용해서
+        // TopAppBar 메뉴 변경해야돔
+        // 참고 : https://developer.android.com/jetpack/androidx/releases/activity?hl=ko#1.4.0-alpha01
+
         requireActivity().findViewById<androidx.appcompat.widget.Toolbar>(R.id.topAppBar).title = "지역을 선택하세요"
 
         requireActivity().addMenuProvider(object : MenuProvider {
