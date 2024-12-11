@@ -1,6 +1,5 @@
 package com.example.leaveit.presentation.review.makereview
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import com.example.leaveit.MainActivity
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSelectplaceforreviewBinding
@@ -29,19 +27,13 @@ import com.naver.maps.map.overlay.OverlayImage
 
 class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
 
-    lateinit var binding : FragmentSelectplaceforreviewBinding
-    lateinit var parentActivity: MainActivity
+    private lateinit var binding : FragmentSelectplaceforreviewBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // 상단바 초기화
         initTopBar()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        parentActivity = context as MainActivity
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -164,7 +156,8 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
 
         requireActivity().title = "지역을 선택하세요"
 
-        requireActivity().addMenuProvider(object : MenuProvider {
+        // 메뉴 생성
+       requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.selectplaceforreviewmenu, menu)
             }
@@ -179,9 +172,9 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
                     else -> false
                 }
             }
-        },viewLifecycleOwner,Lifecycle.State.RESUMED)
-    }
+        },viewLifecycleOwner)
 
+    }
     companion object{
         val TAG = "SelectPlaceForReview"
     }

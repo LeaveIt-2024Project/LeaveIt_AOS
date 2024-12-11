@@ -1,13 +1,19 @@
 package com.example.leaveit.presentation.review
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentReviewmainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.async
@@ -28,12 +34,13 @@ class ReviewMainView : Fragment() {
         // 바인딩 초기화
         binding = FragmentReviewmainBinding.inflate(layoutInflater)
         initAdapter()
+        initTopBar()
 
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         /**
          * flow로 데이터를 받아서 UI에서 쓸거면
@@ -47,7 +54,7 @@ class ReviewMainView : Fragment() {
 
     private fun initAdapter(){
         binding.reviewRecyclerView.layoutManager = LinearLayoutManager(
-            context, LinearLayoutManager.VERTICAL, false
+            requireContext(), LinearLayoutManager.VERTICAL, false
         )
 
         adapter = ReviewRecyclerViewAdapter()
@@ -61,6 +68,35 @@ class ReviewMainView : Fragment() {
                 adapter.submitList(it)
             }
         }
+    }
+
+    private fun initTopBar(){
+        // setHasOptionsMenu(true) 이거 deprecated되서 MenuProvider 사용해서
+        // TopAppBar 메뉴 변경해야돔
+        // 참고 : https://developer.android.com/jetpack/androidx/releases/activity?hl=ko#1.4.0-alpha01
+
+        requireActivity().title = "경기도"
+
+       requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.reviewmainviewmenu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when(menuItem.itemId){
+                    R.id.selectPlace_gotoMyPage_reviewMain ->{
+                        // 마이페이지 이동하는 인텐트 여기 설정
+                        Log.d(TAG,"테스트")
+                        true
+                    }
+                    else -> false
+                }
+            }
+        },viewLifecycleOwner)
+    }
+
+    companion object{
+        val TAG = "ReviewMainView"
     }
 
 
