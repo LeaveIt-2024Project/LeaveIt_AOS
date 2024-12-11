@@ -30,16 +30,20 @@ class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
     // 다이얼로그는 viewBinding 사용이 안됌
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val text : TextView
-        val imageView : ImageView
-        val imageButton : ImageButton
 
-        text = view.findViewById(R.id.introducePlaceRegionTextView)
-        imageView = view.findViewById(R.id.introducePlaceRegionImageView)
-        imageButton = view.findViewById(R.id.gotoReviewBtn)
+        //선택된 지역 이름 불러오기
+        val selectRegionText = arguments?.getString("region")
 
-        text.text = "북동부의 산악지역에서 남서쪽 해안지역에 이르는 천혜의 자연조건과 한민족의 정체성을 형성해 온 역사와 문화를 배경으로 경기도는 세계에 자랑하는 풍부한 관광자원을 보유하고 있습니다. " +
-                "많은 내 외국인들이 경기도의 산, 절, 폭포, 해변, 강, 문화, 역사유적, 박물관, 갤러리, 리조트, 공원, 골프클럽, 온천 등을 즐겨 찾습니다."
+        val title: TextView = view.findViewById(R.id.introducePlaceRegionReginNameTextView)
+        val content: TextView = view.findViewById(R.id.introducePlaceRegionTextView)
+        val imageView: ImageView = view.findViewById(R.id.introducePlaceRegionImageView)
+        val imageButton: ImageButton = view.findViewById(R.id.gotoReviewBtn)
+
+        //선택된 지역의 소개말 설정
+        content.text = sortIntroContent(selectRegionText.toString())
+
+        //선택된 지역 이름  타이틀로 지정
+        title.text = selectRegionText
 
         Glide.with(view)
             .load("http://tong.visitkorea.or.kr/cms/resource/76/532876_image2_1.jpg")
@@ -79,6 +83,30 @@ class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
         requestLayout()
     }
 
+    private fun sortIntroContent(str: String): String {
+        var result = ""
+        when (str) {
+            "경기" -> result = getString(R.string.intro_Gyeonggi_do)
+            "서울" -> result = getString(R.string.intro_Seoul)
+            "인천" -> result = getString(R.string.intro_Incheon)
+            "강원" -> result = getString(R.string.intro_Gangwon_do)
+            "충북" -> result = getString(R.string.intro_Chungbuk)
+            "충남" -> result = getString(R.string.intro_Chungnam)
+            "경북" -> result = getString(R.string.intro_Gyeongbuk)
+            "경남" -> result = getString(R.string.intro_Gyeongnam)
+            "전북" -> result = getString(R.string.intro_Jeonbuk)
+            "전남" -> result = getString(R.string.intro_Jeonnam)
+            "대전" -> result = getString(R.string.intro_Daejeon)
+            "제주" -> result = getString(R.string.intro_Jeju)
+            "대구" -> result = getString(R.string.intro_Daegu)
+            "광주" -> result = getString(R.string.intro_Gwangju)
+            "부산" -> result = getString(R.string.intro_Busan)
+            "울산" -> result = getString(R.string.intro_Ulsan)
+            "세종" -> result = getString(R.string.intro_Sejong)
+        }
+
+        return result
+    }
 
 
     companion object {

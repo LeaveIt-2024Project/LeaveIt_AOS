@@ -140,7 +140,10 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
                 // 클릭 리스너 추가
                 setOnClickListener {
                     Log.d(MainActivity.TAG, "선택된 지역 $key: $latLng")
+                    val bundle = Bundle()
+                    bundle.putString("region",key)
                     val modalBottomSheet = IntroducePlaceBottomSheet()
+                    modalBottomSheet.arguments = bundle
                     modalBottomSheet.show(parentFragmentManager, IntroducePlaceBottomSheet.TAG)
 
                     true
