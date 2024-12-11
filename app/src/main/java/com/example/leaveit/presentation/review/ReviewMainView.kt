@@ -84,8 +84,12 @@ class ReviewMainView : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId){
-                    R.id.selectPlace_gotoMyPage_reviewMain ->{
+                    R.id.reviewMain_gotoMyPage ->{
                         // 마이페이지 이동하는 인텐트 여기 설정
+                        Log.d(TAG,"테스트")
+                        true
+                    }
+                    R.id.reviewMain_addReviewBtn ->{
                         Log.d(TAG,"테스트")
                         true
                     }
