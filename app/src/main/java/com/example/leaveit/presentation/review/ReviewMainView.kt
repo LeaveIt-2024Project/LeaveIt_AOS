@@ -49,6 +49,10 @@ class ReviewMainView : Fragment() {
          * usecase 의존성이 늦게 호출되서 초기화가 되지 않은 오류가 발생했었음
          */
 
+        val selectedRegion = arguments?.getString("region")
+        Log.d(TAG,selectedRegion.toString())
+
+
         obseveData()
     }
 

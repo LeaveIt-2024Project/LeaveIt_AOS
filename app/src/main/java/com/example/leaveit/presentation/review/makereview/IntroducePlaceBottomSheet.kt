@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
 import com.example.leaveit.presentation.review.ReviewMainView
@@ -18,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
 
+    private val viewModel: MakeReviewViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,10 +53,17 @@ class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
             .into(imageView)
 
         imageButton.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putString("region",selectRegionText)
+
+            val nextFragment = ReviewMainView()
+            nextFragment.arguments = bundle
+
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ReviewMainView())
+                .replace(R.id.fragment_container, nextFragment)
                 .addToBackStack(null) // 뒤로가기 하려면 스택에 쌓아야됌.
-                .commitAllowingStateLoss()
+                .commit()
             // 프레그먼트 호출 후 바텀 다이얼로그 없애기
             dismiss()
         }
