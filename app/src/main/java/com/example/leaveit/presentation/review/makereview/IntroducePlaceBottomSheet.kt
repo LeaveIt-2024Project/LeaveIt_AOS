@@ -46,7 +46,7 @@ class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
         title.text = selectRegionText
 
         Glide.with(view)
-            .load("http://tong.visitkorea.or.kr/cms/resource/76/532876_image2_1.jpg")
+            .load(sortIntroImage(selectRegionText.toString()))
             .fitCenter()
             .into(imageView)
 
@@ -103,6 +103,31 @@ class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
             "부산" -> result = getString(R.string.intro_Busan)
             "울산" -> result = getString(R.string.intro_Ulsan)
             "세종" -> result = getString(R.string.intro_Sejong)
+        }
+
+        return result
+    }
+
+    private fun sortIntroImage(str: String): Int {
+        var result = 0
+        when (str) {
+            "경기" -> result = R.drawable.gyeonggyi
+            "서울" -> result = R.drawable.seou
+            "인천" -> result = R.drawable.incheon
+            "강원" -> result = R.drawable.gangwon
+            "충북" -> result = R.drawable.chungbook
+            "충남" -> result = R.drawable.chungnam
+            "경북" -> result = R.drawable.gyeongbook
+            "경남" -> result = R.drawable.gyongnam
+            "전북" -> result = R.drawable.junbook
+            "전남" -> result = R.drawable.junnam
+            "대전" -> result = R.drawable.daejun
+            "제주" -> result = R.drawable.jeju
+            "대구" -> result = R.drawable.daegu
+            "광주" -> result = R.drawable.gwangju
+            "부산" -> result = R.drawable.busan
+            "울산" -> result = R.drawable.ulsan
+            "세종" -> result = R.drawable.sejong
         }
 
         return result
