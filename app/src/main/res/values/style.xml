@@ -12,4 +12,10 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="ReviewTabTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

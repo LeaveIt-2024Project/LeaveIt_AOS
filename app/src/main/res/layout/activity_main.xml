@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,10 +21,11 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            app:titleCentered="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:minHeight="?attr/actionBarSize"
+            app:titleCentered="true"
             app:titleTextAppearance="@style/toptapBarLayoutTitle" />
     </com.google.android.material.appbar.AppBarLayout>
 

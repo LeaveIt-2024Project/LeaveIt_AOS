@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentReviewmainBinding
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.async
 
@@ -35,6 +36,7 @@ class ReviewMainView : Fragment() {
         binding = FragmentReviewmainBinding.inflate(layoutInflater)
         initAdapter()
         initTopBar()
+        initCategoryTopBar()
 
         return binding.root
     }
@@ -101,6 +103,35 @@ class ReviewMainView : Fragment() {
                 }
             }
         },viewLifecycleOwner)
+    }
+
+    private fun initCategoryTopBar(){
+
+        binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
+                when(position){
+                    0 -> {
+                        Log.d(TAG, "최신순")
+                    }
+                    1 ->{
+                        Log.d(TAG,"인기순")
+                    }
+                    2 ->{
+                        Log.d(TAG,"별점순")
+                    }
+                }
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+        })
     }
 
     companion object{
