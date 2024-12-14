@@ -1,7 +1,7 @@
 package com.example.leaveit.remote.api
 
-import com.example.leaveit.remote.api.feed.FeedApi
 import com.example.leaveit.remote.api.place.PlaceApi
+import com.example.leaveit.remote.api.review.ReviewApi
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,5 +16,5 @@ object RetrofitService{
         .build()
 
     val placeService : PlaceApi = retrofit.create(PlaceApi::class.java)
-    val feedService : FeedApi = retrofit.create(FeedApi::class.java)
+    val feedService : ReviewApi = retrofit.create(ReviewApi::class.java)
 }
