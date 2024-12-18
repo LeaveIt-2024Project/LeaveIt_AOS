@@ -2,14 +2,14 @@ package com.example.leaveit.presentation.review
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.data.model.ReviewDataModel
 import com.example.leaveit.databinding.ItemReviewRecyclerviewBinding
 
-class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerViewAdapter.ReviewRecyclerViewHolder>(
+class ReviewRecyclerViewAdapter : PagingDataAdapter<ReviewDataModel, ReviewRecyclerViewAdapter.ReviewRecyclerViewHolder>(
     diffUtil
 ) {
     override fun onCreateViewHolder(
@@ -30,18 +30,21 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
         holder: ReviewRecyclerViewHolder,
         position: Int
     ) {
+        val item = getItem(position)
         //내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
-        holder.bind(currentList[position])
+        holder.bind(item)
         //holder.imageBind(currentList[position])
     }
 
     inner class ReviewRecyclerViewHolder(private val binding :ItemReviewRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(data: ReviewDataModel) {
-            binding.contentTextView.text = data.content
-            binding.likeCountText.text = data.likeCount.toString()
-            binding.starCountText.text = data.starCount.toString()
+        fun bind(data: ReviewDataModel?) {
+            binding.contentTextView.text = data?.content
+            binding.userNinckName.text = data?.nickname
+            binding.placeText.text = data?.region
+            binding.likeCountText.text = data?.likeCount.toString()
+            binding.starCountText.text = data?.starCount.toString()
 
             val test = listOf(
                 "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg",
@@ -51,7 +54,7 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
 
             // 리뷰 글쓴이 프로필 사진
             Glide.with(binding.root)
-                .load(data.userImg)
+                .load(data?.userImage)
                 .fitCenter()
                 .into(binding.userImg)
 
@@ -77,14 +80,14 @@ class ReviewRecyclerViewAdapter : ListAdapter<ReviewDataModel, ReviewRecyclerVie
                 oldItem: ReviewDataModel,
                 newItem: ReviewDataModel
             ): Boolean {
-                return oldItem.feedUid == newItem.feedUid
+                return oldItem.feedUID == newItem.feedUID
             }
 
             override fun areContentsTheSame(
                 oldItem: ReviewDataModel,
                 newItem: ReviewDataModel
             ): Boolean {
-                return oldItem.feedUid == newItem.feedUid
+                return oldItem.feedUID == newItem.feedUID
             }
         }
 

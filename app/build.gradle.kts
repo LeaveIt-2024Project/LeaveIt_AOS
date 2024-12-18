@@ -30,6 +30,7 @@ android {
         properties.load(FileInputStream("local.properties"))
 
         buildConfigField("String", "TOUR_API_KEY", properties.getProperty("TOUR_API_KEY"))
+        buildConfigField("String","TEST_TOKEN",properties.getProperty("TEST_TOKEN"))
         manifestPlaceholders["MAP_API_KEY"] = properties["MAP_API_KEY"] as Any
 
 
@@ -101,6 +102,9 @@ dependencies {
 
     // 네이버 지도 SDK
     implementation("com.naver.maps:map-sdk:3.20.0")
+
+    // Paging 3
+    implementation("androidx.paging:paging-runtime:3.3.4")
 
 
 

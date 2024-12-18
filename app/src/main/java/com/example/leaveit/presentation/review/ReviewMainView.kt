@@ -17,13 +17,15 @@ import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentReviewmainBinding
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ReviewMainView : Fragment() {
     private lateinit var binding : FragmentReviewmainBinding
     private lateinit var adapter : ReviewRecyclerViewAdapter
     private val viewModel: ReviewViewModel by viewModels()
+    private var regionCode : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,12 +33,15 @@ class ReviewMainView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val selectedRegion = arguments?.getString("region")
+        regionCode = viewModel.convertStrRegionCodeToInt(selectedRegion.toString())
 
         // 바인딩 초기화
         binding = FragmentReviewmainBinding.inflate(layoutInflater)
-        initAdapter()
+
+        // 어댑터 초기화
+        initAdapter(regionCode)
         initTopBar()
-        initCategoryTopBar()
 
         return binding.root
     }
@@ -50,30 +55,47 @@ class ReviewMainView : Fragment() {
          * 여기서는 코루틴 스코핑없이 호출했다가 비동기적으로 함수가 호출되는 바람에
          * usecase 의존성이 늦게 호출되서 초기화가 되지 않은 오류가 발생했었음
          */
+        Log.d(TAG,regionCode.toString())
 
-        val selectedRegion = arguments?.getString("region")
-        Log.d(TAG,selectedRegion.toString())
-
-
-        obseveData()
+        // TapBar 초기화
+        initCategoryTopBar(regionCode)
     }
 
-    private fun initAdapter(){
+    private fun initAdapter(initRegionCode : Int){
         binding.reviewRecyclerView.layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.VERTICAL, false
         )
-
         adapter = ReviewRecyclerViewAdapter()
-        adapter.submitList(emptyList())
         binding.reviewRecyclerView.adapter = adapter
+        observerData(initRegionCode,0)
     }
 
-     fun obseveData(){
-        lifecycleScope.async {
-            viewModel.data.observe(requireActivity()) {
-                adapter.submitList(it)
-            }
-        }
+     fun observerData(regionCode : Int, selectedScreen : Int){
+         lifecycleScope.launch {
+             when(selectedScreen){
+                 0 -> {
+                     lifecycleScope.launch {
+                        viewModel.getReviewSortByRegion(regionCode).collectLatest {pagingData ->
+                            adapter.submitData(pagingData)
+                        }
+                     }
+                 }
+                 1 ->{
+                     lifecycleScope.launch {
+                         viewModel.getReviewSortByRank(regionCode).collectLatest {pagingData ->
+                             adapter.submitData(pagingData)
+                         }
+                     }
+                 }
+                 2 ->{
+                     lifecycleScope.launch {
+                         viewModel.getReviewSortByLike(regionCode).collectLatest { pagingData ->
+                             adapter.submitData(pagingData)
+                         }
+                     }
+                 }
+             }
+         }
     }
 
     private fun initTopBar(){
@@ -105,20 +127,36 @@ class ReviewMainView : Fragment() {
         },viewLifecycleOwner)
     }
 
-    private fun initCategoryTopBar(){
+    private fun initCategoryTopBar(regionCode : Int){
 
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
+                Log.d(TAG,position.toString())
                 when(position){
                     0 -> {
-                        Log.d(TAG, "최신순")
+                        lifecycleScope.launch {
+                            observerData(
+                                regionCode = regionCode,
+                                selectedScreen = 0
+                            )
+                        }
                     }
                     1 ->{
-                        Log.d(TAG,"인기순")
+                        lifecycleScope.launch {
+                            observerData(
+                                regionCode = regionCode,
+                                selectedScreen = 1
+                            )
+                        }
                     }
                     2 ->{
-                        Log.d(TAG,"별점순")
+                        lifecycleScope.launch {
+                            observerData(
+                                regionCode = regionCode,
+                                selectedScreen = 2
+                            )
+                        }
                     }
                 }
             }
