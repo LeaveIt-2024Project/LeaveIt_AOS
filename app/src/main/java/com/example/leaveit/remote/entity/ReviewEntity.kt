@@ -29,6 +29,8 @@ data class ReviewData(
                 userImage = "https://img1.kakaocdn.net/thumb/R640x640.q70/?fname=https://t1.kakaocdn.net/account_images/default_profile.jpeg",
                 nickname = it.nickname,
                 content = it.content,
+                kakaouid = it.kakaouid,
+                useruid = it.useruid,
                 feedImage = "a",
 //                translateBitmapToInputStream(it.feedImage)
                 likeCount = it.likeCount,
@@ -48,6 +50,8 @@ data class ReviewData(
                 userImage = "https://img1.kakaocdn.net/thumb/R640x640.q70/?fname=https://t1.kakaocdn.net/account_images/default_profile.jpeg",
                 nickname = it.nickname,
                 content = it.content,
+                kakaouid = it.kakaouid,
+                useruid = it.useruid,
                 feedImage = "a",
 //                translateBitmapToInputStream(it.feedImage)
                 likeCount = it.likeCount,
@@ -81,6 +85,8 @@ data class ReviewData(
         val content: String,
         val createdAt: LocalDateTime,
         val feedImage: String,
+        val useruid: String?,
+        val kakaouid: String?,
         val feedUID: String,
         val isUserLiked: Boolean,
         val likeCount: Int,

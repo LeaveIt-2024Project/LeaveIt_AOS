@@ -1,5 +1,6 @@
 package com.example.leaveit.presentation.review
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,9 +8,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.leaveit.data.model.ReviewDataModel
+import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.usecase.review.ReviewUseCaseInterface
+import com.example.leaveit.domain.usecase.review.like.ReviewLikeUsecaseInterface
+import com.example.leaveit.remote.entity.LikeEntitiy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +25,15 @@ class ReviewViewModel @Inject constructor(
     private val _data: MutableLiveData<List<ReviewDataModel>> by lazy { MutableLiveData() }
     val data: LiveData<List<ReviewDataModel>> = _data
 
+    private val _isLiked: MutableLiveData<Boolean> by lazy { MutableLiveData() }
+    val isLiked: LiveData<Boolean> = _isLiked
+
     @Inject
     lateinit var getReview: ReviewUseCaseInterface
+
+    @Inject
+    lateinit var likeReview: ReviewLikeUsecaseInterface
+
 
     // PagingData Flow 생성 (query에 맞는 페이징 데이터를 가져옴)
     suspend fun getReviewSortByRegion(query: Int): Flow<PagingData<ReviewDataModel>> {
@@ -28,12 +41,52 @@ class ReviewViewModel @Inject constructor(
         return getReview.getSortByRegion(query).cachedIn(viewModelScope)
     }
 
-    suspend fun getReviewSortByLike(query: Int) :  Flow<PagingData<ReviewDataModel>> {
+    suspend fun getReviewSortByLike(query: Int): Flow<PagingData<ReviewDataModel>> {
         return getReview.getSortByLike(query).cachedIn(viewModelScope)
     }
 
-    suspend fun getReviewSortByRank(query: Int) :  Flow<PagingData<ReviewDataModel>> {
+    suspend fun getReviewSortByRank(query: Int): Flow<PagingData<ReviewDataModel>> {
         return getReview.getSortByRank(query).cachedIn(viewModelScope)
+    }
+    // 좋아요 관련 로직
+    suspend fun upLike(data: LikeEntitiy) {
+        withContext(Dispatchers.IO){
+            likeReview.upLike(data).collect {
+                when (it) {
+                    is DataResource.Loading -> {
+                        Log.d(TAG, "좋아요 데이터 반영 로딩중")
+                    }
+
+                    is DataResource.Success -> {
+                        Log.d(TAG, "좋아요 데이터 반영 성공 : ${it.data}")
+                    }
+
+                    is DataResource.Error -> {
+                        Log.e(TAG, "좋아요 데이터 반영 실패 : ${it.throwable}")
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun downLike(data: LikeEntitiy) {
+        withContext(Dispatchers.IO){
+            likeReview.downLike(data).collect {
+                when (it) {
+                    is DataResource.Loading -> {
+                        Log.d(TAG, "좋아요 데이터 반영 로딩중")
+                    }
+
+                    is DataResource.Success -> {
+                        Log.d(TAG, "좋아요 데이터 반영 성공")
+                    }
+
+                    is DataResource.Error -> {
+                        Log.e(TAG, "좋아요 데이터 반영 실패 : ${it.throwable}")
+                    }
+                }
+            }
+        }
     }
 
 

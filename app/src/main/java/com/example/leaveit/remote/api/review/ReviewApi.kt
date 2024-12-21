@@ -1,7 +1,11 @@
 package com.example.leaveit.remote.api.review
 
+import com.example.leaveit.remote.entity.LikeEntitiy
 import com.example.leaveit.remote.entity.ReviewData
+import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -32,6 +36,16 @@ interface ReviewApi {
         @Query("size") size : Int = 10
     ) :  ReviewData
 
+    @POST("/save/like/{feedUID}")
+     fun upLike(
+        @Body feedUid : LikeEntitiy,
+        @Path("feedUID") feeduid : String
+    ) : Call<Void>
 
+    @POST("/cancel/like/{feedUID}")
+     fun downLike(
+        @Body feedUid : LikeEntitiy,
+        @Path("feedUID") feeduid : String
+    ):  Call<Void>
 
 }

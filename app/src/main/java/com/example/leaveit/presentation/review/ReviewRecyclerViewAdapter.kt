@@ -2,16 +2,22 @@ package com.example.leaveit.presentation.review
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.leaveit.R
 import com.example.leaveit.data.model.ReviewDataModel
 import com.example.leaveit.databinding.ItemReviewRecyclerviewBinding
+import com.example.leaveit.remote.entity.LikeEntitiy
 
-class ReviewRecyclerViewAdapter : PagingDataAdapter<ReviewDataModel, ReviewRecyclerViewAdapter.ReviewRecyclerViewHolder>(
+class ReviewRecyclerViewAdapter (
+    private val onLikeButtonClick: (LikeEntitiy,AppCompatImageView) -> Unit // 인터페이스 대신 람다 함수 사용,
+) : PagingDataAdapter<ReviewDataModel, ReviewRecyclerViewAdapter.ReviewRecyclerViewHolder>(
     diffUtil
 ) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,8 +43,6 @@ class ReviewRecyclerViewAdapter : PagingDataAdapter<ReviewDataModel, ReviewRecyc
     }
 
     inner class ReviewRecyclerViewHolder(private val binding :ItemReviewRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
-
-
         fun bind(data: ReviewDataModel?) {
             binding.contentTextView.text = data?.content
             binding.userNinckName.text = data?.nickname
@@ -61,6 +65,24 @@ class ReviewRecyclerViewAdapter : PagingDataAdapter<ReviewDataModel, ReviewRecyc
             val imageAdapter = ReviewViewPagerAdapter(test)
             binding.imageViewPager.adapter = imageAdapter
             binding.reviewIndicator.attachTo(binding.imageViewPager)
+
+
+            if(data?.isUserLiked == true){
+                binding.likeBtn.setImageResource(R.drawable.like_btn_color)
+            }else{
+                binding.likeBtn.setImageResource(R.drawable.like_btn_uncolor)
+            }
+
+            // 좋아요 버튼
+            binding.likeBtn.setOnClickListener {
+                    val data = LikeEntitiy(
+                        feedUID = data!!.feedUID,
+                        userUID = "testUID",
+                        kaKaoUID = data.kakaouid,
+                        isUserLiked = data.isUserLiked
+                    )
+                onLikeButtonClick(data,binding.likeBtn)
+            }
         }
 
         // 뷰페이저 어댑터 초기화

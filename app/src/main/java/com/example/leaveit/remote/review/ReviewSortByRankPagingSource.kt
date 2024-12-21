@@ -22,7 +22,6 @@ class ReviewSortByRankPagingSource @Inject constructor(
             // ReviewDataModel 가져오기
             val reviewList = response.entityToData()
 
-
             // LoadResult 반환 (prevKey: 이전 페이지, nextKey: 다음 페이지)
             LoadResult.Page(
                 data = reviewList,

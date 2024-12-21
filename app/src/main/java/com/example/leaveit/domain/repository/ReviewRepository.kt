@@ -10,5 +10,4 @@ interface ReviewRepository {
     suspend fun getReviewDataSortByRank(regionCode : Int) : Flow<PagingData<ReviewDataModel>>
     suspend fun getReviewDataSortByLike(regionCode : Int) : Flow<PagingData<ReviewDataModel>>
 
-
 }
