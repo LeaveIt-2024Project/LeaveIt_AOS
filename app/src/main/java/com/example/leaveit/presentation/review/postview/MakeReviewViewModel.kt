@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.review.makereview
+package com.example.leaveit.presentation.review.postview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

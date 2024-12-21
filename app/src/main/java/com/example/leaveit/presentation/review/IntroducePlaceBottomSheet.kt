@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.review.makereview
+package com.example.leaveit.presentation.review
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,17 +9,14 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
-import com.example.leaveit.presentation.review.ReviewMainView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class IntroducePlaceBottomSheet : BottomSheetDialogFragment() {
 
-    private val viewModel: MakeReviewViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

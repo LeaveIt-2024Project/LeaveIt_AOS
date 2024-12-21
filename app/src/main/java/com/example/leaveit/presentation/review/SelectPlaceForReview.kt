@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.review.makereview
+package com.example.leaveit.presentation.review
 
 import android.os.Bundle
 import android.util.Log
