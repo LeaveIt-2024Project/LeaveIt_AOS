@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.example.leaveit.databinding.FragmentLastpostreviewviewBinding
 
 class LastPostReviewFragmentView : Fragment() {
     lateinit var binding: FragmentLastpostreviewviewBinding
-    private lateinit var viewModel: PostReviewViewModel
+    private val viewModel: PostReviewViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +20,6 @@ class LastPostReviewFragmentView : Fragment() {
     ): View? {
 
         binding = FragmentLastpostreviewviewBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity())[PostReviewViewModel::class.java]
         changeTopText("등록완료")
 
         return binding.root

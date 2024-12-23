@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.leaveit.databinding.FragmentReviewsplashviewBinding
 
 class ReviewSplashView : Fragment() {
     lateinit var binding: FragmentReviewsplashviewBinding
-    private lateinit var viewModel: PostReviewViewModel
+    private val viewModel: PostReviewViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,7 +18,6 @@ class ReviewSplashView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentReviewsplashviewBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity())[PostReviewViewModel::class.java]
         changeTopText("")
         return binding.root
     }

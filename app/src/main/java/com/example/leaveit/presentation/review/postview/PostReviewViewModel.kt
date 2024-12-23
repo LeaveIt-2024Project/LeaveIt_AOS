@@ -15,19 +15,18 @@ class PostReviewViewModel @Inject constructor() : ViewModel() {
     private val _topAppBarText : MutableLiveData<String> by lazy { MutableLiveData() }
     var topAppBarText : LiveData<String> = _topAppBarText
 
+    private val _starCount : MutableLiveData<Int> by lazy { MutableLiveData() }
+    var starCount : LiveData<Int> = _starCount
 
-    fun setRegion(str : String){
-        _selectRegion.value  = str
+    fun setRegion(value : String){
+        _selectRegion.value  = value
     }
 
-    fun setTopAppBarTitleText(str : String){
-        _topAppBarText.value = str
+    fun setStarCount(value : Int){
+        _starCount.value = value
     }
 
-
-
-
-
-
-
+    fun setTopAppBarTitleText(value : String){
+        _topAppBarText.value = value
+    }
 }

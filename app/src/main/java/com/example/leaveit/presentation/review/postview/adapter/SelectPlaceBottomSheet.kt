@@ -8,14 +8,19 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
+import com.example.leaveit.presentation.review.postview.PostReviewViewModel
 import com.example.leaveit.presentation.review.postview.SelectPhotoFragmentView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class SelectPlaceBottomSheet: BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class SelectPlaceBottomSheet : BottomSheetDialogFragment() {
+    private val viewModel: PostReviewViewModel by  activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +36,7 @@ class SelectPlaceBottomSheet: BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //선택된 지역 이름 불러오기
-        val selectRegionText = arguments?.getString("region")
+        val regionName = viewModel.selectRegion.value
 
         val title: TextView = view.findViewById(R.id.ChoosePlaceForReviewNameTextView)
         val content: TextView = view.findViewById(R.id.ChoosePlaceForReviewTextView)
@@ -40,23 +45,24 @@ class SelectPlaceBottomSheet: BottomSheetDialogFragment() {
 
 
         //선택된 지역의 소개말 설정
-        content.text = sortIntroContent(selectRegionText.toString())
+        content.text = sortIntroContent(regionName.toString())
 
         //선택된 지역 이름  타이틀로 지정
-        title.text = selectRegionText
+        title.text = regionName
 
         Glide.with(view)
-            .load(sortIntroImage(selectRegionText.toString()))
+            .load(sortIntroImage(regionName.toString()))
             .fitCenter()
             .into(imageView)
 
         textButton.setOnClickListener {
 
-            val bundle = Bundle()
-            bundle.putString("region",selectRegionText)
+//            val bundle = Bundle()
+//            bundle.putString("region",selectRegionText)\
+            viewModel.setRegion(regionName.toString())
 
             val nextFragment = SelectPhotoFragmentView()
-            nextFragment.arguments = bundle
+            //nextFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.selectregion_fragment_container, nextFragment)
                 .addToBackStack(null) // 뒤로가기 하려면 스택에 쌓아야됌.
@@ -65,6 +71,7 @@ class SelectPlaceBottomSheet: BottomSheetDialogFragment() {
             dismiss()
         }
     }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme).apply {

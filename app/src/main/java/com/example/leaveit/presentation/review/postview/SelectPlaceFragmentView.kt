@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentSortregionBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SelectPlaceFragmentView  : Fragment() {
     private lateinit var binding : FragmentSortregionBinding
     private lateinit var adapter: SelectPlaceAdapter
-    private val viewModel: PostReviewViewModel by viewModels()
+    private val viewModel: PostReviewViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,15 +47,12 @@ class SelectPlaceFragmentView  : Fragment() {
         )
 
         adapter = SelectPlaceAdapter{
-            viewModel.setRegion(it)
             Log.d(TAG,"선택된 지역 이름 : $it")
-            // 선택된 지역 번들로 실어서 다음 프레그먼트의 arg로 실어 보내기
 
-            val bundle = Bundle()
-            bundle.putString("region",it)
+            //뷰모델에 선택된 지역 넣기
+            setRegion(value = it)
+
             val modalBottomSheet = SelectPlaceBottomSheet()
-            modalBottomSheet.arguments = bundle
-
             modalBottomSheet.show(parentFragmentManager, SelectPlaceBottomSheet.TAG)
         }
         adapter.submitList(testData)
@@ -117,6 +114,10 @@ class SelectPlaceFragmentView  : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
         })
+    }
+
+    fun setRegion(value : String){
+        viewModel.setRegion(value)
     }
     companion object{
         val TAG = "SortRegionFragment"
