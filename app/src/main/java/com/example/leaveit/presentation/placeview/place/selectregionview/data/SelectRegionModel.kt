@@ -8,6 +8,7 @@ data class SelectRegionModel(
     val areaCode : Int
 )
 
+
 data class SelectRegionModelList(
     val placeViewEntity : List<SelectRegionModel>
 ) : SelectRegionModelMapper {

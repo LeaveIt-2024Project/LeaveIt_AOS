@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.review
+package com.example.leaveit.presentation.review.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

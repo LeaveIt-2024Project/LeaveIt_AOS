@@ -107,6 +107,11 @@ dependencies {
     implementation("androidx.paging:paging-runtime:3.3.4")
 
 
+    // 레이팅바 라이브러리
+    implementation ("com.github.ome450901:SimpleRatingBar:1.5.1")
+
+    // 스플래시 화면 라이브러리
+    implementation("androidx.core:core-splashscreen:1.0.0")
 
 
 }

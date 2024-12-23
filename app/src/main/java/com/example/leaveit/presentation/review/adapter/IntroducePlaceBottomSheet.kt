@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.review
+package com.example.leaveit.presentation.review.adapter
 
 import android.app.Dialog
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
+import com.example.leaveit.presentation.review.ReviewMainView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
