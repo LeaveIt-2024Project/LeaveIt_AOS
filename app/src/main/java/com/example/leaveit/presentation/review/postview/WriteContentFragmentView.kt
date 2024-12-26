@@ -1,11 +1,12 @@
 package com.example.leaveit.presentation.review.postview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentWritecontentBinding
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 class WriteContentFragmentView : Fragment() {
 
     lateinit var binding: FragmentWritecontentBinding
-    private val viewModel: PostReviewViewModel by viewModels()
+    private val viewModel: PostReviewViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,11 +51,16 @@ class WriteContentFragmentView : Fragment() {
                     .remove(ReviewSplashView())
                     .commit()
             }
-
         }
+        Log.d(TAG, "${viewModel.imageList.value?.size}")
+        Log.d(TAG, "${viewModel.tempImageList.value?.size}")
     }
 
     fun changeTopText(text: String) {
         viewModel.setTopAppBarTitleText(text)
+    }
+
+    companion object{
+        const val TAG = "WriteContentFragmentView"
     }
 }
