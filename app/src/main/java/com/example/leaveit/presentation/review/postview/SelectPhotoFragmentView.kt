@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSelectphotoviewBinding
-import com.example.leaveit.presentation.review.postview.adapter.SelectPlacePhotoAdapter
+import com.example.leaveit.presentation.review.postview.adapter.ReivewPhotoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
@@ -26,7 +26,7 @@ import java.io.File
 @AndroidEntryPoint
 class SelectPhotoFragmentView : Fragment() {
     private lateinit var binding: FragmentSelectphotoviewBinding
-    private lateinit var adapter: SelectPlacePhotoAdapter
+    private lateinit var adapter: ReivewPhotoAdapter
     private val selectedFiles = mutableListOf<File>() // 생성된 파일 리스트
     private val tempUriImage = mutableListOf<Uri>()
 
@@ -57,14 +57,20 @@ class SelectPhotoFragmentView : Fragment() {
         binding.ConfirmBtnForPostReview.setOnClickListener {
 
             // 별점 선택 안하면 다음 페이지로 이동 불가
-            if (viewModel.starCount.value == null) {
-                return@setOnClickListener
+            if (viewModel.starCount.value == null || viewModel.tempImageList.value == null) {
             } else {
                 requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.fade_in_review_splash,
+                        R.anim.fade_out_review_splash,
+                        R.anim.fade_in_review_splash,
+                        R.anim.fade_out_review_splash
+                    )
                     .replace(
-                        com.example.leaveit.R.id.selectregion_fragment_container,
+                        R.id.review_fragment_container,
                         WriteContentFragmentView()
                     )
+                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -73,16 +79,18 @@ class SelectPhotoFragmentView : Fragment() {
             checkAndRequestPermission()
         }
 
-        binding.reselectPhotoBtn.setOnClickListener {
-            checkAndRequestPermission()
-        }
-
         binding.ConfirmBtnForPostReview.setOnClickListener {
 
             val nextFragment = WriteContentFragmentView()
 
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.selectregion_fragment_container, nextFragment)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(R.id.review_fragment_container, nextFragment)
                 .addToBackStack(null) // 뒤로가기 하려면 스택에 쌓아야됌.
                 .commit()
 
@@ -96,7 +104,7 @@ class SelectPhotoFragmentView : Fragment() {
     private fun initAdapter() { // 리사이클러뷰 초기화 함수
 
         //리사이클러뷰에 레이아웃매니저 설정
-        adapter = SelectPlacePhotoAdapter()
+        adapter = ReivewPhotoAdapter()
         adapter.submitList(emptyList())
         binding.ShowPlaceImageViewPager.adapter = adapter
         binding.showPlaceIndicator.attachTo(binding.ShowPlaceImageViewPager)
@@ -107,6 +115,7 @@ class SelectPhotoFragmentView : Fragment() {
         binding.rotationRatingBar.setOnRatingChangeListener { ratingBar, rating, fromUser ->
             viewModel.setStarCount(rating.toInt())
         }
+
     }
 
     private val permissionLauncher = registerForActivityResult(
@@ -182,9 +191,11 @@ class SelectPhotoFragmentView : Fragment() {
 
     private fun handleSelectedImages(uriList: List<Uri>) {
         // 선택된 이미지 리스트를 처리
+        tempUriImage.clear()
+        selectedFiles.clear()
+
         uriList.forEach { uri ->
             Log.d("SelectedImage", "URI: $uri")
-
             createFileFromUri(uri)?.let { selectedFiles.add(it) }
             tempUriImage.add(uri)
         }
@@ -254,13 +265,16 @@ class SelectPhotoFragmentView : Fragment() {
         binding.ShowPlaceImageViewPager.visibility = View.VISIBLE
         binding.showPlaceIndicator.visibility = View.VISIBLE
         binding.ConfirmBtnForPostReview.visibility = View.VISIBLE
-        binding.ShowYourPlacePhotoTextView.text = ""
-        binding.reselectPhotoBtn.visibility = View.VISIBLE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter.submitList(null)
+        binding.ShowPlaceImageViewPager.adapter = null
     }
 
     companion object {
         const val TAG = "SelectPhotoFragmentView"
-        const val PERMISSION_CODE = 101
     }
 
 }

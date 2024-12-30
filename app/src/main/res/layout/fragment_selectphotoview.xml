@@ -23,7 +23,7 @@
 
     <com.willy.ratingbar.RotationRatingBar
         android:id="@+id/rotationRatingBar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,24 +49,11 @@
         android:text="여행지를 보여주세요!"
         android:textAppearance="@style/PostReviewPhotoTextApperance"
         app:layout_constraintBottom_toTopOf="@id/ShowPlaceImageViewPager"
-        app:layout_constraintEnd_toStartOf="@id/reselectPhotoBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rotationRatingBar"
         app:layout_constraintVertical_weight="0.1" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/reselectPhotoBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:src="@drawable/reslect_image_btn"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/ShowPlaceImageViewPager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="0.2"
-        app:layout_constraintStart_toEndOf="@id/ShowYourPlacePhotoTextView"
-        app:layout_constraintTop_toBottomOf="@id/rotationRatingBar" />
 
     <LinearLayout
         android:id="@+id/addPhotoLayout"
@@ -84,7 +71,7 @@
             android:id="@+id/addPhotoBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F6FCDF"
+            android:background="@drawable/pick_photo_style"
             android:src="@drawable/vector" />
     </LinearLayout>
 
@@ -96,6 +83,7 @@
         android:layout_marginBottom="24dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/showPlaceIndicator"
+        app:layout_constraintCircleRadius="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ShowYourPlacePhotoTextView"

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemPhotoReviewViewpagerBinding
 
-class SelectPlacePhotoAdapter() : ListAdapter<Uri, SelectPlacePhotoAdapter.SelectPlaceAdapterViewHolder>(
+class ReivewPhotoAdapter() : ListAdapter<Uri, ReivewPhotoAdapter.SelectPlaceAdapterViewHolder>(
     diffUtil
 ) {
     override fun onCreateViewHolder(
@@ -36,10 +36,10 @@ class SelectPlacePhotoAdapter() : ListAdapter<Uri, SelectPlacePhotoAdapter.Selec
     inner class SelectPlaceAdapterViewHolder(private val binding: ItemPhotoReviewViewpagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: Uri) {
-                Glide.with(binding.root)
-                    .load(model)
-                    .fitCenter()
-                    .into(binding.photoReviewImageView)
+            Glide.with(binding.root)
+                .load(model)
+                .centerCrop()
+                .into(binding.photoReviewImageView)
         }
     }
 
@@ -55,6 +55,10 @@ class SelectPlacePhotoAdapter() : ListAdapter<Uri, SelectPlacePhotoAdapter.Selec
                 return oldItem.path == newItem.path
             }
         }
+    }
+
+    fun removePhotoList(){
+        submitList(null)
     }
 
 }

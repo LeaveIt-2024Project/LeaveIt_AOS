@@ -18,7 +18,7 @@ class ReviewSplashView : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentReviewsplashviewBinding.inflate(layoutInflater)
-        changeTopText("")
+        changeTopText("등록중")
         return binding.root
     }
 

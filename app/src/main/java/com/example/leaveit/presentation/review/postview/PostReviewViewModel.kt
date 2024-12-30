@@ -31,6 +31,9 @@ class PostReviewViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setStarCount(value: Int) {
+        if(_starCount.value != null){
+            _starCount.value = null
+        }
         _starCount.value = value
     }
 
@@ -43,6 +46,16 @@ class PostReviewViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setTempImageList(value: List<Uri>) {
+        if (!_tempImageList.value.isNullOrEmpty()) {
+            _tempImageList.value = null // 기존 데이터 초기화
+        }
+
+        // 새로운 값 설정
         _tempImageList.value = value
+    }
+
+
+    companion object{
+        const val TAG = "PostReviewViewModel"
     }
 }

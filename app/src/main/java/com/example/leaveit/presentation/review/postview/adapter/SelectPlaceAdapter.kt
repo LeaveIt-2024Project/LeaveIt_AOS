@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemSortRecyclerviewBinding
-import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.review.postview.data.SelectPlaceData
 
 class SelectPlaceAdapter(
-    private val selectPlaceClick: (String) -> Unit
-)  : ListAdapter<SelectRegionModel, SelectPlaceAdapter.SelectPlaceAdapterViewHolder>(
+    private val selectPlaceClick: () -> Unit
+)  : ListAdapter<SelectPlaceData, SelectPlaceAdapter.SelectPlaceAdapterViewHolder>(
     diffUtil
 ) {
     override fun onCreateViewHolder(
@@ -37,19 +37,19 @@ class SelectPlaceAdapter(
 
     inner class SelectPlaceAdapterViewHolder(private val binding: ItemSortRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: SelectRegionModel) {
-            binding.placeRegionText.text = sortRegionText(model.areaCode)
+        fun bind(model: SelectPlaceData) {
+            binding.placeRegionText.text = model.placeArea
 
-            binding.placeTitleText.text = model.title
+            binding.placeTitleText.text = "제목"
 
             Glide.with(binding.root)
-                .load(model.image)
+                .load(model.feedImage)
                 .fitCenter()
                 .into(binding.imageView)
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                selectPlaceClick(sortRegionText(model.areaCode))
+                selectPlaceClick()
             }
 
 
@@ -58,17 +58,17 @@ class SelectPlaceAdapter(
 
     //diffutil사용하려면 diffutil.callback이라는 기능을 구현해야함
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<SelectRegionModel>() {
+        val diffUtil = object : DiffUtil.ItemCallback<SelectPlaceData>() {
             override fun areItemsTheSame(
-                oldItem: SelectRegionModel,
-                newItem: SelectRegionModel
+                oldItem: SelectPlaceData,
+                newItem: SelectPlaceData
             ): Boolean {
-                return oldItem.contentId == newItem.contentId
+                return oldItem.feedUID == newItem.feedUID
             }
 
             override fun areContentsTheSame(
-                oldItem: SelectRegionModel,
-                newItem: SelectRegionModel
+                oldItem: SelectPlaceData,
+                newItem: SelectPlaceData
             ): Boolean {
                 return oldItem == newItem
             }

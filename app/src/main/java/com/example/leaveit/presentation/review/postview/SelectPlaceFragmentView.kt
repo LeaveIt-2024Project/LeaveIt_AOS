@@ -1,24 +1,23 @@
 package com.example.leaveit.presentation.review.postview
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.leaveit.databinding.FragmentSortregionBinding
-import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
-import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.R
+import com.example.leaveit.databinding.FragmentSearchPlaceForReviewBinding
 import com.example.leaveit.presentation.review.postview.adapter.SelectPlaceAdapter
-import com.example.leaveit.presentation.review.postview.adapter.SelectPlaceBottomSheet
-import com.google.android.material.tabs.TabLayout
+import com.example.leaveit.presentation.review.postview.data.SelectPlaceData
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
-class SelectPlaceFragmentView  : Fragment() {
-    private lateinit var binding : FragmentSortregionBinding
+class SelectPlaceFragmentView : Fragment() {
+    private lateinit var binding: FragmentSearchPlaceForReviewBinding
     private lateinit var adapter: SelectPlaceAdapter
     private val viewModel: PostReviewViewModel by activityViewModels()
 
@@ -27,99 +26,85 @@ class SelectPlaceFragmentView  : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSortregionBinding.inflate(layoutInflater)
-
+        binding = FragmentSearchPlaceForReviewBinding.inflate(layoutInflater)
+        changeTopText("관광지를 검색하세요")
         initAdapter()
-        handleTabLayout()
+        initSearchQueryListener()
 
         return binding.root
     }
 
-    private fun initAdapter(){
 
-        //리사이클러뷰에 레이아웃매니저 설정
-        binding.sortRecyclerView.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL, false)
-
-        val testData = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-        )
-
-        adapter = SelectPlaceAdapter{
-            Log.d(TAG,"선택된 지역 이름 : $it")
-
-            //뷰모델에 선택된 지역 넣기
-            setRegion(value = it)
-
-            val modalBottomSheet = SelectPlaceBottomSheet()
-            modalBottomSheet.show(parentFragmentManager, SelectPlaceBottomSheet.TAG)
-        }
-        adapter.submitList(testData)
-        binding.sortRecyclerView.adapter = adapter
+    fun changeTopText(text: String) { // 상단 탭바 타이틀 변경 함수
+        viewModel.setTopAppBarTitleText(text)
     }
 
-    private fun handleTabLayout(){
-        val testData = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-        )
-        binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
-
-                when(position){ // 포지션 별 분기
-                    0 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    1 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    2 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    3 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    4 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    5 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    6 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    7 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    8 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    9 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                    10 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
-                }
-
-                Log.d(SelectRegionView.TAG,"${position}이 선택되었습니다")
+    fun initSearchQueryListener() {
+        binding.searchPlaceForReviewSearchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // 검색 버튼을 누르면
+                // TODO 검색 버튼 누르면 서버 API와 연동해서 값을 가져오는 로직 만들기
+                adapter.submitList(initTestData())
+                binding.searchResultRecyclerView.visibility = View.VISIBLE
+                binding.hotKeywordLayout.visibility = View.INVISIBLE
+                return false
             }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // 텍스트가 변경될때마다
+                // 이거 안쓸거임
+                return true
             }
         })
     }
 
-    fun setRegion(value : String){
-        viewModel.setRegion(value)
+
+    fun initAdapter() {
+        // TODO 검색해서 가져온 데이터 리사이클러뷰 정의해서 띄우는 로직 만들기
+        binding.searchResultRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        adapter = SelectPlaceAdapter(
+            selectPlaceClick = {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .setCustomAnimations(
+                        R.anim.fade_in_review_splash,
+                        R.anim.fade_out_review_splash,
+                        R.anim.fade_in_review_splash,
+                        R.anim.fade_out_review_splash
+                    )
+                    .replace(
+                        R.id.review_fragment_container,
+                        SelectPhotoFragmentView()
+                    )
+                    .commit()
+            }
+        )
+        binding.searchResultRecyclerView.adapter = adapter
+
+        adapter.submitList(emptyList())
     }
-    companion object{
+
+    fun initTestData(): MutableList<SelectPlaceData> {
+
+        return mutableListOf(
+            SelectPlaceData(
+                feedUID = "123",
+                nickname = "테스트닉네임",
+                content = "테스트리뷰콘텐츠",
+                feedImage = "http://tong.visitkorea.or.kr/cms/resource/17/1598617_image2_1.jpg",
+                likeCount = 3,
+                starCount = 2,
+                placeArea = "서울",
+                isUserLiked = false,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now()
+            )
+        )
+    }
+
+    companion object {
         val TAG = "SortRegionFragment"
     }
 }

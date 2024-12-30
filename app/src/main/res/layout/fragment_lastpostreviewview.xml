@@ -25,7 +25,7 @@
             android:id="@+id/lastReviewImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/flight_takeoff_32dp_31511e_fill0_wght400_grad0_opsz40"
+            android:src="@drawable/travels"
             app:layout_constraintBottom_toTopOf="@id/titleText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

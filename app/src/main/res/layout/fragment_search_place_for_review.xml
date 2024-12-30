@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/searchPlaceForReviewTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="start|bottom"
+        android:text="어느 곳을 여행하셨나요?"
+        android:textAppearance="@style/searchPlaceForReviewText"
+        app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewSearchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.1" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchPlaceForReviewSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="36dp"
+        android:background="@null"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toTopOf="@id/hotKeywordLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewTitleTextView"
+        app:layout_constraintVertical_weight="0.07"
+        app:queryHint="검색어를 입력하세요" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewSearchView" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hotKeywordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewSearchView"
+        app:layout_constraintVertical_weight="0.45">
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewSearchSubTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="36dp"
+            android:gravity="bottom"
+            android:text="인기 검색어"
+            android:textAppearance="@style/searchPlaceForReviewText"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="1. 경복궁"
+            android:textAppearance="@style/searchPlaceForReviewTop3KeyWordText"
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword2"
+            app:layout_constraintEnd_toStartOf="@id/searchPlaceForReviewKeyword6"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewSearchSubTextView"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="2. 창덕궁"
+            android:textAppearance="@style/searchPlaceForReviewTop3KeyWordText"
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword3"
+            app:layout_constraintEnd_toStartOf="@id/searchPlaceForReviewKeyword7"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword1"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="3. 화성행궁"
+            android:textAppearance="@style/searchPlaceForReviewTop3KeyWordText"
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword4"
+            app:layout_constraintEnd_toStartOf="@id/searchPlaceForReviewKeyword8"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword2"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="4. 성진이네"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword5"
+            app:layout_constraintEnd_toStartOf="@id/searchPlaceForReviewKeyword9"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword3"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="5. 주형이네"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/searchPlaceForReviewKeyword10"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword4"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="6. 재건이네"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/searchPlaceForReviewKeyword1"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewSearchSubTextView"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="7. 우리집"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/searchPlaceForReviewKeyword2"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword6"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="8. 성결대"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/searchPlaceForReviewKeyword3"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword7"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="9. 수원시"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toTopOf="@id/searchPlaceForReviewKeyword10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/searchPlaceForReviewKeyword4"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword8"
+            app:layout_constraintVertical_weight="0.01" />
+
+        <TextView
+            android:id="@+id/searchPlaceForReviewKeyword10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:text="10. 화성시"
+            android:textAppearance="@style/searchPlaceForReviewKeyWordText."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/searchPlaceForReviewKeyword5"
+            app:layout_constraintTop_toBottomOf="@id/searchPlaceForReviewKeyword9"
+            app:layout_constraintVertical_weight="0.01" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
