@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
-import com.example.leaveit.domain.testHiltClass
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShowPlaceView : Fragment(){
@@ -23,17 +21,12 @@ class ShowPlaceView : Fragment(){
     private lateinit var festivalAdapter : ShowPlaceViewRecyclerViewAdapter
     private val viewModel: ShowPlaceViewModel by viewModels()
 
-    @Inject
-    lateinit var testText : testHiltClass
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentShowplaceviewBinding.inflate(getLayoutInflater())
-        binding.firstcatTextView.text = testText.toString()
         initAdapter()
 
 

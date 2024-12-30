@@ -12,4 +12,53 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="ReviewTabTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PostReviewBtnTextApperance" parent="Widget.Material3.Toolbar">
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#31511E</item>
+    </style>
+
+    <style name="PostReviewPhotoTextApperance" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#31511E</item>
+    </style>
+
+    <style name="BtnTextApperance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">24sp</item>
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="inputTextForReviewContent" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textColor">#959393</item>
+    </style>
+
+    <style name="searchPlaceForReviewText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">28sp</item>
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textColor">#31511E</item>
+    </style>
+
+    <style name="searchPlaceForReviewTop3KeyWordText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textColor">#31511E</item>
+    </style>
+
+    <style name="searchPlaceForReviewKeyWordText." parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/juafont</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>

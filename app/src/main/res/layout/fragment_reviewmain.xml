@@ -5,13 +5,47 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/reviewRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.08"
+        app:tabIndicatorColor="#31511E"
+        app:tabSelectedTextColor="#31511E"
+        app:tabTextAppearance="@style/ReviewTabTextAppearance">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최신순" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인기순" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="별점순" />
+    </com.google.android.material.tabs.TabLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="8dp"
         android:id="@+id/reviewRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/TabLayout"
+        app:layout_constraintVertical_weight="0.92" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

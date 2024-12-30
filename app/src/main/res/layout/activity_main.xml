@@ -5,25 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:background="#FCFEF8"
         app:layout_constraintBottom_toTopOf="@id/fragment_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.07">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
             android:minHeight="?attr/actionBarSize"
-            app:menu="@menu/testtopbar"
-            app:title="가자it" />
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/toptapBarLayoutTitle" />
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -32,6 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appbarlayout" />
+        app:layout_constraintTop_toBottomOf="@id/appbarlayout"
+        app:layout_constraintVertical_weight="0.93" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

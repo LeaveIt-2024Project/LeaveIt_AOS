@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/likeBtn"
+                app:layout_constraintEnd_toStartOf="@id/reviewInfoContainer2"
                 app:layout_constraintHorizontal_weight="0.3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -45,8 +45,8 @@
                     android:gravity="center|left|bottom"
                     android:text="사용자닉네임"
                     android:textColor="@color/black"
-                    android:textSize="24dp"
-                    app:layout_constraintBottom_toTopOf="@id/placeRegionText"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@id/placeText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="0.1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,11 +54,11 @@
                     app:layout_constraintVertical_weight="0.1" />
 
                 <TextView
-                    android:id="@+id/placeRegionText"
+                    android:id="@+id/placeText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center|left"
-                    android:text="경기도"
+                    android:text="낙산공원"
                     android:textColor="#434343"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/regiDateText"
@@ -77,59 +77,70 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="0.2"
-                    app:layout_constraintStart_toEndOf="@id/placeRegionText"
+                    app:layout_constraintStart_toEndOf="@id/placeText"
                     app:layout_constraintTop_toBottomOf="@id/userNinckName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/likeBtn"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reviewInfoContainer2"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:background="@color/white"
-                android:src="@drawable/likeimg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/likeCountText"
-                app:layout_constraintHorizontal_weight="0.1"
+                android:layout_height="0dp"
+                app:layout_constraintHorizontal_weight="0.3"
                 app:layout_constraintStart_toEndOf="@id/reviewInfoContainer"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/likeCountText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="7"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/starImage"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/likeBtn"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/starImage"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:src="@drawable/review_star_img"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/starCountText"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/likeCountText"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/starCountText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="7"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/starImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/likeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:background="@color/white"
+                    android:src="@drawable/like_btn_uncolor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/likeCountText"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/likeCountText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textSize="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/starImage"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toEndOf="@id/likeBtn"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/starImage"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/review_star_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/starCountText"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toEndOf="@id/likeCountText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/starCountText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textSize="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0.1"
+                    app:layout_constraintStart_toEndOf="@id/starImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +157,6 @@
         app:layout_constraintVertical_weight="0.6" />
 
     <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:id="@+id/reviewIndicator"
         android:layout_width="wrap_content"

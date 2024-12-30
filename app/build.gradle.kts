@@ -29,8 +29,9 @@ android {
         var properties = Properties()
         properties.load(FileInputStream("local.properties"))
 
-
         buildConfigField("String", "TOUR_API_KEY", properties.getProperty("TOUR_API_KEY"))
+        buildConfigField("String","TEST_TOKEN",properties.getProperty("TEST_TOKEN"))
+        manifestPlaceholders["MAP_API_KEY"] = properties["MAP_API_KEY"] as Any
 
 
     }
@@ -99,7 +100,18 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
 
+    // 네이버 지도 SDK
+    implementation("com.naver.maps:map-sdk:3.20.0")
 
+    // Paging 3
+    implementation("androidx.paging:paging-runtime:3.3.4")
+
+
+    // 레이팅바 라이브러리
+    implementation ("com.github.ome450901:SimpleRatingBar:1.5.1")
+
+    // 스플래시 화면 라이브러리
+    implementation("androidx.core:core-splashscreen:1.0.0")
 
 
 }
