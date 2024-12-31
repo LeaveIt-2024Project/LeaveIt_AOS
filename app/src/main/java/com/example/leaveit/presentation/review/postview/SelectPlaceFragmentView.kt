@@ -10,16 +10,27 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSearchPlaceForReviewBinding
+import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.presentation.review.postview.adapter.RecentSearchListAdapter
 import com.example.leaveit.presentation.review.postview.adapter.SelectPlaceAdapter
 import com.example.leaveit.presentation.review.postview.data.SelectPlaceData
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
+import java.util.UUID
 
 @AndroidEntryPoint
 class SelectPlaceFragmentView : Fragment() {
     private lateinit var binding: FragmentSearchPlaceForReviewBinding
     private lateinit var adapter: SelectPlaceAdapter
+    private lateinit var recentQueryAdapter: RecentSearchListAdapter
     private val viewModel: PostReviewViewModel by activityViewModels()
+
+    /*
+    * TODO
+    *  1. 검색 기록 Room에  저장
+    *  2. 리사이클러뷰 구현
+    *  3. 검색 기록 삭제 기능 구현 -> Shared, RecyclerView 다 삭제해야됌
+    * */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,22 +41,38 @@ class SelectPlaceFragmentView : Fragment() {
         changeTopText("관광지를 검색하세요")
         initAdapter()
         initSearchQueryListener()
+        initRecentQueryAdapter()
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getAllData()
+        observeRecentQueryData()
+        deleteAllQueryDataListener()
 
-    fun changeTopText(text: String) { // 상단 탭바 타이틀 변경 함수
+    }
+
+
+    private fun changeTopText(text: String) { // 상단 탭바 타이틀 변경 함수
         viewModel.setTopAppBarTitleText(text)
     }
 
-    fun initSearchQueryListener() {
+    private fun initSearchQueryListener() {
         binding.searchPlaceForReviewSearchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+            override fun onQueryTextSubmit(query: String): Boolean {
                 // 검색 버튼을 누르면
-                // TODO 검색 버튼 누르면 서버 API와 연동해서 값을 가져오는 로직 만들기
                 adapter.submitList(initTestData())
+
+                val addData = makeQueryData(query)
+                viewModel.setRecentQuery(addData)
+
+
+                recentQueryAdapter.submitList(cachedRecentData(addData).toList())
+                recentQueryAdapter.notifyDataSetChanged()
+
                 binding.searchResultRecyclerView.visibility = View.VISIBLE
                 binding.hotKeywordLayout.visibility = View.INVISIBLE
                 return false
@@ -60,7 +87,7 @@ class SelectPlaceFragmentView : Fragment() {
     }
 
 
-    fun initAdapter() {
+    private fun initAdapter() {
         // TODO 검색해서 가져온 데이터 리사이클러뷰 정의해서 띄우는 로직 만들기
         binding.searchResultRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -86,6 +113,23 @@ class SelectPlaceFragmentView : Fragment() {
         adapter.submitList(emptyList())
     }
 
+    private fun initRecentQueryAdapter() {
+
+        binding.recentRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recentQueryAdapter = RecentSearchListAdapter(
+            deleteRecentData = {
+                viewModel.deleteRecentQuery()
+
+
+                recentQueryAdapter.notifyDataSetChanged()
+            }
+        )
+
+        binding.recentRecyclerView.adapter = recentQueryAdapter
+        adapter.submitList(emptyList())
+    }
+
     fun initTestData(): MutableList<SelectPlaceData> {
 
         return mutableListOf(
@@ -103,6 +147,33 @@ class SelectPlaceFragmentView : Fragment() {
             )
         )
     }
+
+    fun makeQueryData(data: String): RecentSearchEntity {
+        return RecentSearchEntity(
+            uid = UUID.randomUUID().toString(),
+            recentData = data,
+            searchIndex = 0
+        )
+    }
+
+    fun cachedRecentData(data: RecentSearchEntity): MutableList<RecentSearchEntity> {
+        val temp = viewModel.recentSearchList.value
+        temp!!.add(data)
+        return temp
+    }
+
+    fun observeRecentQueryData() {
+        viewModel.recentSearchList.observe(viewLifecycleOwner) {
+            recentQueryAdapter.submitList(it)
+        }
+    }
+
+    fun deleteAllQueryDataListener() {
+        binding.recentAllDeleteBtn.setOnClickListener {
+            viewModel.deleteAllQuery()
+        }
+    }
+
 
     companion object {
         val TAG = "SortRegionFragment"
