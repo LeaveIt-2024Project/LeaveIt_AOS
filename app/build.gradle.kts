@@ -67,6 +67,7 @@ android {
 }
 
 dependencies {
+    val room_version = "2.6.1"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -112,6 +113,13 @@ dependencies {
 
     // 스플래시 화면 라이브러리
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    // Room
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+
+
 
 
 }
