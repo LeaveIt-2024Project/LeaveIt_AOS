@@ -78,6 +78,7 @@ class ReviewMainView : Fragment() {
                 }
             }
         }
+        binding.reviewRecyclerView.setHasFixedSize(true)
         binding.reviewRecyclerView.adapter = adapter
         observerData(initRegionCode, 0)
     }
