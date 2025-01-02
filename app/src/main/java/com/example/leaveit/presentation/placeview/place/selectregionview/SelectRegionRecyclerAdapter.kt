@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.leaveit.databinding.ItemSortRecyclerviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
-class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
+class SelectRegionRecyclerAdapter(
+    private val moveToPlace : (data : String) -> Unit
+) : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
     diffUtil
 ) {
     override fun onCreateViewHolder(
@@ -45,10 +47,10 @@ class SelectRegionRecyclerAdapter : ListAdapter<SelectRegionModel, SelectRegionR
                 .fitCenter()
                 .into(binding.imageView)
 
-//            // 클릭 리스너 설정
-//            binding.root.setOnClickListener {
-//                onClick(model.contentId) // 클릭 시 호출자(View)에 아이템의 contentId 전달
-//            }
+            // 클릭 리스너 설정
+            binding.root.setOnClickListener {
+                moveToPlace(model.contentId) // 클릭 시 호출자(View)에 아이템의 contentId 전달
+            }
         }
     }
 

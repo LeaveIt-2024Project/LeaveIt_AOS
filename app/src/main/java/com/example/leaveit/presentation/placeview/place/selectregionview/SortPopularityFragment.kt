@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortpopularityBinding
+import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SortPopularityFragment : Fragment() {
     private lateinit var binding : FragmentSortpopularityBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
-    private val viewModel : SelectRegionViewModel by viewModels()
+    private val viewModel : SelectRegionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +40,26 @@ class SortPopularityFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
         val testInitdata1 = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "12" , title =  "서울 타워", contentTypeId = "12", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "12" , title =  "서울 타워", contentTypeId = "12",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
         )
-        adapter = SelectRegionRecyclerAdapter()
+
+        adapter = SelectRegionRecyclerAdapter(moveToPlace = {
+            viewModel.setContentId(it)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(
+                    R.id.selectregion_fragment_container,
+                    DetailPlaceView()
+                )
+                .commit()
+        })
         adapter.submitList(testInitdata1)
         binding.sortRecyclerView.adapter = adapter
     }

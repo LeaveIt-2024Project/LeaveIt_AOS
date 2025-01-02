@@ -8,16 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortregionBinding
+import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SortRegionFragment : Fragment() {
-    private lateinit var binding : FragmentSortregionBinding
+    private lateinit var binding: FragmentSortregionBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
-    private val viewModel : SelectRegionViewModel by activityViewModels()
+    private val viewModel: SelectRegionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,69 +34,131 @@ class SortRegionFragment : Fragment() {
     }
 
 
-    private fun initAdapter(){
+    private fun initAdapter() {
 
         //리사이클러뷰에 레이아웃매니저 설정
-        binding.sortRecyclerView.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL, false)
-
-        val testData = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+        binding.sortRecyclerView.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL, false
         )
 
-        adapter = SelectRegionRecyclerAdapter()
+        val testData = listOf(
+            SelectRegionModel(
+                contentId = "12",
+                title = "서울 타워",
+                contentTypeId = "1",
+                areaCode = 2,
+                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
+            ),
+            SelectRegionModel(
+                contentId = "12",
+                title = "서울 타워",
+                contentTypeId = "1",
+                areaCode = 2,
+                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
+            ),
+        )
+
+        adapter = SelectRegionRecyclerAdapter(moveToPlace = {
+            viewModel.setContentId(it)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(
+                    R.id.selectregion_fragment_container,
+                    DetailPlaceView()
+                )
+                .commit()
+        })
         adapter.submitList(testData)
         binding.sortRecyclerView.adapter = adapter
     }
 
-    private fun handleTabLayout(){
+    private fun handleTabLayout() {
         val testData = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(
+                contentId = "1",
+                title = "서울 타워",
+                contentTypeId = "12",
+                areaCode = 2,
+                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
+            ),
+            SelectRegionModel(
+                contentId = "1",
+                title = "서울 타워",
+                contentTypeId = "1",
+                areaCode = 2,
+                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
+            ),
         )
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
 
-                when(position){ // 포지션 별 분기
+                when (position) { // 포지션 별 분기
                     0 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     1 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     2 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     3 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     4 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     5 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     6 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     7 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     8 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     9 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
+
                     10 -> {
-                        Log.d(TAG,"${position} 위치")
-                        adapter.submitList(testData)}
+                        Log.d(TAG, "${position} 위치")
+                        adapter.submitList(testData)
+                    }
                 }
 
-                Log.d(SelectRegionView.TAG,"${position}이 선택되었습니다")
+                Log.d(SelectRegionView.TAG, "${position}이 선택되었습니다")
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -104,7 +168,8 @@ class SortRegionFragment : Fragment() {
             }
         })
     }
-    companion object{
+
+    companion object {
         val TAG = "SortRegionFragment"
     }
 }
