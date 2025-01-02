@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.leaveit.databinding.ActivityMainBinding
-import com.example.leaveit.presentation.placeview.place.showplaceview.ShowPlaceView
+import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.showplaceview.ShowPlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         changeTopAppText()
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, ShowPlaceView())
+                .add(R.id.fragment_container, DetailPlaceView())
                 .commit()
         }
     }
