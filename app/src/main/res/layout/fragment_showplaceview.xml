@@ -17,6 +17,7 @@
         app:layout_constraintVertical_weight="0.1" />
 
     <ScrollView
+        android:scrollbars="none"
         android:id="@+id/viewScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,8 +35,9 @@
                 android:id="@+id/firstcatTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:text="관광지"
-                android:textSize="36dp"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@id/tourAttraction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,18 +47,20 @@
                 android:id="@+id/tourAttraction"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@id/secondCatTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstcatTextView"/>
+                app:layout_constraintTop_toBottomOf="@id/firstcatTextView" />
 
 
             <TextView
                 android:id="@+id/secondCatTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:text="문화시설"
-                android:textSize="36dp"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@id/culture"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +70,7 @@
                 android:id="@+id/culture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@id/thirdCatTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +80,9 @@
                 android:id="@+id/thirdCatTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
                 android:text="축제"
-                android:textSize="36dp"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@id/festival"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

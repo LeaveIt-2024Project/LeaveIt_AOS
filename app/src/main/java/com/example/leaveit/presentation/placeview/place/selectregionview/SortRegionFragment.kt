@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentSortregionBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SortRegionFragment : Fragment() {
     private lateinit var binding : FragmentSortregionBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
-    private val viewModel : SelectRegionViewModel by viewModels()
+    private val viewModel : SelectRegionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +28,6 @@ class SortRegionFragment : Fragment() {
 
         initAdapter()
         handleTabLayout()
-
         return binding.root
     }
 

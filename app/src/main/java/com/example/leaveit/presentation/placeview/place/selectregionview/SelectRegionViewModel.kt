@@ -17,8 +17,6 @@ class SelectRegionViewModel @Inject constructor(
     lateinit var bindGetPlaceUseCaseImpl: GetPlaceUseCaseInterface
 
 
-
-
     companion object {
         val TAG = "SelectRegionViewModel"
     }

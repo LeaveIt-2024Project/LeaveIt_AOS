@@ -16,6 +16,9 @@ class ShowPlaceViewModel : ViewModel() {
     private val _festivalData : MutableLiveData<List<SelectRegionModel>?> by lazy { MutableLiveData() }
     val festivalData : LiveData<List<SelectRegionModel>?> = _festivalData
 
+    private val _topAppBarText: MutableLiveData<String> by lazy { MutableLiveData() }
+    var topAppBarText: LiveData<String> = _topAppBarText
+
     fun getFeedData(){
         // TODO 피드 서버 API 구현되면 Domain 로직에서 GetFeedUseCase를 통해 데이터 가져오기
         //        _currentData.value = GetFeedUseCase
@@ -39,10 +42,10 @@ class ShowPlaceViewModel : ViewModel() {
         _festivalData.apply {
             value = initdata
         }
+    }
 
-
-
-
+    fun setTopAppBarTitleText(value: String) {
+        _topAppBarText.value = value
     }
 
 }

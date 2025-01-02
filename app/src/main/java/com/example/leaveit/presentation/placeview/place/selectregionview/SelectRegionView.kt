@@ -23,15 +23,13 @@ class SelectRegionView : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         // 처음 보여줄 프레그먼트 설정
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
                 .add(R.id.selectregion_fragment_container, SortRegionFragment())
                 .commit()
         }
-
-        // contentId 가져오기
-        //val test = intent.getIntExtra("data",0)
 
 
         Log.d(TAG,"TEST : ${BuildConfig.TOUR_API_KEY}")
@@ -66,8 +64,6 @@ class SelectRegionView : AppCompatActivity() {
             }
         })
     }
-
-
     companion object{
        val TAG = "SelectRegionView"
     }
