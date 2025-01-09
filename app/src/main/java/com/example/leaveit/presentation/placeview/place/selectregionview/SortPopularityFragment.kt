@@ -40,11 +40,12 @@ class SortPopularityFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
         val testInitdata1 = listOf(
-            SelectRegionModel(contentId = "12" , title =  "서울 타워", contentTypeId = "12", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "12" , title =  "서울 타워", contentTypeId = "12",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "1928731" , title =  "서울 타워", contentTypeId = "12", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "1928731" , title =  "서울 타워", contentTypeId = "12",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
         )
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
+            Log.d(TAG,"contentId : $it")
             viewModel.setContentId(it)
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -67,8 +68,8 @@ class SortPopularityFragment : Fragment() {
     private fun handleTabLayout(){
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             val testInitdata1 = listOf(
-                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "1928731" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "1928731" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
             )
 
             override fun onTabSelected(tab: TabLayout.Tab?) {

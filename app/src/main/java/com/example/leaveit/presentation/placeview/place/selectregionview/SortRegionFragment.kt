@@ -44,16 +44,16 @@ class SortRegionFragment : Fragment() {
 
         val testData = listOf(
             SelectRegionModel(
-                contentId = "12",
+                contentId = "2456536",
                 title = "서울 타워",
-                contentTypeId = "1",
+                contentTypeId = "12",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
             ),
             SelectRegionModel(
-                contentId = "12",
+                contentId = "1928731",
                 title = "서울 타워",
-                contentTypeId = "1",
+                contentTypeId = "12",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
             ),
@@ -82,16 +82,16 @@ class SortRegionFragment : Fragment() {
     private fun handleTabLayout() {
         val testData = listOf(
             SelectRegionModel(
-                contentId = "1",
+                contentId = "1928731",
                 title = "서울 타워",
                 contentTypeId = "12",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
             ),
             SelectRegionModel(
-                contentId = "1",
+                contentId = "1928731",
                 title = "서울 타워",
-                contentTypeId = "1",
+                contentTypeId = "12",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
             ),

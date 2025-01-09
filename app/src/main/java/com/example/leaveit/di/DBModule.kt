@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.leaveit.local.AppDatabase
 import com.example.leaveit.remote.api.RetrofitService
+import com.example.leaveit.remote.api.TourApiRetrofitService
+import com.example.leaveit.remote.api.review.DetailPlaceApi
 import com.example.leaveit.remote.api.review.ReviewApi
 import dagger.Module
 import dagger.Provides
@@ -24,6 +26,17 @@ object DBModule {
     @Provides
     fun provideReviewApiService() : ReviewApi{ // 리뷰 호출 API 의존성 추가
         return RetrofitService.retrofit.create(ReviewApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTourApiRetrofitService() : TourApiRetrofitService{
+        return TourApiRetrofitService
+    }
+
+    @Provides
+    fun provideDetailPlaceApiService() : DetailPlaceApi{
+        return TourApiRetrofitService.retrofit.create(DetailPlaceApi::class.java)
     }
 
 
