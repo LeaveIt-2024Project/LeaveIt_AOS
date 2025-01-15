@@ -44,6 +44,7 @@ class NavigatePlaceView : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
         observeCurrentLocationAddress()
+        observeNavigateStatus()
     }
 
     private fun checkPermission() {
@@ -55,7 +56,6 @@ class NavigatePlaceView : Fragment() {
             requireContext(),
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-
         if ((fineLocationStatus == PackageManager.PERMISSION_GRANTED) || (coarseLocationStatus == PackageManager.PERMISSION_GRANTED)) {
             //TODO 권한이 부여되어 있을 때
             Log.d(TAG, "권한 부여되어있음")
@@ -63,8 +63,8 @@ class NavigatePlaceView : Fragment() {
                 val str = "${it?.longitude},${it?.latitude}"
                 Log.d(TAG,str)
 
-                viewModel.setLatitude(it?.latitude.toString())
-                viewModel.setLonggitutde(it?.longitude.toString())
+                viewModel.setLatitude("37.160708")
+                viewModel.setLonggitutde("127.1035862")
                 sumDataForPicker()
 
                 viewModel.getCurrentLocationAddress("127.1035862,37.160708")
@@ -165,11 +165,24 @@ class NavigatePlaceView : Fragment() {
             distance = "123"
         )
 
-        test.let {
-            Log.d(TAG,"현위치 : ${it.myLocationX}")
-            Log.d(TAG,"관광지 : ${it.placeLocationX}")
-        }
+        val start = "${viewModel.currentLongitude.value.toString()}," +
+                viewModel.currentLatitude.value.toString()
 
+        val goal = "${rootViewModel.mapx.value.toString()}," +
+                rootViewModel.mapy.value.toString()
+
+        Log.d(TAG,"현위치 : $start")
+        Log.d(TAG,"관광지 : $goal")
+
+        viewModel.getPath(start,goal)
+
+    }
+
+    private fun observeNavigateStatus(){
+        viewModel.pathData.observe(viewLifecycleOwner){
+            binding.placeDistanceText.text = "${it.distance}km"
+            binding.goalTimeText.text = it.departureTime
+        }
     }
 
 

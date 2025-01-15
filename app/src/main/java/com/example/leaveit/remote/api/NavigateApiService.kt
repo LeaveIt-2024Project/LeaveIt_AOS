@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ReverseGeoCodingRetrofitService {
+object NavigateApiService {
 
     private const val BASE_URL  = "https://naveropenapi.apigw.ntruss.com/" // 에뮬레이터의 localhost는 10.0.2.2
 

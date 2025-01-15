@@ -1,11 +1,11 @@
 package com.example.leaveit.remote.api.navigate
 
+import com.example.leaveit.remote.entity.responsePath
 import com.example.leaveit.remote.entity.responseRevserGeoCoding
-import com.example.leaveit.remote.entity.rootResponseReverseGeoCoding
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ReverseGeoCodingAPI {
+interface NavigateAPI {
 
     @GET("map-reversegeocode/v2/gc")
     suspend fun getAllRegionPlace(
@@ -13,4 +13,10 @@ interface ReverseGeoCodingAPI {
         @Query("orders") admcode : String = "admcode",
         @Query("output") output : String = "json"
     ) : responseRevserGeoCoding
+
+    @GET("map-direction/v1/driving")
+    suspend fun getPath(
+        @Query("start") start : String,
+        @Query("goal") goal : String
+    ) : responsePath
 }
