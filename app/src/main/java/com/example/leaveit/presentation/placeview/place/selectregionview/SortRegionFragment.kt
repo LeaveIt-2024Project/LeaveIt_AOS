@@ -33,6 +33,12 @@ class SortRegionFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.setIsMoveDetailView(true)
+        viewModel.setTopTapContent("카테고리를 선택하세요")
+    }
+
 
     private fun initAdapter() {
 
@@ -43,24 +49,25 @@ class SortRegionFragment : Fragment() {
         )
 
         val testData = listOf(
-            SelectRegionModel(
-                contentId = "2456536",
-                title = "서울 타워",
-                contentTypeId = "12",
+            SelectRegionModel(contentId = "2733967" ,
+                title =  "가회동 성당",
+                contentTypeId = "1",
                 areaCode = 2,
-                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
-            ),
-            SelectRegionModel(
-                contentId = "1928731",
-                title = "서울 타워",
-                contentTypeId = "12",
-                areaCode = 2,
-                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
-            ),
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            )
         )
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
-            viewModel.setContentId(it)
+            viewModel.setContentId(it.contentId)
+            viewModel.setTopTapContent(it.title)
+            viewModel.setMapX(it.mapx)
+            viewModel.setMapY(it.mapy)
+            viewModel.setPlaceImage(it.image)
+            viewModel.setAddressInfo(it.address)
+
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
                 .setCustomAnimations(
@@ -81,20 +88,15 @@ class SortRegionFragment : Fragment() {
 
     private fun handleTabLayout() {
         val testData = listOf(
-            SelectRegionModel(
-                contentId = "1928731",
-                title = "서울 타워",
-                contentTypeId = "12",
+            SelectRegionModel(contentId = "2733967" ,
+                title =  "가회동 성당",
+                contentTypeId = "1",
                 areaCode = 2,
-                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
-            ),
-            SelectRegionModel(
-                contentId = "1928731",
-                title = "서울 타워",
-                contentTypeId = "12",
-                areaCode = 2,
-                image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"
-            ),
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+                )
         )
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 

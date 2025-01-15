@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.leaveit.local.AppDatabase
 import com.example.leaveit.remote.api.RetrofitService
+import com.example.leaveit.remote.api.ReverseGeoCodingRetrofitService
 import com.example.leaveit.remote.api.TourApiRetrofitService
+import com.example.leaveit.remote.api.navigate.ReverseGeoCodingAPI
 import com.example.leaveit.remote.api.review.DetailPlaceApi
 import com.example.leaveit.remote.api.review.ReviewApi
 import dagger.Module
@@ -37,6 +39,18 @@ object DBModule {
     @Provides
     fun provideDetailPlaceApiService() : DetailPlaceApi{
         return TourApiRetrofitService.retrofit.create(DetailPlaceApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideReverseGeoCodingRetrofitService() : ReverseGeoCodingRetrofitService {
+        return ReverseGeoCodingRetrofitService
+    }
+
+    @Provides
+    @Singleton
+    fun provideReverseGeoCodingApiService() : ReverseGeoCodingAPI{
+        return ReverseGeoCodingRetrofitService.retrofit.create(ReverseGeoCodingAPI::class.java)
     }
 
 

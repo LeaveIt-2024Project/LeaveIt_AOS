@@ -24,15 +24,21 @@
             app:layout_constraintVertical_weight="0.5">
 
             <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/placeImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:src="@drawable/star_icon" />
 
             <TextView
+                android:id="@+id/placeTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
+                android:layout_marginStart="16dp"
                 android:text="경복궁"
+                android:textColor="@color/white"
                 android:textSize="24dp" />
         </FrameLayout>
 
@@ -62,6 +68,7 @@
                 android:id="@+id/playTimeInfo"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="0.3"
                 android:text="운영시간  10:00 ~ 20:00"
                 android:textSize="24dp" />
@@ -319,7 +326,7 @@
         <TextView
             android:id="@+id/mainIntroText"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:background="@color/white"
             android:text="가나다라마바사"
             android:textSize="16dp"

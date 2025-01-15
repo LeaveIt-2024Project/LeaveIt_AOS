@@ -5,7 +5,10 @@ data class SelectRegionModel(
     val contentTypeId : String,
     val title : String,
     val image : String,
-    val areaCode : Int
+    val areaCode : Int,
+    val mapx : String,
+    val mapy : String,
+    val address : String,
 )
 
 

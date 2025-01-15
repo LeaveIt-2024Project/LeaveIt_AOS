@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentDetailplaceviewBinding
+import com.example.leaveit.presentation.placeview.place.navigateplaceview.NavigatePlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +43,10 @@ class DetailPlaceView : Fragment() {
         Log.d(TAG, rootViewModel.placeContentId.value.toString())
 
         viewModel.getDetailPlaceData(placeContentId)
+        rootViewModel.setIsMoveDetailView(false)
+        observeContent()
         infoEventListener()
+        moveToNavigatePlaceEventListener()
 
         observeDetailPlaceData()
 
@@ -83,6 +88,24 @@ class DetailPlaceView : Fragment() {
         }
     }
 
+    private fun moveToNavigatePlaceEventListener(){
+        binding.itemBtn1.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(
+                    R.id.selectregion_fragment_container,
+                    NavigatePlaceView()
+                )
+                .commit()
+        }
+    }
+
     private fun translatePlayTimeString(value: List<String>): String {
         var result = ""
         if (value.size == 1) {
@@ -94,6 +117,20 @@ class DetailPlaceView : Fragment() {
             result = ""
         }
         return result
+    }
+
+    private fun observeContent(){
+
+
+        rootViewModel.imageUrl.observe(viewLifecycleOwner){
+            Glide.with(this)
+                .load(it)
+                .override(binding.imageLayer.width, binding.imageLayer.height)
+                .into(binding.placeImage)
+        }
+        rootViewModel.topTapContent.observe(viewLifecycleOwner){
+            binding.placeTitleText.text = it
+        }
     }
 
 

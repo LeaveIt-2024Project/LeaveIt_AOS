@@ -31,7 +31,9 @@ android {
 
         buildConfigField("String", "TOUR_API_KEY", properties.getProperty("TOUR_API_KEY"))
         buildConfigField("String","TEST_TOKEN",properties.getProperty("TEST_TOKEN"))
-        manifestPlaceholders["MAP_API_KEY"] = properties["MAP_API_KEY"] as Any
+        buildConfigField("String","MAP_API_KEY_ID",properties.getProperty("MAP_API_KEY_ID"))
+        buildConfigField("String","MAP_API_KEY",properties.getProperty("MAP_API_KEY"))
+        manifestPlaceholders["MAP_API_KEY"] = properties["MAP_API_KEY_ID_MANIFEST"] as Any
 
 
     }
@@ -119,7 +121,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
-
-
+    //GogleLocation
+    implementation("com.google.android.gms:play-services:12.0.1")
 
 }

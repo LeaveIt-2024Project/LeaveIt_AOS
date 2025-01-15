@@ -2,6 +2,7 @@ package com.example.leaveit.presentation.placeview.place.selectregionview
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -33,7 +34,7 @@ class SelectRegionView : AppCompatActivity() {
 
 
         Log.d(TAG,"TEST : ${BuildConfig.TOUR_API_KEY}")
-        
+
         binding.topTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -41,7 +42,8 @@ class SelectRegionView : AppCompatActivity() {
                 var select: Fragment? = null
 
                 when(position){ // 포지션 별 분기
-                    0 -> {select = SortRegionFragment()
+                    0 -> {
+                        select = SortRegionFragment()
                     }
                     1 -> {select = SortPopularityFragment()
                     }
@@ -64,6 +66,30 @@ class SelectRegionView : AppCompatActivity() {
             }
         })
     }
+
+    override fun onStart() {
+        super.onStart()
+        observeIsMoveDetailFragment()
+        observeTopTapContent()
+    }
+
+
+    private fun observeIsMoveDetailFragment(){
+        viewModel.isMoveDetailView.observe(this){
+            if(it != true){
+                binding.topTabLayout.visibility = View.GONE
+            }else{
+                binding.topTabLayout.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun observeTopTapContent(){
+        viewModel.topTapContent.observe(this){
+            binding.topAppBar.title = it
+        }
+    }
+
     companion object{
        val TAG = "SelectRegionView"
     }

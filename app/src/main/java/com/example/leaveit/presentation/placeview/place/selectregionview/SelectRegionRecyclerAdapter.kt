@@ -10,7 +10,7 @@ import com.example.leaveit.databinding.ItemSortRecyclerviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
 class SelectRegionRecyclerAdapter(
-    private val moveToPlace : (data : String) -> Unit
+    private val moveToPlace : (SelectRegionModel) -> Unit
 ) : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
     diffUtil
 ) {
@@ -49,7 +49,7 @@ class SelectRegionRecyclerAdapter(
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                moveToPlace(model.contentId) // 클릭 시 호출자(View)에 아이템의 contentId 전달
+                moveToPlace(model) // 클릭 시 호출자(View)에 아이템의 contentId 전달
             }
         }
     }

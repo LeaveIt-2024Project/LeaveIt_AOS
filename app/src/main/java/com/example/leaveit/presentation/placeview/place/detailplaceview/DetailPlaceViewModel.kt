@@ -20,7 +20,6 @@ class DetailPlaceViewModel @Inject constructor(
     private val _detailPlaceData: MutableLiveData<DetailPlaceDomainModel> by lazy { MutableLiveData() }
     val detailPlaceData: LiveData<DetailPlaceDomainModel> = _detailPlaceData
 
-
     fun getDetailPlaceData(value: String) {
         viewModelScope.launch {
             getDetailFeedData.getDetailPlaceData(value).collect { state ->

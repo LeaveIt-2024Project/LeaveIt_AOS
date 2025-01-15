@@ -27,8 +27,15 @@ class ShowPlaceViewModel : ViewModel() {
     fun testGetValue(){
 
         val initdata = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "2733967" ,
+                title =  "가회동 성당",
+                contentTypeId = "1",
+                areaCode = 2,
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            )
         )
 
         _tourAttractionData.apply {

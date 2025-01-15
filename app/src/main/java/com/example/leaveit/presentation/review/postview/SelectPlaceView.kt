@@ -41,7 +41,6 @@ class SelectPlaceView : AppCompatActivity() {
             binding.topAppBar.title = it
             Log.d(TAG, it)
         }
-
     }
 
 
