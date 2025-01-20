@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortpopularityBinding
+import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SortPopularityFragment : Fragment() {
     private lateinit var binding : FragmentSortpopularityBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
-    private val viewModel : SelectRegionViewModel by viewModels()
+    private val viewModel : SelectRegionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +33,12 @@ class SortPopularityFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.setIsMoveDetailView(true)
+        viewModel.setTopTapContent("카테고리를 선택하세요")
+    }
+
     private fun initAdapter(){
 
         //리사이클러뷰에 레이아웃매니저 설정
@@ -38,10 +46,41 @@ class SortPopularityFragment : Fragment() {
             LinearLayoutManager.VERTICAL, false)
 
         val testInitdata1 = listOf(
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1", areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-            SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+            SelectRegionModel(contentId = "2733967" ,
+                title =  "가회동성당",
+                contentTypeId = "12",
+                areaCode = 1,
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+                )
         )
-        adapter = SelectRegionRecyclerAdapter()
+
+        adapter = SelectRegionRecyclerAdapter(moveToPlace = {
+            Log.d(TAG,"contentId : $it")
+            viewModel.setContentId(it.contentId)
+            viewModel.setTopTapContent(it.title)
+            viewModel.setMapX(it.mapx)
+            viewModel.setMapY(it.mapy)
+            viewModel.setPlaceLocation(it.mapy,it.mapx)
+            viewModel.setPlaceImage(it.image)
+            viewModel.setAddressInfo(it.address)
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(
+                    R.id.selectregion_fragment_container,
+                    DetailPlaceView()
+                )
+                .commit()
+        })
         adapter.submitList(testInitdata1)
         binding.sortRecyclerView.adapter = adapter
     }
@@ -49,8 +88,15 @@ class SortPopularityFragment : Fragment() {
     private fun handleTabLayout(){
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             val testInitdata1 = listOf(
-                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
-                SelectRegionModel(contentId = "1" , title =  "서울 타워", contentTypeId = "1",areaCode = 2,image = "http://tong.visitkorea.or.kr/cms/resource/71/2777971_image2_1.jpg"),
+                SelectRegionModel(contentId = "2733967" ,
+                    title =  "가회동 성당",
+                    contentTypeId = "12",
+                    areaCode = 2,
+                    image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                    mapx = "126.9846616856",
+                    mapy = "37.5820858828",
+                    address = "서울특별시 종로구 북촌로 57 (가회동)"
+                    )
             )
 
             override fun onTabSelected(tab: TabLayout.Tab?) {

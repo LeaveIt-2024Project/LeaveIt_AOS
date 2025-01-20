@@ -7,19 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ShowPlaceView : Fragment(){
-    private lateinit var binding : FragmentShowplaceviewBinding
+class ShowPlaceView : Fragment() {
+    private lateinit var binding: FragmentShowplaceviewBinding
     private lateinit var tourAdapter: ShowPlaceViewRecyclerViewAdapter
-    private lateinit var cultureAdapter : ShowPlaceViewRecyclerViewAdapter
-    private lateinit var festivalAdapter : ShowPlaceViewRecyclerViewAdapter
-    private val viewModel: ShowPlaceViewModel by viewModels()
+    private lateinit var cultureAdapter: ShowPlaceViewRecyclerViewAdapter
+    private lateinit var festivalAdapter: ShowPlaceViewRecyclerViewAdapter
+    private val viewModel: ShowPlaceViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +28,7 @@ class ShowPlaceView : Fragment(){
     ): View? {
         binding = FragmentShowplaceviewBinding.inflate(getLayoutInflater())
         initAdapter()
+        setTopAppBarText("관광지를 선택해주세요")
 
 
         return binding.root
@@ -40,23 +41,26 @@ class ShowPlaceView : Fragment(){
 
     }
 
-    private fun initAdapter(){
-        binding.tourAttraction.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        binding.culture.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        binding.festival.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+    private fun initAdapter() {
+        binding.tourAttraction.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.culture.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.festival.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        tourAdapter = ShowPlaceViewRecyclerViewAdapter{contentId ->
+        tourAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
             // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(),contentId)
+            moveToSelectRegionView(requireContext(), contentId)
 
         }
-        festivalAdapter = ShowPlaceViewRecyclerViewAdapter{contentId ->
+        festivalAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
             // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(),contentId)
+            moveToSelectRegionView(requireContext(), contentId)
         }
-        cultureAdapter = ShowPlaceViewRecyclerViewAdapter{contentId ->
+        cultureAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
             // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(),contentId)
+            moveToSelectRegionView(requireContext(), contentId)
         }
 
 
@@ -65,28 +69,33 @@ class ShowPlaceView : Fragment(){
         binding.festival.adapter = festivalAdapter
     }
 
-    private fun observeData(){
+    private fun observeData() {
         viewModel.testGetValue() // 테스트 API 호출
 
 
         // 옵저버 패턴으로 데이터 변경 감지 후 각 어댑터에 데이터 넣기
-        viewModel.tourAttractionData.observe(this){
+        viewModel.tourAttractionData.observe(this) {
             tourAdapter.submitList(it)
         }
 
-        viewModel.cultureData.observe(this){
+        viewModel.cultureData.observe(this) {
             cultureAdapter.submitList(it)
         }
 
-        viewModel.festivalData.observe(this){
+        viewModel.festivalData.observe(this) {
             festivalAdapter.submitList(it)
         }
     }
 
-    private fun moveToSelectRegionView(context : Context,contentId : String){
+    private fun moveToSelectRegionView(context: Context, contentId: String) {
         val downloadIntent = Intent(context, SelectRegionView::class.java).apply {
-            this.putExtra("data",contentId)
+            this.putExtra("data", contentId)
         }
         startActivity(downloadIntent)
     }
+
+    private fun setTopAppBarText(text: String) {
+        viewModel.setTopAppBarTitleText(text)
+    }
+
 }

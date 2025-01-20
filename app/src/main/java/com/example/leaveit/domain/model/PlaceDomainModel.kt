@@ -32,7 +32,10 @@ data class PlaceDomainListModel(
                 contentTypeId = entity.contenttypeid,
                 title = entity.title,
                 image= entity.image,
-                areaCode = entity.areacode
+                areaCode = entity.areacode,
+                mapy = "123",
+                mapx = "144",
+                address = entity.addr
             )
         }
 

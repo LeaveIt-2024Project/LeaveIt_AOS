@@ -3,7 +3,11 @@ package com.example.leaveit.di
 import android.content.Context
 import androidx.room.Room
 import com.example.leaveit.local.AppDatabase
+import com.example.leaveit.remote.api.NavigateApiService
 import com.example.leaveit.remote.api.RetrofitService
+import com.example.leaveit.remote.api.TourApiRetrofitService
+import com.example.leaveit.remote.api.navigate.NavigateAPI
+import com.example.leaveit.remote.api.review.DetailPlaceApi
 import com.example.leaveit.remote.api.review.ReviewApi
 import dagger.Module
 import dagger.Provides
@@ -26,6 +30,28 @@ object DBModule {
         return RetrofitService.retrofit.create(ReviewApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideTourApiRetrofitService() : TourApiRetrofitService{
+        return TourApiRetrofitService
+    }
+
+    @Provides
+    fun provideDetailPlaceApiService() : DetailPlaceApi{
+        return TourApiRetrofitService.retrofit.create(DetailPlaceApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNavigateRetrofitService() : NavigateApiService {
+        return NavigateApiService
+    }
+
+    @Provides
+    @Singleton
+    fun provideNavigateApiService() : NavigateAPI{
+        return NavigateApiService.retrofit.create(NavigateAPI::class.java)
+    }
 
     @Provides
     @Singleton

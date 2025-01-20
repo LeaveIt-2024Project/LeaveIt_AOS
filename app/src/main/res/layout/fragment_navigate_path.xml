@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navigate_topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/navigateMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.15">
+
+        <LinearLayout
+            android:id="@+id/naviage_my_location_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/naviage_layout_style"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/naviage_my_location_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/material_symbols_man" />
+
+            <TextView
+                android:id="@+id/currentAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="내 위치"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/naviage_my_location_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/naviage_layout_style"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/naviage_my_location_top"
+            app:layout_constraintVertical_weight="0.5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/line_md_map_marker_filled" />
+
+            <TextView
+                android:id="@+id/placeAddressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="경복궁"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.naver.maps.map.MapView
+        android:id="@+id/navigateMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/naviagte_bottomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigate_topLayout"
+        app:layout_constraintVertical_weight="0.75" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/naviagte_bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigateMap"
+        app:layout_constraintVertical_weight="0.1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/navigate_cardViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/navigate_car_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/navigate_car_icon"
+                app:layout_constraintBottom_toTopOf="@id/navigate_arrive_layout"
+                app:layout_constraintEnd_toStartOf="@id/navigate_marker_icon"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="0.5" />
+
+            <ImageView
+                android:id="@+id/navigate_marker_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/map_picker"
+                app:layout_constraintBottom_toTopOf="@id/navigate_distance_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toEndOf="@id/navigate_car_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="0.5" />
+
+            <LinearLayout
+                android:id="@+id/navigate_arrive_layout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/navigate_distance_layout"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/navigate_car_icon"
+                app:layout_constraintVertical_weight="0.5">
+                <TextView
+                    android:layout_weight="0.5"
+                    android:gravity="center|bottom"
+                    android:text="도착 예정 시간"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/goalTimeText"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:text="10시 30분"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/navigate_distance_layout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.5"
+                app:layout_constraintStart_toEndOf="@id/navigate_arrive_layout"
+                app:layout_constraintTop_toBottomOf="@id/navigate_marker_icon"
+                app:layout_constraintVertical_weight="0.5">
+                <TextView
+                    android:layout_weight="0.5"
+                    android:gravity="center|bottom"
+                    android:text="거리"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/placeDistanceText"
+                    android:layout_weight="0.5"
+                    android:gravity="center|top"
+                    android:text="142km"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

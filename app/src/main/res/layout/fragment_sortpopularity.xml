@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/white">
 
     <com.google.android.material.tabs.TabLayout
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/TabLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/searchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.05"
         app:tabIndicatorColor="#31511E"
         app:tabSelectedTextColor="#31511E"
-        app:tabTextAppearance="@style/CustomBottomTabTextAppearance">>
+        app:tabTextAppearance="@style/CustomBottomTabTextAppearance">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리뷰순" />
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="피드순" />
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:backgroundTint="#F6FCDF"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toTopOf="@id/sortRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/TabLayout"
+        app:layout_constraintVertical_weight="0.07"
+        app:queryHint="검색어를 입력하세요" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sortRecyclerView"
-        app:layout_constraintTop_toBottomOf="@id/TabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        app:layout_constraintVertical_weight="0.88" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
