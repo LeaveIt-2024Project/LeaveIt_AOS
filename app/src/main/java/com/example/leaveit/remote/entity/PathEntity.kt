@@ -36,7 +36,8 @@ data class pathTraoptimal(
         return PathDataModel(
             distance = this.summary.distance,
             departureTime = this.summary.departureTime,
-            path = convertedPaths
+            path = convertedPaths,
+            duration = this.summary.duration
         )
     }
 }

@@ -65,6 +65,7 @@ class SortRegionFragment : Fragment() {
             viewModel.setTopTapContent(it.title)
             viewModel.setMapX(it.mapx)
             viewModel.setMapY(it.mapy)
+            viewModel.setPlaceLocation(it.mapy,it.mapx)
             viewModel.setPlaceImage(it.image)
             viewModel.setAddressInfo(it.address)
 

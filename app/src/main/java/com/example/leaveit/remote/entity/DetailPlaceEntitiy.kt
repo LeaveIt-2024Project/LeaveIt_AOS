@@ -40,6 +40,7 @@ data class DetailPlaceEntitiy(
     @SerializedName("usetime") val usetime: String?,
 ) : DetailPlaceResponseMapper {
     override fun toDataSourceModel(): DetailPlaceDataResourceDataModel {
+
         return DetailPlaceDataResourceDataModel(
             contentId = contentId,
             contenttypeid = contenttypeid,

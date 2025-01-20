@@ -12,4 +12,8 @@ class PathDataResourceImpl @Inject constructor(
         val result = service.getPath(start,goal).route.pathTraoptimal[0].toDataModel()
         return result
     }
+
+    companion object{
+        const val TAG = "PathDataResourceImpl"
+    }
 }

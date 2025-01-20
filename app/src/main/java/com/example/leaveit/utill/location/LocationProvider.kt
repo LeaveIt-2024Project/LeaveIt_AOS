@@ -16,7 +16,7 @@ object LocationProvider {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    fun getCurrentLocation(context: Context, onLocationRetrieved: (Location?) -> Unit) {
+    fun getCurrentLocation(context: Context, onLocationRetrieved: (Location) -> Unit) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
         val fineLocationStatus = ContextCompat.checkSelfPermission(
@@ -35,11 +35,9 @@ object LocationProvider {
                 onLocationRetrieved(location)
             }.addOnFailureListener {
                 Log.d("LocationProvider", "Failed to get location: ${it.message}")
-                onLocationRetrieved(null)
             }
         } else {
             Log.d("LocationProvider", "권한 없음")
-            onLocationRetrieved(null)
         }
     }
 }

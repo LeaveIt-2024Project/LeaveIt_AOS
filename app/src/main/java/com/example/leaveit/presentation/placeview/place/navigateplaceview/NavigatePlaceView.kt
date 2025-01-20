@@ -22,13 +22,30 @@ import com.example.leaveit.databinding.FragmentNavigatePathBinding
 import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 import com.example.leaveit.utill.location.LocationProvider
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.overlay.PathOverlay
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NavigatePlaceView : Fragment() {
+class NavigatePlaceView : Fragment(), OnMapReadyCallback {
     lateinit var binding: FragmentNavigatePathBinding
     private val rootViewModel: SelectRegionViewModel by activityViewModels()
-    private val viewModel : NavigatePlaceViewModel by viewModels()
+    private val viewModel: NavigatePlaceViewModel by viewModels()
+
+    /*
+    * 사용자 현위치 : checkPermission() -> viewModel에 LatLng형으로 위경도 저장
+    * 좌표기반 주소 출력 : viewModel.getCurrentLocation()
+    * 관광지 위치 : rootViewModel.mapx, mapy
+    * 관광지, 현위치 간 경로 : viewModel.getPath()
+    * 경로 표시 : OnMapReadyCallBack -> onViewCreated()에서 호출하는 getMapSync()호출 시 호출되는 콜백 함수
+    * 프로세스
+    * cheackPermission() -> sumDataForPiccker() -> getPath() -> onMapReady()
+    * */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,14 +54,20 @@ class NavigatePlaceView : Fragment() {
     ): View? {
         binding = FragmentNavigatePathBinding.inflate(layoutInflater)
 
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkPermission()
+        //checkPermission()
+
+        initData()
+
         observeCurrentLocationAddress()
         observeNavigateStatus()
+        binding.navigateMap.onCreate(savedInstanceState)
+        binding.navigateMap.getMapAsync(this) // naverMap 객체 가져오기
     }
 
     private fun checkPermission() {
@@ -59,15 +82,33 @@ class NavigatePlaceView : Fragment() {
         if ((fineLocationStatus == PackageManager.PERMISSION_GRANTED) || (coarseLocationStatus == PackageManager.PERMISSION_GRANTED)) {
             //TODO 권한이 부여되어 있을 때
             Log.d(TAG, "권한 부여되어있음")
-            LocationProvider.getCurrentLocation(requireContext()){
-                val str = "${it?.longitude},${it?.latitude}"
-                Log.d(TAG,str)
+            LocationProvider.getCurrentLocation(requireContext()) {// 사용자 현위치
+                val str = "127.1035862,37.160708"
+//                   실제 데이터  "${it?.longitude},${it?.latitude}"
+                Log.d(TAG, "실제 데이터 ${str}")
 
-                viewModel.setLatitude("37.160708")
-                viewModel.setLonggitutde("127.1035862")
-                sumDataForPicker()
+                viewModel.setAllLocationData(
+                    currentLat = 37.160708,
+                    currentLong = 127.1035862,
+                    placeLat = rootViewModel.mapy.value!!.toDouble(),
+                    placeLong = rootViewModel.mapx.value!!.toDouble()
+                )
 
-                viewModel.getCurrentLocationAddress("127.1035862,37.160708")
+                // 실제 데이터:
+                val userLocationLat = 37.160708
+                val userLocationLong = 127.1035862
+
+                viewModel.setCurrentLocation(
+                    lat = "37.160708".toDouble(),
+                    lng = "127.1035862".toDouble()
+                )
+                    viewModel.setCenterLocation(
+                        LatLng(userLocationLat,userLocationLong),
+                        LatLng(rootViewModel.mapy.value!!.toDouble(),rootViewModel.mapx.value!!.toDouble())
+                    )
+
+                //"127.1035862,37.160708"
+                viewModel.getCurrentLocationAddress("127.1035862,37.160708") // 현 위치 받아오는 메서드
             }
         } else {
             //TODO 권한이 부여되어 있지 않을 때
@@ -129,7 +170,7 @@ class NavigatePlaceView : Fragment() {
         }
     }
 
-    private fun goToBackFragment(){
+    private fun goToBackFragment() {
         parentFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.fade_in_review_splash,
@@ -145,43 +186,86 @@ class NavigatePlaceView : Fragment() {
             .commit()
     }
 
-    private fun observeCurrentLocationAddress(){
-        viewModel.currentAddress.observe(viewLifecycleOwner){
+    private fun observeCurrentLocationAddress() {
+        viewModel.currentAddress.observe(viewLifecycleOwner) {
             binding.currentAddress.text = it
         }
-        rootViewModel.addressInfo.observe(viewLifecycleOwner){
+        rootViewModel.addressInfo.observe(viewLifecycleOwner) {
             binding.placeAddressText.text = it
         }
     }
 
-    private fun sumDataForPicker(){
+    private fun sumDataForPicker() { // 관광지, 사용자 위치 합치기
 
-        val test = NavigateDataClass(
-            myLocationX = viewModel.currentLongitude.value.toString(),
-            myLocationY = viewModel.currentLatitude.value.toString(),
-            placeLocationX = rootViewModel.mapx.value.toString(),
-            placeLocationY = rootViewModel.mapy.value.toString(),
-            arriveTime = "123",
-            distance = "123"
-        )
-
-        val start = "${viewModel.currentLongitude.value.toString()}," +
-                viewModel.currentLatitude.value.toString()
+//        126.9289688,37.3798552
+        val latitude = viewModel.currentLocation.value?.latitude
+        val longtitude = viewModel.currentLocation.value?.longitude
+        val start = "${longtitude.toString()}," +
+                latitude.toString()
 
         val goal = "${rootViewModel.mapx.value.toString()}," +
                 rootViewModel.mapy.value.toString()
 
-        Log.d(TAG,"현위치 : $start")
-        Log.d(TAG,"관광지 : $goal")
 
-        viewModel.getPath(start,goal)
+        viewModel.getPath(start, goal) // 합친 데이터를 기반으로 경로 가져오기
 
     }
 
-    private fun observeNavigateStatus(){
-        viewModel.pathData.observe(viewLifecycleOwner){
+    private fun observeNavigateStatus() { // 가져온 경로 정보들
+        viewModel.pathData.observe(viewLifecycleOwner) {
             binding.placeDistanceText.text = "${it.distance}km"
             binding.goalTimeText.text = it.departureTime
+        }
+    }
+
+    override fun onMapReady(naverMap: NaverMap) {
+        val path = PathOverlay()
+        val startMarker = Marker()
+        val goalMarker = Marker()
+        setUtillFunctionMap(naverMap)
+
+
+        viewModel.currentLocation.observe(viewLifecycleOwner) {
+            startMarker.position = it
+            startMarker.map = naverMap
+        }
+
+        rootViewModel.placeLocation.observe(viewLifecycleOwner) {
+            goalMarker.position = it
+            Log.d(TAG, "goalMarker : ${it.latitude}${it.longitude}")
+            goalMarker.map = naverMap
+        }
+
+        viewModel.pathData.observe(viewLifecycleOwner) {
+            val data = it.path.map {
+                LatLng(it.latitude.toDouble(), it.longitutde.toDouble())
+            }
+            path.coords = data
+            path.patternImage = OverlayImage.fromResource(R.drawable.baseline_arrow_drop_up_24)
+            path.patternInterval = 10
+            path.map = naverMap
+        }
+    }
+
+    // 지도 설정 함수
+    private fun setUtillFunctionMap(map: NaverMap) {
+
+      viewModel.locationDataForMap.observe(viewLifecycleOwner){(center,zoomLevel) ->
+          val cameraUpdate = CameraUpdate.scrollAndZoomTo(center, zoomLevel)
+          Log.d(TAG,"실제 줌 거리 : $zoomLevel")
+          map.moveCamera(cameraUpdate)
+          map.uiSettings.isRotateGesturesEnabled = false // 회전 비활성화
+          map.uiSettings.isTiltGesturesEnabled = false   // 기울이기 비활성화
+      }
+    }
+
+    private fun initData() {
+        checkPermission()
+        viewModel.currentLocation.observe(viewLifecycleOwner) { location ->
+            val currentLocation = viewModel.currentLocation.value
+            if (location != null && currentLocation != null) {
+                sumDataForPicker()
+            }
         }
     }
 

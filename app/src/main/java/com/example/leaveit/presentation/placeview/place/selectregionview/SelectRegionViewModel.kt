@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCase
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
+import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -27,6 +28,9 @@ class SelectRegionViewModel @Inject constructor(
 
     private val _mapy : MutableLiveData<String> by lazy { MutableLiveData() }
     val mapy : LiveData<String> = _mapy
+
+    private val _placeLocation : MutableLiveData<LatLng> by lazy { MutableLiveData() }
+    val placeLocation : LiveData<LatLng> = _placeLocation
 
     private val _imageUrl : MutableLiveData<String> by lazy { MutableLiveData() }
     val imageUrl : LiveData<String> = _imageUrl
@@ -70,6 +74,10 @@ class SelectRegionViewModel @Inject constructor(
 
     fun setAddressInfo(value : String){
         _addressInfo.value = value
+    }
+
+    fun setPlaceLocation(lat : String, long : String){
+        _placeLocation.value = LatLng(lat.toDouble(),long.toDouble())
     }
 
 
