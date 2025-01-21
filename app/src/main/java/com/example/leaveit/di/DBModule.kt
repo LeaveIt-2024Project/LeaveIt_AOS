@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.leaveit.local.AppDatabase
 import com.example.leaveit.remote.api.NavigateApiService
+import com.example.leaveit.remote.api.Restraunt.RestrauntAPI
 import com.example.leaveit.remote.api.RetrofitService
 import com.example.leaveit.remote.api.TourApiRetrofitService
 import com.example.leaveit.remote.api.navigate.NavigateAPI
@@ -51,6 +52,12 @@ object DBModule {
     @Singleton
     fun provideNavigateApiService() : NavigateAPI{
         return NavigateApiService.retrofit.create(NavigateAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRestrauntApiService() : RestrauntAPI{
+        return TourApiRetrofitService.retrofit.create(RestrauntAPI::class.java)
     }
 
     @Provides

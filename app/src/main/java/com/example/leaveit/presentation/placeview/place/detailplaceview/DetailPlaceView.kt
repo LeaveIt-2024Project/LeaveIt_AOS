@@ -16,6 +16,7 @@ import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentDetailplaceviewBinding
 import com.example.leaveit.presentation.placeview.place.navigateplaceview.NavigatePlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
+import com.example.leaveit.presentation.placeview.restraunt.RestrauntView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,6 +48,7 @@ class DetailPlaceView : Fragment() {
         observeContent()
         infoEventListener()
         moveToNavigatePlaceEventListener()
+        moveToRestrauntViewEventListener()
 
         observeDetailPlaceData()
 
@@ -101,6 +103,24 @@ class DetailPlaceView : Fragment() {
                 .replace(
                     R.id.selectregion_fragment_container,
                     NavigatePlaceView()
+                )
+                .commit()
+        }
+    }
+
+    private fun moveToRestrauntViewEventListener(){
+        binding.itemBtn2.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash,
+                    R.anim.fade_in_review_splash,
+                    R.anim.fade_out_review_splash
+                )
+                .replace(
+                    R.id.selectregion_fragment_container,
+                    RestrauntView()
                 )
                 .commit()
         }

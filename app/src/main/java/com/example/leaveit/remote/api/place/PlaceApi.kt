@@ -26,7 +26,7 @@ interface PlaceApi {
         @Query("MobileApp") mobileApp : String = "AppTest",
         @Query("serviceKey") serviceKey : String,
         @Query("contentTypeId") contentTypedId : String,
-        @Query("numOfRows") numOfRows : String = "13112",
+        @Query("numOfRows") numOfRows : String = "50",
         @Query("areaCode") areaCode : String?,
         @Query("_type") type : String = "json"
     ) : firstResponse
