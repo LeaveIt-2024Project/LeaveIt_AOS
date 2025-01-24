@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.model.RestrantListDomainModel
+import com.example.leaveit.domain.model.RestrauntDomainModel
 import com.example.leaveit.domain.usecase.restraunt.RestrauntUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,6 +20,9 @@ class RestrauntViewModel @Inject constructor(
 
     private val _restrauntList : MutableLiveData<RestrantListDomainModel> by lazy { MutableLiveData() }
     val restrauntList : LiveData<RestrantListDomainModel> = _restrauntList
+
+    private val _selectRestrauntData : MutableLiveData<RestrauntDomainModel> by lazy { MutableLiveData() }
+    val selectRestrauntData : LiveData<RestrauntDomainModel> = _selectRestrauntData
 
 
 
@@ -34,6 +38,10 @@ class RestrauntViewModel @Inject constructor(
                 }
            }
        }
+    }
+
+    fun setRestrauntData(value : RestrauntDomainModel ){
+        _selectRestrauntData.value = value
     }
 
     companion object{
