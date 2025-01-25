@@ -60,7 +60,6 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //checkPermission()
 
         initData()
 
@@ -102,10 +101,13 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
                     lat = "37.160708".toDouble(),
                     lng = "127.1035862".toDouble()
                 )
-                    viewModel.setCenterLocation(
-                        LatLng(userLocationLat,userLocationLong),
-                        LatLng(rootViewModel.mapy.value!!.toDouble(),rootViewModel.mapx.value!!.toDouble())
+                viewModel.setCenterLocation(
+                    LatLng(userLocationLat, userLocationLong),
+                    LatLng(
+                        rootViewModel.mapy.value!!.toDouble(),
+                        rootViewModel.mapx.value!!.toDouble()
                     )
+                )
 
                 //"127.1035862,37.160708"
                 viewModel.getCurrentLocationAddress("127.1035862,37.160708") // 현 위치 받아오는 메서드
@@ -250,13 +252,13 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
     // 지도 설정 함수
     private fun setUtillFunctionMap(map: NaverMap) {
 
-      viewModel.locationDataForMap.observe(viewLifecycleOwner){(center,zoomLevel) ->
-          val cameraUpdate = CameraUpdate.scrollAndZoomTo(center, zoomLevel)
-          Log.d(TAG,"실제 줌 거리 : $zoomLevel")
-          map.moveCamera(cameraUpdate)
-          map.uiSettings.isRotateGesturesEnabled = false // 회전 비활성화
-          map.uiSettings.isTiltGesturesEnabled = false   // 기울이기 비활성화
-      }
+        viewModel.locationDataForMap.observe(viewLifecycleOwner) { (center, zoomLevel) ->
+            val cameraUpdate = CameraUpdate.scrollAndZoomTo(center, zoomLevel)
+            Log.d(TAG, "실제 줌 거리 : $zoomLevel")
+            map.moveCamera(cameraUpdate)
+            map.uiSettings.isRotateGesturesEnabled = false // 회전 비활성화
+            map.uiSettings.isTiltGesturesEnabled = false   // 기울이기 비활성화
+        }
     }
 
     private fun initData() {
