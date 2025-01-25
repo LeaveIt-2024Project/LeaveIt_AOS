@@ -14,7 +14,8 @@ data class RestrauntDataListModel(
                 longitutde = it.longitutde,
                 langtitude = it.langtitude,
                 image = it.image ?: "",
-                contentid = it.contentid
+                contentid = it.contentid,
+                addr = it.addr
             )
         }
 
@@ -27,6 +28,7 @@ data class RestrauntDataListModel(
 data class RestrauntDataModel(
     val title : String,
     val contentid : String,
+    val addr : String,
     val image : String?,
     val longitutde : String,
     val langtitude : String

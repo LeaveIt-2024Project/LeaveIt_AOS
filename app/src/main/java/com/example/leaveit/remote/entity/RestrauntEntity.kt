@@ -36,7 +36,8 @@ data class RestrauntItems(
                 image = it.firstimage ?: "empty",
                 longitutde = it.mapx,
                 langtitude = it.mapy,
-                title = it.title
+                title = it.title,
+                addr = it.addr1
             )
         }
         return RestrauntDataListModel(
@@ -46,7 +47,7 @@ data class RestrauntItems(
 }
 
 data class RestrauntItem(
-    @SerializedName("addr1") val addr1: String?,
+    @SerializedName("addr1") val addr1: String,
     @SerializedName("addr2") val addr2: String?,
     @SerializedName("areacode") val areacode: String?,
     @SerializedName("booktour") val booktour: String?,

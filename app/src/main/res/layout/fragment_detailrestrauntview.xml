@@ -90,7 +90,7 @@
             android:outlineAmbientShadowColor="@color/black"
             android:outlineSpotShadowColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/infoTextLayer"
-            app:layout_constraintDimensionRatio="24:5"
+            app:layout_constraintDimensionRatio="16:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/placeInfoLayer"
@@ -127,12 +127,11 @@
                     app:layout_constraintTop_toBottomOf="@id/parkingImage"
                     app:layout_constraintVertical_weight="0.5" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <ImageView
                     android:id="@+id/infoImage"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
-                    android:src="@drawable/info_24dp_31511e_fill0_wght400_grad0_opsz24"
+                    android:src="@drawable/info_icon"
                     app:layout_constraintBottom_toTopOf="@id/infoText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="0.1"

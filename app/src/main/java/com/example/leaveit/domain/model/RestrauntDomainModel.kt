@@ -7,6 +7,7 @@ data class RestrantListDomainModel(
 data class RestrauntDomainModel(
     val title : String,
     val contentid : String,
+    val addr : String,
     val image : String?,
     val longitutde : String,
     val langtitude : String

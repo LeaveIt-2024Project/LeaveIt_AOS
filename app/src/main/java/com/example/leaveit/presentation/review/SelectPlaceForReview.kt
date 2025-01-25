@@ -86,7 +86,6 @@ class SelectPlaceForReview : Fragment(), OnMapReadyCallback {
         // 위경도 리스트와 NaverMap 객체를 마커 표시
             createMarker(locations, map)
 
-
     }
 
     // 지도 설정 함수
