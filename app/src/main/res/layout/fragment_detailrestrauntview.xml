@@ -50,11 +50,11 @@
             android:background="@color/white"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/functionInfoLayer"
-            app:layout_constraintDimensionRatio="24:8"
+            app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageLayer"
-            app:layout_constraintVertical_weight="0.02">
+            app:layout_constraintVertical_weight="0.1">
 
             <TextView
                 android:id="@+id/addressInfo"
@@ -64,22 +64,60 @@
                 android:text="서울 종로구 사직로 161 경복궁"
                 android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/playTimeInfo"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="0.3"
-                android:text="운영시간  10:00 ~ 20:00"
-                android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/restDayInfo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.3"
-                android:text="쉬는날  매주 화요일"
-                android:textSize="24dp" />
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/playTimeInfo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="운영시간"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/playTimeInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.9"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textSize="18dp"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/restDayInfo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="쉬는날"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/restDayInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.9"
+                    android:textSize="18dp"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -176,18 +214,23 @@
             android:layout_height="0dp"
             android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@id/introText"
-            app:layout_constraintDimensionRatio="36:4"
+            app:layout_constraintDimensionRatio="36:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/infoTextLayer"
             app:layout_constraintVertical_weight="0.1">
+
             <TextView
                 android:id="@+id/representativeMenuText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:gravity="center|start"
                 android:text="삼겹살"
-                android:textSize="16dp" />
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -209,16 +252,17 @@
         <TextView
             android:id="@+id/mainIntroText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/white"
+            android:gravity="center|start"
             android:text="가나다라마바사"
-            android:textSize="16dp"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="36:4"
+            app:layout_constraintDimensionRatio="36:3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/introText"
-            app:layout_constraintVertical_weight="0.3" />
+            app:layout_constraintVertical_weight="0.1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -51,10 +51,6 @@ data class DetailPlaceDataResourceDataModel(
             result.add(value)
         }
 
-        if(isEmptyOrNull(value)){
-            val temp = value.split("/")
-
-        }
 
         return result
     }

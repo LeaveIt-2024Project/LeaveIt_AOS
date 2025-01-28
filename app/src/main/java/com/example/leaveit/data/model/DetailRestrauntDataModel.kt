@@ -17,8 +17,8 @@ data class DetailRestrauntDataModel(
             treatmenu = this.treatmenu,
             parkingfood = this.parkingfood,
             infocenterfood = this.infocenterfood,
-            opentimefood = this.opentimefood,
-            restdatefood = this.restdatefood
+            opentimefood = this.opentimefood.replace("<br>","").replace("/","\n").replace(" ","").replace("-",""),
+            restdatefood = this.restdatefood.replace("<br>","").replace("/","\n").replace(" ","").replace("-","")
         )
     }
 }
