@@ -54,6 +54,8 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
         // 관광지 좌표 기반 근처 음식점 데이터 불러오기
         viewModel.getRestrauntList(mapx, mapy)
 
+
+
         binding.naverMap.onCreate(savedInstanceState)
         binding.naverMap.getMapAsync(this) // naverMap 객체 가져오기
 
@@ -90,6 +92,7 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
                 }).leafMarkerUpdater(object : DefaultLeafMarkerUpdater() {
                     override fun updateLeafMarker(info: LeafMarkerInfo, marker: Marker) {
                         super.updateLeafMarker(info, marker)
+
 
                         val selectedRestrauntData =
                             info.tag as RestrauntDomainModel // 마커 데이터 접근을 위한 형변환

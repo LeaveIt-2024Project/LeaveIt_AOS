@@ -12,4 +12,8 @@ class PlaceViewDataSourceImpl @Inject constructor() : PlaceViewDataSourceInterfa
         val TAG = "PlaceViewDataSourceImpl"
     }
 
+    override suspend fun getPlaceData() {
+        TODO("Not yet implemented")
+    }
+
 }

@@ -70,7 +70,7 @@ class ShowPlaceView : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.testGetValue() // 테스트 API 호출
+        viewModel.categoryData() // 테스트 API 호출
 
 
         // 옵저버 패턴으로 데이터 변경 감지 후 각 어댑터에 데이터 넣기

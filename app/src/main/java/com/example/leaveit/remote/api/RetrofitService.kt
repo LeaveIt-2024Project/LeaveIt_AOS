@@ -8,8 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitService{
-    //"http://apis.data.go.kr/B551011/KorService1/"
-    private const val BASE_URL  = "http://10.0.2.2:8080/" // 에뮬레이터의 localhost는 10.0.2.2
+    private const val BASE_URL  = "https://travel.zkrp.site/"
     var gson = GsonBuilder().setLenient().create()
 
 

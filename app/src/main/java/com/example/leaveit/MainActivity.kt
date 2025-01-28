@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
-
     private fun changeTopAppText() {
         viewModel.topAppBarText.observe(this) {
             binding.topAppBar.title = it
