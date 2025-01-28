@@ -24,19 +24,19 @@
             app:layout_constraintVertical_weight="0.5">
 
             <ImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/placeImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/star_icon" />
 
             <TextView
                 android:id="@+id/placeTitleText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
                 android:layout_marginStart="16dp"
+                android:gravity="bottom"
                 android:text="경복궁"
                 android:textColor="@color/white"
                 android:textSize="24dp" />
@@ -64,14 +64,34 @@
                 android:text="서울 종로구 사직로 161 경복궁"
                 android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/playTimeInfo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                android:layout_weight="0.3"
-                android:text="운영시간  10:00 ~ 20:00"
-                android:textSize="24dp" />
+                android:layout_weight="0.8"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/playTimeInfo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text="운영시간"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/playTimeInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textSize="24dp"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/restDayInfo"

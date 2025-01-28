@@ -1,7 +1,7 @@
 package com.example.leaveit.remote.placeview
 
-import com.example.leaveit.data.review.detailplace.DetailPlaceDataResourceDataModel
-import com.example.leaveit.data.review.detailplace.DetailPlaceDataSourceInterface
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataResourceDataModel
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataSourceInterface
 import com.example.leaveit.remote.api.review.DetailPlaceApi
 import javax.inject.Inject
 

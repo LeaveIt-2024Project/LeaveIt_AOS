@@ -1,5 +1,6 @@
 package com.example.leaveit.presentation.placeview.place.selectregionview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -58,14 +59,13 @@ class SortPopularityFragment : Fragment() {
         )
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
-            Log.d(TAG,"contentId : $it")
             viewModel.setContentId(it.contentId)
-            viewModel.setTopTapContent(it.title)
             viewModel.setMapX(it.mapx)
             viewModel.setMapY(it.mapy)
             viewModel.setPlaceLocation(it.mapy,it.mapx)
             viewModel.setPlaceImage(it.image)
             viewModel.setAddressInfo(it.address)
+            viewModel.setPlaceTitle(it.title)
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -88,7 +88,8 @@ class SortPopularityFragment : Fragment() {
     private fun handleTabLayout(){
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             val testInitdata1 = listOf(
-                SelectRegionModel(contentId = "2733967" ,
+                SelectRegionModel(
+                    contentId = "2733967" ,
                     title =  "가회동 성당",
                     contentTypeId = "12",
                     areaCode = 2,
@@ -99,6 +100,7 @@ class SortPopularityFragment : Fragment() {
                     )
             )
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
                     when(position){ // 포지션 별 분기

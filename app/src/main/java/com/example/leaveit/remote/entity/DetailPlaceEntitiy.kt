@@ -1,6 +1,6 @@
 package com.example.leaveit.remote.entity
 
-import com.example.leaveit.data.review.detailplace.DetailPlaceDataResourceDataModel
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataResourceDataModel
 import com.example.leaveit.remote.placeview.DetailPlaceResponseMapper
 import com.google.gson.annotations.SerializedName
 

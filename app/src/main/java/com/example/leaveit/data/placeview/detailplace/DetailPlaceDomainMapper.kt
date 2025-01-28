@@ -1,4 +1,4 @@
-package com.example.leaveit.data.review.detailplace
+package com.example.leaveit.data.placeview.detailplace
 
 import com.example.leaveit.domain.model.DetailPlaceDomainModel
 

@@ -37,6 +37,9 @@ class SelectRegionViewModel @Inject constructor(
     private val _addressInfo : MutableLiveData<String> by lazy { MutableLiveData() }
     val addressInfo : LiveData<String> = _addressInfo
 
+    private val _placeTitle : MutableLiveData<String> by lazy { MutableLiveData() }
+    val placeTitle : LiveData<String> = _placeTitle
+
 
     init {
         _isMoveDetailView.value = true
@@ -73,6 +76,10 @@ class SelectRegionViewModel @Inject constructor(
 
     fun setPlaceLocation(lat : String, long : String){
         _placeLocation.value = LatLng(lat.toDouble(),long.toDouble())
+    }
+
+    fun setPlaceTitle(value : String){
+        _placeTitle.value = value
     }
 
 

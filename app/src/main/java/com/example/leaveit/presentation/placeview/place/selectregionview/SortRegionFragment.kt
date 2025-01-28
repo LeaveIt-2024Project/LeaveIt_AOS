@@ -49,8 +49,9 @@ class SortRegionFragment : Fragment() {
         )
 
         val testData = listOf(
-            SelectRegionModel(contentId = "2733967" ,
-                title =  "가회동 성당",
+            SelectRegionModel(
+                contentId = "2733967",
+                title = "가회동 성당",
                 contentTypeId = "1",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
@@ -62,10 +63,10 @@ class SortRegionFragment : Fragment() {
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
             viewModel.setContentId(it.contentId)
-            viewModel.setTopTapContent(it.title)
+            viewModel.setPlaceTitle(it.title)
             viewModel.setMapX(it.mapx)
             viewModel.setMapY(it.mapy)
-            viewModel.setPlaceLocation(it.mapy,it.mapx)
+            viewModel.setPlaceLocation(it.mapy, it.mapx)
             viewModel.setPlaceImage(it.image)
             viewModel.setAddressInfo(it.address)
 
@@ -89,15 +90,16 @@ class SortRegionFragment : Fragment() {
 
     private fun handleTabLayout() {
         val testData = listOf(
-            SelectRegionModel(contentId = "2733967" ,
-                title =  "가회동 성당",
+            SelectRegionModel(
+                contentId = "2733967",
+                title = "가회동 성당",
                 contentTypeId = "1",
                 areaCode = 2,
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
                 address = "서울특별시 종로구 북촌로 57 (가회동)"
-                )
+            )
         )
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
@@ -106,6 +108,8 @@ class SortRegionFragment : Fragment() {
 
                 when (position) { // 포지션 별 분기
                     0 -> {
+                        //TODO 카테고리 선택에 해당하는 API 호출 후
+                        // 비동기로 API 호출이 끝나면 adapter.submitList() 호출하게 만들기
                         Log.d(TAG, "${position} 위치")
                         adapter.submitList(testData)
                     }

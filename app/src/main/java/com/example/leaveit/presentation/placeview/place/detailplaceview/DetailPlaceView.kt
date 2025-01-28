@@ -54,10 +54,16 @@ class DetailPlaceView : Fragment() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        observeContent()
+    }
+
     private fun observeDetailPlaceData() {
         viewModel.detailPlaceData.observe(viewLifecycleOwner) {
             binding.restDayInfo.text = "쉬는날 ${it.restdate}"
-            binding.playTimeInfo.text = "운영시간 " + translatePlayTimeString(it.usetime)
+            Log.d(TAG,it.usetime.toString())
+            binding.playTimeInfo2.text = translatePlayTimeString(it.usetime)
 
             if (it.chkpet) {
                 binding.item1.setImageResource(R.drawable.pets_cliked)
@@ -72,10 +78,6 @@ class DetailPlaceView : Fragment() {
                 binding.item2.setImageResource(R.drawable.parking_uncliked)
 
             }
-
-            Log.d(TAG, it.chkpet.toString())
-            Log.d(TAG, it.parking.toString())
-            Log.d(TAG, it.infocenter.toString())
         }
     }
 
@@ -140,16 +142,15 @@ class DetailPlaceView : Fragment() {
     }
 
     private fun observeContent(){
-
-
         rootViewModel.imageUrl.observe(viewLifecycleOwner){
             Glide.with(this)
                 .load(it)
                 .override(binding.imageLayer.width, binding.imageLayer.height)
                 .into(binding.placeImage)
         }
-        rootViewModel.topTapContent.observe(viewLifecycleOwner){
+        rootViewModel.placeTitle.observe(viewLifecycleOwner){
             binding.placeTitleText.text = it
+            rootViewModel.setTopTapContent(it)
         }
     }
 

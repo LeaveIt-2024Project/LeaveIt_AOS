@@ -54,10 +54,18 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
         // 관광지 좌표 기반 근처 음식점 데이터 불러오기
         viewModel.getRestrauntList(mapx, mapy)
 
-
+        initTopAppBarText()
 
         binding.naverMap.onCreate(savedInstanceState)
         binding.naverMap.getMapAsync(this) // naverMap 객체 가져오기
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+
+        initTopAppBarText()
 
     }
 
@@ -145,6 +153,10 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
                 DetailRestrauntView()
             )
             .commit()
+    }
+
+    private fun initTopAppBarText() {
+        rootViewModel.setTopTapContent("음식점을 선택하세요")
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.example.leaveit.di
 
-import com.example.leaveit.data.review.detailplace.DetailPlaceDataSourceInterface
-import com.example.leaveit.data.review.detailplace.DetailPlaceRepositoryImpl
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataSourceInterface
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceRepositoryImpl
 import com.example.leaveit.domain.repository.DetailRepository
 import com.example.leaveit.domain.usecase.review.detailplace.DetailPlaceUseCaseImpl
 import com.example.leaveit.domain.usecase.review.detailplace.DetailPlaceUseCaseInterface
