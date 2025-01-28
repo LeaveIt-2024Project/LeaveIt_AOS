@@ -10,10 +10,10 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.leaveit.databinding.ItemShowplaceRecyclerviewBinding
-import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 
 class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit)) :
-    ListAdapter<SelectRegionModel, ShowPlaceViewRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(
+    ListAdapter<CategoryDto, ShowPlaceViewRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(
         diffUtil
     ) {
     private val multioption = MultiTransformation(RoundedCorners(36))
@@ -38,7 +38,7 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit)) :
 
     inner class ShowPlaceViewRecyclerViewHolder(private val binding: ItemShowplaceRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: SelectRegionModel) {
+        fun bind(model: CategoryDto) {
             binding.infoTextView.text = model.title
 
             Glide.with(binding.root)
@@ -48,24 +48,24 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit)) :
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                onClick(model.contentId) // 클릭 시 호출자(View)에 아이템의 contentId 전달
+                onClick(model.title) // 클릭 시 호출자(View)에 아이템의 contentId 전달
             }
         }
     }
 
     //diffutil사용하려면 diffutil.callback이라는 기능을 구현해야함
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<SelectRegionModel>() {
+        val diffUtil = object : DiffUtil.ItemCallback<CategoryDto>() {
             override fun areItemsTheSame(
-                oldItem: SelectRegionModel,
-                newItem: SelectRegionModel
+                oldItem: CategoryDto,
+                newItem: CategoryDto
             ): Boolean {
-                return oldItem.contentId == newItem.contentId
+                return oldItem.title == newItem.title
             }
 
             override fun areContentsTheSame(
-                oldItem: SelectRegionModel,
-                newItem: SelectRegionModel
+                oldItem: CategoryDto,
+                newItem: CategoryDto
             ): Boolean {
                 return oldItem == newItem
             }

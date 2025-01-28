@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCase
-import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
 import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -38,10 +37,6 @@ class SelectRegionViewModel @Inject constructor(
     private val _addressInfo : MutableLiveData<String> by lazy { MutableLiveData() }
     val addressInfo : LiveData<String> = _addressInfo
 
-
-    //관광지 가져오는 유스케이스 의존성 주입
-    @Inject
-    lateinit var bindGetPlaceUseCaseImpl: GetPlaceUseCaseInterface
 
     init {
         _isMoveDetailView.value = true
@@ -79,6 +74,7 @@ class SelectRegionViewModel @Inject constructor(
     fun setPlaceLocation(lat : String, long : String){
         _placeLocation.value = LatLng(lat.toDouble(),long.toDouble())
     }
+
 
 
 
