@@ -10,7 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortregionBinding
-import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailCultureView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailFestivalView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,9 +53,29 @@ class SortRegionFragment : Fragment() {
         val testData = listOf(
             SelectRegionModel(
                 contentId = "2733967",
-                title = "가회동 성당",
-                contentTypeId = "1",
-                areaCode = 2,
+                title = "관광지",
+                contentTypeId = "12",
+                areaCode = 1,
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            ),
+            SelectRegionModel(
+                contentId = "3351675",
+                title = "축제",
+                contentTypeId = "15",
+                areaCode = 1,
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            ),
+            SelectRegionModel(
+                contentId = "130446",
+                title = "문화",
+                contentTypeId = "14",
+                areaCode = 1,
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -69,6 +91,9 @@ class SortRegionFragment : Fragment() {
             viewModel.setPlaceLocation(it.mapy, it.mapx)
             viewModel.setPlaceImage(it.image)
             viewModel.setAddressInfo(it.address)
+            viewModel.setContentTypeId(it.contentTypeId)
+
+            val fragment = branchFragment(it.contentTypeId)
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -80,7 +105,7 @@ class SortRegionFragment : Fragment() {
                 )
                 .replace(
                     R.id.selectregion_fragment_container,
-                    DetailPlaceView()
+                    fragment
                 )
                 .commit()
         })
@@ -174,6 +199,20 @@ class SortRegionFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
         })
+    }
+
+    fun branchFragment(value : String) : Fragment{
+        var fragment = Fragment()
+
+        if(value == "12"){
+            fragment = DetailPlaceView()
+        }else if(value == "14"){
+            fragment = DetailCultureView()
+        }else if(value == "15"){
+            fragment = DetailFestivalView()
+        }
+
+        return fragment
     }
 
     companion object {

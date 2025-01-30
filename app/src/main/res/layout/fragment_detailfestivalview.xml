@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/placeInfoLayer"
+            app:layout_constraintBottom_toTopOf="@id/addressInfoLayer"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/placeInfoLayer"
+            android:id="@+id/addressInfoLayer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -65,19 +65,19 @@
                 android:textSize="24dp" />
         </LinearLayout>
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/functionInfoLayer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:outlineAmbientShadowColor="@color/black"
             android:outlineSpotShadowColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/infoText"
+            app:layout_constraintBottom_toTopOf="@id/playTimeInfoLayer"
             app:layout_constraintDimensionRatio="24:5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/placeInfoLayer"
+            app:layout_constraintTop_toBottomOf="@id/addressInfoLayer"
             app:layout_constraintVertical_weight="0.15">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,7 +151,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center"
-                    android:text="주변 숙소"
+                    android:text="예매처"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/itemBtnText4"
                     app:layout_constraintStart_toEndOf="@id/itemBtnText2"
@@ -184,192 +184,131 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/infoText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:gravity="start|center"
-            android:text="관광지 정보"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@id/mainPlaceInfoLayer"
-            app:layout_constraintDimensionRatio="36:4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/functionInfoLayer"
-            app:layout_constraintVertical_weight="0.05" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainPlaceInfoLayer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/introLayer"
-            app:layout_constraintDimensionRatio="24:5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/infoText"
-            app:layout_constraintVertical_weight="0.1">
-
-            <ImageView
-                android:id="@+id/item1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/pets_cliked"
-                app:layout_constraintBottom_toTopOf="@id/item1Text"
-                app:layout_constraintEnd_toStartOf="@id/item2"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="0.5" />
-
-            <TextView
-                android:id="@+id/item1Text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="반려동물 동반"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/item2Text"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item1"
-                app:layout_constraintVertical_weight="0.5" />
-
-            <ImageView
-                android:id="@+id/item2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/child_friendly_cliked"
-                app:layout_constraintBottom_toTopOf="@id/item2Text"
-                app:layout_constraintEnd_toStartOf="@id/item3"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/item1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="0.5" />
-
-            <TextView
-                android:id="@+id/item2Text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="유모차대여"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/item3Text"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/item1Text"
-                app:layout_constraintTop_toBottomOf="@id/item2"
-                app:layout_constraintVertical_weight="0.5" />
-
-            <ImageView
-                android:id="@+id/item3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/parking_cliked"
-                app:layout_constraintBottom_toTopOf="@id/item3Text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="0.1"
-                app:layout_constraintStart_toEndOf="@id/item2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="0.5" />
-
-            <TextView
-                android:id="@+id/item3Text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:text="주차"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="0.1"
-
-                app:layout_constraintStart_toEndOf="@id/item2Text"
-                app:layout_constraintTop_toBottomOf="@id/item3"
-                app:layout_constraintVertical_weight="0.5" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/introLayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/contentLayer"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainPlaceInfoLayer"
-            app:layout_constraintVertical_weight="0.05">
-
-            <TextView
-                android:id="@+id/introText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="start|center"
-                android:text="관광지 소개"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@id/mainIntroText"
-                app:layout_constraintDimensionRatio="36:4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mainPlaceInfoLayer"
-                app:layout_constraintVertical_weight="0.05" />
-
-            <TextView
-                android:id="@+id/mainIntroText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoSizeMaxTextSize="16dp"
-                android:autoSizeMinTextSize="12dp"
-                android:autoSizeTextType="uniform"
-                android:background="@color/white"
-                android:text="가나다라마바사"
-                android:textSize="16dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/contentLayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_weight="0.8"
-            android:background="@color/white"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/playTimeInfoLayer"
-            app:layout_constraintDimensionRatio="24:20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/introLayer">
-
-            <TextView
-                android:id="@+id/playTimeInfo1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:text="운영시간"
-                android:textSize="24dp" />
-
-            <TextView
-                android:id="@+id/playTimeInfo2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.9"
-                android:ellipsize="end"
-                app:autoSizeMaxTextSize="16sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform" />
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/playTimeInfoLayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/useTimeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/functionInfoLayer">
+
+            <TextView
+                android:id="@+id/playTimeInfoText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이용시간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/playTimeInfoText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/useTimeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/playAgeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playTimeInfoLayer">
+
+            <TextView
+                android:id="@+id/userTimeText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="관람 소요 시간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/userTimeText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/playAgeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/useTimeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FestivalDateLayer">
+
+            <TextView
+                android:id="@+id/playAgeLayerText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="관람 가능 연령"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/playAgeLayerText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/FestivalDateLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/FestivalFeeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playAgeLayer">
+
+            <TextView
+                android:id="@+id/FestivalDateText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="축제 기간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/FestivalDateText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/FestivalFeeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/white"
             android:orientation="vertical"
@@ -377,18 +316,17 @@
             app:layout_constraintDimensionRatio="24:6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contentLayer">
+            app:layout_constraintTop_toBottomOf="@id/FestivalDateLayer">
 
             <TextView
-                android:id="@+id/restDayInfo1"
+                android:id="@+id/FestivalFeeText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="쉬는날"
+                android:text="이용 요금"
                 android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/restDayInfo2"
+                android:id="@+id/FestivalFeeText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"

@@ -8,7 +8,5 @@ interface DetailPlaceDomainMapper {
 
     fun isEmptyOrNull(value : String) : Boolean
 
-    fun translateUseTimeFormat(value: String) : List<String>
-
-    fun toInt() : Int
+    fun translateUseTimeFormat(value: String) : String
 }

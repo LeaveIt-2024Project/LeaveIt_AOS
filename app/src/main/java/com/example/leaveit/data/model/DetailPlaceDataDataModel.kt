@@ -1,13 +1,15 @@
-package com.example.leaveit.data.placeview.detailplace
+package com.example.leaveit.data.model
 
+import com.example.leaveit.data.placeview.detailplace.DetailPlaceDomainMapper
 import com.example.leaveit.domain.model.DetailPlaceDomainModel
 
-data class DetailPlaceDataResourceDataModel(
+data class DetailPlaceDataDataModel(
     val contentId: String,
     val contenttypeid: String,
     val infocenter: String?,
     val restdate: String?,
     val chkpet: String?,
+    val chkbabycarriage: String?,
     val parking: String?,
     val usetime: String?,
 ) : DetailPlaceDomainMapper {
@@ -18,9 +20,9 @@ data class DetailPlaceDataResourceDataModel(
             infocenter = infocenter!!,
             restdate = restdate!!,
             chkpet = isEmptyOrNull(chkpet!!),
+            chkbabycarriage = isEmptyOrNull(chkbabycarriage!!),
             parking = isEmptyOrNull(parking!!),
             usetime = translateUseTimeFormat(usetime!!)
-
         )
     }
 
@@ -34,28 +36,7 @@ data class DetailPlaceDataResourceDataModel(
         return result
     }
 
-    override fun translateUseTimeFormat(value: String): List<String> {
-        var result: MutableList<String> = mutableListOf()
-
-        if(isEmptyOrNull(value)){
-            val temp = value.split("<br>")
-            if (temp.size == 1) {
-                result.add(temp[0])
-            } else if (temp.size > 1) {
-                result.add(temp[0])
-                result.add(temp[1])
-            } else {
-                result.add(0, "")
-            }
-        }else{
-            result.add(value)
-        }
-
-
-        return result
-    }
-
-    override fun toInt(): Int {
-        TODO("Not yet implemented")
+    override fun translateUseTimeFormat(value: String): String {
+        return value.replace("<br>", "").replace("/", "\n").replace("-", "")
     }
 }

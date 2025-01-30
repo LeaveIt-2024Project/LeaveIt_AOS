@@ -1,7 +1,7 @@
 package com.example.leaveit.remote.placeview
 
-import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataResourceDataModel
+import com.example.leaveit.data.model.DetailPlaceDataDataModel
 
 interface DetailPlaceResponseMapper {
-    fun toDataSourceModel() : DetailPlaceDataResourceDataModel
+    fun toPlaceDataSourceModel(): DetailPlaceDataDataModel
 }

@@ -1,9 +1,8 @@
-package com.example.leaveit.presentation.placeview.place.detailplaceview
+package com.example.leaveit.presentation.placeview.place.detailview
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,86 +12,87 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
-import com.example.leaveit.databinding.FragmentDetailplaceviewBinding
+import com.example.leaveit.databinding.FragmentDetailcutureviewBinding
 import com.example.leaveit.presentation.placeview.place.navigateplaceview.NavigatePlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 import com.example.leaveit.presentation.placeview.restraunt.RestrauntView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailPlaceView : Fragment() {
-    private lateinit var binding: FragmentDetailplaceviewBinding
+class DetailCultureView : Fragment() {
+    lateinit var  binding : FragmentDetailcutureviewBinding
     private val rootViewModel: SelectRegionViewModel by activityViewModels()
-    private val viewModel: DetailPlaceViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels()
     private lateinit var placeContentId: String
+    private lateinit var placeType: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailplaceviewBinding.inflate(layoutInflater)
+        binding = FragmentDetailcutureviewBinding.inflate(layoutInflater)
         placeContentId = rootViewModel.placeContentId.value.toString()
-
+        placeType = rootViewModel.contentTypeId.value.toString()
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        Log.d(TAG, rootViewModel.placeContentId.value.toString())
-
-        viewModel.getDetailPlaceData(placeContentId)
         rootViewModel.setIsMoveDetailView(false)
-        observeContent()
-        infoEventListener()
-        moveToNavigatePlaceEventListener()
+        viewModel.getDetailCultureData(id = placeContentId, type = placeType)
         moveToRestrauntViewEventListener()
-
-        observeDetailPlaceData()
-
-    }
-
-    override fun onStart() {
-        super.onStart()
+        moveToNavigatePlaceEventListener()
+        infoEventListener()
         observeContent()
+        observeCultureData()
     }
 
-    private fun observeDetailPlaceData() {
-        viewModel.detailPlaceData.observe(viewLifecycleOwner) {
-            binding.restDayInfo.text = "쉬는날 ${it.restdate}"
-            Log.d(TAG,it.usetime.toString())
-            binding.playTimeInfo2.text = translatePlayTimeString(it.usetime)
+    private fun observeCultureData(){
+        viewModel.detailCultureData.observe(viewLifecycleOwner){
+            binding.userTimeText2.text = it.usetimeculture
+            binding.playTimeInfoText2.text = it.usetimeculture
+            binding.useFeeText2.text = it.usefee
 
-            if (it.chkpet) {
+
+            if(it.chkbabycarriageculture == true){
+                binding.item3.setImageResource(R.drawable.child_friendly_cliked)
+            } else {
+                binding.item3.setImageResource(R.drawable.child_friendly_uncliked)
+            }
+
+            if (it.chkpetculture == true) {
                 binding.item1.setImageResource(R.drawable.pets_cliked)
             } else {
                 binding.item1.setImageResource(R.drawable.pets_uncliked)
 
             }
 
-            if(it.parking){
-                binding.item2.setImageResource(R.drawable.parking_cliked)
+            if (it.parkingculture == true) {
+                binding.item3.setImageResource(R.drawable.parking_cliked)
             } else {
-                binding.item2.setImageResource(R.drawable.parking_uncliked)
+                binding.item3.setImageResource(R.drawable.parking_uncliked)
 
             }
+
         }
     }
 
-    private fun infoEventListener(){
+
+    private fun infoEventListener() {
         binding.itemBtn4.setOnClickListener {
-            if(viewModel.detailPlaceData.value?.infocenter?.isEmpty() == true){
-                Toast.makeText(requireContext(),"등록된 번호가 없습니다",Toast.LENGTH_SHORT).show()
-            }else{
-                val uri = Uri.parse("tel:${viewModel.detailPlaceData.value!!.infocenter}")
-                startActivity(Intent(Intent.ACTION_DIAL,uri))
+            if (viewModel.detailCultureData.value?.infocenterculture.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "등록된 번호가 없습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                val uri = Uri.parse("tel:${viewModel.detailCultureData.value!!.infocenterculture}")
+                startActivity(Intent(Intent.ACTION_DIAL, uri))
             }
         }
     }
 
-    private fun moveToNavigatePlaceEventListener(){
+    private fun moveToNavigatePlaceEventListener() {
         binding.itemBtn1.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -110,7 +110,7 @@ class DetailPlaceView : Fragment() {
         }
     }
 
-    private fun moveToRestrauntViewEventListener(){
+    private fun moveToRestrauntViewEventListener() {
         binding.itemBtn2.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -128,34 +128,17 @@ class DetailPlaceView : Fragment() {
         }
     }
 
-    private fun translatePlayTimeString(value: List<String>): String {
-        var result = ""
-        if (value.size == 1) {
-            result = value[0]
-        } else if (value.size == 2) {
-            result += value[0]
-            result += value[1]
-        } else {
-            result = ""
-        }
-        return result
-    }
-
-    private fun observeContent(){
-        rootViewModel.imageUrl.observe(viewLifecycleOwner){
+    private fun observeContent() {
+        rootViewModel.imageUrl.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it)
                 .override(binding.imageLayer.width, binding.imageLayer.height)
                 .into(binding.placeImage)
         }
-        rootViewModel.placeTitle.observe(viewLifecycleOwner){
+        rootViewModel.placeTitle.observe(viewLifecycleOwner) {
             binding.placeTitleText.text = it
             rootViewModel.setTopTapContent(it)
         }
-    }
-
-
-    companion object {
-        const val TAG = "DetailPlaceView"
+       binding.addressInfo.text = rootViewModel.addressInfo.value
     }
 }

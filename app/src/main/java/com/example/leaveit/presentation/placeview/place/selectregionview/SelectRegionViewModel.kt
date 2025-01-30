@@ -19,6 +19,9 @@ class SelectRegionViewModel @Inject constructor(
     private val _isMoveDetailView : MutableLiveData<Boolean> by lazy { MutableLiveData() }
     val isMoveDetailView : LiveData<Boolean> = _isMoveDetailView
 
+    private val _contentTypeId : MutableLiveData<String> by lazy { MutableLiveData() }
+    val contentTypeId : LiveData<String> = _contentTypeId
+
     private val _topTapContent : MutableLiveData<String> by lazy { MutableLiveData() }
     val topTapContent : LiveData<String> = _topTapContent
 
@@ -82,8 +85,9 @@ class SelectRegionViewModel @Inject constructor(
         _placeTitle.value = value
     }
 
-
-
+    fun setContentTypeId(value : String){
+        _contentTypeId.value = value
+    }
 
     companion object {
         val TAG = "SelectRegionViewModel"

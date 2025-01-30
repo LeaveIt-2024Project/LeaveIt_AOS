@@ -65,7 +65,6 @@
                 android:textSize="24dp" />
         </LinearLayout>
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/functionInfoLayer"
             android:layout_width="match_parent"
@@ -187,25 +186,23 @@
         <TextView
             android:id="@+id/infoText"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@color/white"
             android:gravity="start|center"
             android:text="관광지 정보"
             android:textSize="24dp"
             app:layout_constraintBottom_toTopOf="@id/mainPlaceInfoLayer"
-            app:layout_constraintDimensionRatio="36:4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/functionInfoLayer"
-            app:layout_constraintVertical_weight="0.05" />
+            app:layout_constraintTop_toBottomOf="@id/functionInfoLayer" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainPlaceInfoLayer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/introLayer"
+            app:layout_constraintBottom_toTopOf="@id/playTimeInfoLayer"
             app:layout_constraintDimensionRatio="24:5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -292,84 +289,69 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/introLayer"
+            android:id="@+id/playTimeInfoLayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:background="@color/white"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/contentLayer"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toTopOf="@id/useTimeLayer"
+            app:layout_constraintDimensionRatio="24:6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainPlaceInfoLayer"
-            app:layout_constraintVertical_weight="0.05">
+            app:layout_constraintTop_toBottomOf="@id/mainPlaceInfoLayer">
 
             <TextView
-                android:id="@+id/introText"
+                android:id="@+id/playTimeInfoText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="start|center"
-                android:text="관광지 소개"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@id/mainIntroText"
-                app:layout_constraintDimensionRatio="36:4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mainPlaceInfoLayer"
-                app:layout_constraintVertical_weight="0.05" />
+                android:text="이용시간"
+                android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/mainIntroText"
+                android:id="@+id/playTimeInfoText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoSizeMaxTextSize="16dp"
-                android:autoSizeMinTextSize="12dp"
-                android:autoSizeTextType="uniform"
-                android:background="@color/white"
-                android:text="가나다라마바사"
+                android:layout_weight="0.3"
+                android:text="asd"
                 android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/contentLayer"
+            android:id="@+id/useTimeLayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_weight="0.8"
             android:background="@color/white"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/playTimeInfoLayer"
-            app:layout_constraintDimensionRatio="24:20"
+            app:layout_constraintBottom_toTopOf="@id/useFeeLayer"
+            app:layout_constraintDimensionRatio="24:6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/introLayer">
+            app:layout_constraintTop_toBottomOf="@id/playTimeInfoLayer">
 
             <TextView
-                android:id="@+id/playTimeInfo1"
+                android:id="@+id/userTimeText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:text="운영시간"
+                android:text="관람 소요 시간"
                 android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/playTimeInfo2"
+                android:id="@+id/userTimeText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.9"
-                android:ellipsize="end"
-                app:autoSizeMaxTextSize="16sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform" />
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/playTimeInfoLayer"
+            android:id="@+id/useFeeLayer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/white"
             android:orientation="vertical"
@@ -377,18 +359,17 @@
             app:layout_constraintDimensionRatio="24:6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contentLayer">
+            app:layout_constraintTop_toBottomOf="@id/useTimeLayer">
 
             <TextView
-                android:id="@+id/restDayInfo1"
+                android:id="@+id/useFeeText1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:text="쉬는날"
+                android:text="관람 비용"
                 android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/restDayInfo2"
+                android:id="@+id/useFeeText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"

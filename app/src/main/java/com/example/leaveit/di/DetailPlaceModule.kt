@@ -3,8 +3,8 @@ package com.example.leaveit.di
 import com.example.leaveit.data.placeview.detailplace.DetailPlaceDataSourceInterface
 import com.example.leaveit.data.placeview.detailplace.DetailPlaceRepositoryImpl
 import com.example.leaveit.domain.repository.DetailRepository
-import com.example.leaveit.domain.usecase.review.detailplace.DetailPlaceUseCaseImpl
-import com.example.leaveit.domain.usecase.review.detailplace.DetailPlaceUseCaseInterface
+import com.example.leaveit.domain.usecase.place.detailplace.DetailPlaceUseCaseImpl
+import com.example.leaveit.domain.usecase.place.detailplace.DetailPlaceUseCaseInterface
 import com.example.leaveit.remote.placeview.DetailPlaceDataSourceImpl
 import dagger.Binds
 import dagger.Module

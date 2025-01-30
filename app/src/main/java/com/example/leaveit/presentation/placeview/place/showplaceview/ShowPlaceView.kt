@@ -30,14 +30,12 @@ class ShowPlaceView : Fragment() {
         initAdapter()
         setTopAppBarText("관광지를 선택해주세요")
 
-
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeData()
-
 
     }
 
@@ -50,17 +48,16 @@ class ShowPlaceView : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         tourAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
-            // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentId)
-
+            // SelectRegionView로 이동
+            moveToSelectRegionView(requireContext())
         }
         festivalAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
-            // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentId)
+            //  SelectRegionView로 이동
+            moveToSelectRegionView(requireContext())
         }
         cultureAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
-            // 클릭한 아이템의 contentId를 가지고 SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentId)
+            // SelectRegionView로 이동
+            moveToSelectRegionView(requireContext())
         }
 
 
@@ -70,7 +67,7 @@ class ShowPlaceView : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.categoryData() // 테스트 API 호출
+        viewModel.categoryData() // 관광지 카테고리 초기화
 
 
         // 옵저버 패턴으로 데이터 변경 감지 후 각 어댑터에 데이터 넣기
@@ -87,10 +84,8 @@ class ShowPlaceView : Fragment() {
         }
     }
 
-    private fun moveToSelectRegionView(context: Context, contentId: String) {
-        val downloadIntent = Intent(context, SelectRegionView::class.java).apply {
-            this.putExtra("data", contentId)
-        }
+    private fun moveToSelectRegionView(context: Context) {
+        val downloadIntent = Intent(context, SelectRegionView::class.java)
         startActivity(downloadIntent)
     }
 

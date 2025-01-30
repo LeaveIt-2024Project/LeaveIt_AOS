@@ -19,7 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentNavigatePathBinding
-import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 import com.example.leaveit.utill.location.LocationProvider
 import com.naver.maps.geometry.LatLng
