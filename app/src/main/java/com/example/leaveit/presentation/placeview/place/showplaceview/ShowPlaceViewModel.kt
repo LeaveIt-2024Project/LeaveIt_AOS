@@ -45,9 +45,9 @@ class ShowPlaceViewModel : ViewModel() {
                 image = "http://tong.visitkorea.or.kr/cms/resource/94/3332394_image2_1.jpg",
             ),
             CategoryDto(
-                title = "극장",
+                title = "공연",
                 contentTypeId = "15",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                image = "https://tong.visitkorea.or.kr/cms/resource/89/3080589_image2_1.JPG",
             ),
             CategoryDto(
                 title = "전시회",
@@ -57,12 +57,12 @@ class ShowPlaceViewModel : ViewModel() {
             CategoryDto(
                 title = "박람회",
                 contentTypeId = "15",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                image = "https://tong.visitkorea.or.kr/cms/resource/58/2849758_image2_1.jpg",
             ),
             CategoryDto(
                 title = "경기장",
                 contentTypeId = "15",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                image = "https://tong.visitkorea.or.kr/cms/resource/95/3406895_image2_1.jpg",
             ),
         )
     }

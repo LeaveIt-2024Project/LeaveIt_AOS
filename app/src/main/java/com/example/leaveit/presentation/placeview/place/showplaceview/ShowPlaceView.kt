@@ -86,6 +86,7 @@ class ShowPlaceView : Fragment() {
 
     private fun moveToSelectRegionView(context: Context) {
         val downloadIntent = Intent(context, SelectRegionView::class.java)
+        //TODO 선택된 카테고리의 contentTypeID 넘어가는 View에 전달하기
         startActivity(downloadIntent)
     }
 

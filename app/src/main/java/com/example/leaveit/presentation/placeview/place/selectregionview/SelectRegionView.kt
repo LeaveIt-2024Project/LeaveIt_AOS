@@ -19,6 +19,8 @@ class SelectRegionView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //TODO ShowPlaceView에서 전달받은 ContentTypeID를 기반으로
+        //TODO 카테고리 별 API 호출 진행하기
 
         binding = ActivitySelectregionviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
