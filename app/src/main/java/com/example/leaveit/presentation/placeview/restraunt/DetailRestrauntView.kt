@@ -43,8 +43,8 @@ class DetailRestrauntView : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.playTimeInfo2.text = it.opentimefood
-                binding.representativeMenuText.text = it.firstmenu
-                binding.mainIntroText.text = it.treatmenu
+                binding.representativeMenuText2.text = it.firstmenu
+                binding.menuText2.text = it.treatmenu
                 binding.restDayInfo2.text = it.restdatefood
             }
         }
