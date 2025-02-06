@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.leaveit.R
 import com.example.leaveit.databinding.ItemSortRecyclerviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 
 class SelectRegionRecyclerAdapter(
-    private val moveToPlace : (SelectRegionModel) -> Unit
+    private val moveToPlace: (SelectRegionModel) -> Unit
 ) : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
     diffUtil
 ) {
@@ -45,6 +46,7 @@ class SelectRegionRecyclerAdapter(
             Glide.with(binding.root)
                 .load(model.image)
                 .fitCenter()
+                .fallback(R.drawable.null_image)
                 .into(binding.imageView)
 
             // 클릭 리스너 설정
@@ -75,9 +77,9 @@ class SelectRegionRecyclerAdapter(
 
 
     //가져온 리스트의 areaCode를 텍스트로 변환
-    fun sortRegionText(number: Int) : String{
-        var result : String = ""
-        when(number){
+    fun sortRegionText(number: Int): String {
+        var result: String = ""
+        when (number) {
             1 -> result = "서울"
             2 -> result = "인천"
             3 -> result = "대전"

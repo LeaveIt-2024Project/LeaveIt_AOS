@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentDetailrestrauntviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 
@@ -61,6 +62,7 @@ class DetailRestrauntView : Fragment() {
             Glide.with(binding.root)
                 .load(data.image)
                 .fitCenter()
+                .fallback(R.drawable.null_image)
                 .into(binding.placeImage)
 
         }

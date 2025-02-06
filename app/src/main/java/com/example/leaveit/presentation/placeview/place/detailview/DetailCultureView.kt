@@ -132,6 +132,7 @@ class DetailCultureView : Fragment() {
         rootViewModel.imageUrl.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it)
+                .fallback(R.drawable.null_image)
                 .override(binding.imageLayer.width, binding.imageLayer.height)
                 .into(binding.placeImage)
         }
