@@ -10,6 +10,7 @@ import com.example.leaveit.remote.api.RetrofitService
 import com.example.leaveit.remote.api.TourApiRetrofitService
 import com.example.leaveit.remote.api.navigate.NavigateAPI
 import com.example.leaveit.remote.api.place.DetailPlaceApi
+import com.example.leaveit.remote.api.place.PlaceApi
 import com.example.leaveit.remote.api.review.ReviewApi
 import dagger.Module
 import dagger.Provides
@@ -41,6 +42,11 @@ object DBModule {
     @Provides
     fun provideDetailPlaceApiService() : DetailPlaceApi {
         return TourApiRetrofitService.retrofit.create(DetailPlaceApi::class.java)
+    }
+
+    @Provides
+    fun providePlaceApiService() : PlaceApi{
+        return RetrofitService.retrofit.create(PlaceApi::class.java)
     }
 
     @Provides

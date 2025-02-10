@@ -24,6 +24,7 @@ class SortPopularityFragment : Fragment() {
     private lateinit var adapter: SelectRegionRecyclerAdapter
     private val viewModel: SelectRegionViewModel by activityViewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,7 +56,7 @@ class SortPopularityFragment : Fragment() {
                 contentId = "2733967",
                 title = "관광지",
                 contentTypeId = "12",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -65,7 +66,7 @@ class SortPopularityFragment : Fragment() {
                 contentId = "3351675",
                 title = "축제",
                 contentTypeId = "15",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -75,7 +76,7 @@ class SortPopularityFragment : Fragment() {
                 contentId = "130446",
                 title = "문화",
                 contentTypeId = "14",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -116,7 +117,7 @@ class SortPopularityFragment : Fragment() {
                 )
                 .commit()
         })
-        adapter.submitList(testInitdata1)
+//        adapter.submitList(testInitdata1)
         binding.sortRecyclerView.adapter = adapter
     }
 
@@ -127,7 +128,7 @@ class SortPopularityFragment : Fragment() {
                     contentId = "2733967",
                     title = "가회동 성당",
                     contentTypeId = "12",
-                    areaCode = 2,
+                    areaCode = "2",
                     image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                     mapx = "126.9846616856",
                     mapy = "37.5820858828",
@@ -141,12 +142,12 @@ class SortPopularityFragment : Fragment() {
                 when (position) { // 포지션 별 분기
                     0 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testInitdata1)
+//                        adapter.submitList(testInitdata1)
                     }
 
                     1 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testInitdata1)
+//                        adapter.submitList(testInitdata1)
                     }
                 }
 

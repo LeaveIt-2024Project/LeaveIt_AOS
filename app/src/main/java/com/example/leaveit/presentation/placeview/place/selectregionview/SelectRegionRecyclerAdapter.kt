@@ -2,8 +2,8 @@ package com.example.leaveit.presentation.placeview.place.selectregionview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leaveit.R
@@ -12,7 +12,7 @@ import com.example.leaveit.presentation.placeview.place.selectregionview.data.Se
 
 class SelectRegionRecyclerAdapter(
     private val moveToPlace: (SelectRegionModel) -> Unit
-) : ListAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
+) : PagingDataAdapter<SelectRegionModel, SelectRegionRecyclerAdapter.SelectRegionRecyclerViewRecyclerViewHolder>(
     diffUtil
 ) {
     override fun onCreateViewHolder(
@@ -33,7 +33,10 @@ class SelectRegionRecyclerAdapter(
         position: Int
     ) {
         //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
-        holder.bind(currentList[position])
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class SelectRegionRecyclerViewRecyclerViewHolder(private val binding: ItemSortRecyclerviewBinding) :
@@ -77,30 +80,28 @@ class SelectRegionRecyclerAdapter(
 
 
     //가져온 리스트의 areaCode를 텍스트로 변환
-    fun sortRegionText(number: Int): String {
+    fun sortRegionText(number: String): String {
         var result: String = ""
         when (number) {
-            1 -> result = "서울"
-            2 -> result = "인천"
-            3 -> result = "대전"
-            4 -> result = "대구"
-            5 -> result = "광주"
-            6 -> result = "부산"
-            7 -> result = "울산"
-            8 -> result = "세종"
-            31 -> result = "경기도"
-            32 -> result = "강원도"
-            33 -> result = "충북"
-            34 -> result = "충남"
-            35 -> result = "경북"
-            36 -> result = "경남"
-            37 -> result = "전북"
-            38 -> result = "전남"
-            39 -> result = "제주"
+            "1" -> result = "서울"
+            "2" -> result = "인천"
+            "3" -> result = "대전"
+            "4" -> result = "대구"
+            "5" -> result = "광주"
+            "6" -> result = "부산"
+            "7" -> result = "울산"
+            "8" -> result = "세종"
+            "31" -> result = "경기도"
+            "32" -> result = "강원도"
+            "33" -> result = "충북"
+            "34" -> result = "충남"
+            "35" -> result = "경북"
+            "36" -> result = "경남"
+            "37" -> result = "전북"
+            "38" -> result = "전남"
+            "39" -> result = "제주"
             else -> result = "정보없음"
         }
-
-
         return result
     }
 }

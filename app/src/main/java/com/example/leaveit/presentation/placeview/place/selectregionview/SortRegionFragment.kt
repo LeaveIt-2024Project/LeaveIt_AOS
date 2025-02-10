@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortregionBinding
@@ -16,6 +18,7 @@ import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceVi
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SortRegionFragment : Fragment() {
@@ -37,8 +40,13 @@ class SortRegionFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.getAllPlaceData("산")
         viewModel.setIsMoveDetailView(true)
         viewModel.setTopTapContent("카테고리를 선택하세요")
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
 
@@ -55,7 +63,7 @@ class SortRegionFragment : Fragment() {
                 contentId = "2733967",
                 title = "관광지",
                 contentTypeId = "12",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -65,7 +73,7 @@ class SortRegionFragment : Fragment() {
                 contentId = "3351675",
                 title = "축제",
                 contentTypeId = "15",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -75,7 +83,7 @@ class SortRegionFragment : Fragment() {
                 contentId = "130446",
                 title = "문화",
                 contentTypeId = "14",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -109,7 +117,6 @@ class SortRegionFragment : Fragment() {
                 )
                 .commit()
         })
-        adapter.submitList(testData)
         binding.sortRecyclerView.adapter = adapter
     }
 
@@ -119,7 +126,7 @@ class SortRegionFragment : Fragment() {
                 contentId = "2733967",
                 title = "가회동 성당",
                 contentTypeId = "1",
-                areaCode = 2,
+                areaCode = "2",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
@@ -136,57 +143,54 @@ class SortRegionFragment : Fragment() {
                         //TODO 카테고리 선택에 해당하는 API 호출 후
                         // 비동기로 API 호출이 끝나면 adapter.submitList() 호출하게 만들기
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
+                        viewModel.placeData.observe(viewLifecycleOwner) {
+                            lifecycleScope.launch {
+                                it.map {
+                                    Log.d(TAG,it.title)
+                                }
+                                adapter.submitData(it)
+                            }
+                        }
                     }
 
                     1 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     2 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     3 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     4 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     5 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     6 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     7 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     8 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     9 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
 
                     10 -> {
                         Log.d(TAG, "${position} 위치")
-                        adapter.submitList(testData)
                     }
                 }
 
@@ -201,14 +205,14 @@ class SortRegionFragment : Fragment() {
         })
     }
 
-    fun branchFragment(value : String) : Fragment{
+    fun branchFragment(value: String): Fragment {
         var fragment = Fragment()
 
-        if(value == "12"){
+        if (value == "12") {
             fragment = DetailPlaceView()
-        }else if(value == "14"){
+        } else if (value == "14") {
             fragment = DetailCultureView()
-        }else if(value == "15"){
+        } else if (value == "15") {
             fragment = DetailFestivalView()
         }
 

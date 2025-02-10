@@ -47,17 +47,17 @@ class ShowPlaceView : Fragment() {
         binding.festival.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        tourAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
+        tourAdapter = ShowPlaceViewRecyclerViewAdapter { contentTypeId ->
             // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext())
+            moveToSelectRegionView(requireContext(), contentTypeId)
         }
-        festivalAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
+        festivalAdapter = ShowPlaceViewRecyclerViewAdapter { contentTypeId ->
             //  SelectRegionView로 이동
-            moveToSelectRegionView(requireContext())
+            moveToSelectRegionView(requireContext(),contentTypeId)
         }
-        cultureAdapter = ShowPlaceViewRecyclerViewAdapter { contentId ->
+        cultureAdapter = ShowPlaceViewRecyclerViewAdapter { contentTypeId ->
             // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext())
+            moveToSelectRegionView(requireContext(),contentTypeId)
         }
 
 
@@ -84,9 +84,11 @@ class ShowPlaceView : Fragment() {
         }
     }
 
-    private fun moveToSelectRegionView(context: Context) {
+    private fun moveToSelectRegionView(context: Context,contentTypeId : String) {
         val downloadIntent = Intent(context, SelectRegionView::class.java)
-        //TODO 선택된 카테고리의 contentTypeID 넘어가는 View에 전달하기
+
+        // 선택된 카테고리의 contentTypeId 넘기기
+        downloadIntent.putExtra("contentTypeId",contentTypeId)
         startActivity(downloadIntent)
     }
 

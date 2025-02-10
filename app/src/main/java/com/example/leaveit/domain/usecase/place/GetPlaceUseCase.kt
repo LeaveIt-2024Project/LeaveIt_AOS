@@ -1,9 +1,16 @@
 package com.example.leaveit.domain.usecase.place
 
+import androidx.paging.PagingData
+import androidx.paging.map
+import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModelList
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetPlaceUseCase @Inject constructor() : GetPlaceUseCaseInterface {
+class GetPlaceUseCase @Inject constructor(
+    private val bindPlaceViewRepositoryImpl : GetPlaceRepositoryInterface
+) : GetPlaceUseCaseInterface {
 
     // 관굉지 정보 호출 유스케이스 정의
 
@@ -14,8 +21,12 @@ class GetPlaceUseCase @Inject constructor() : GetPlaceUseCaseInterface {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllPlaceUseCase(contentTypedId: String): SelectRegionModelList {
-        TODO("Not yet implemented")
+    override suspend fun getAllPlaceUseCase(contentTypedId: String): Flow<PagingData<SelectRegionModel>> {
+        return bindPlaceViewRepositoryImpl.getAllPlaceData(contentTypedId).map { pagingData ->
+            pagingData.map {
+                it.toPlaceModel()
+            }
+        }
     }
 
     companion object {

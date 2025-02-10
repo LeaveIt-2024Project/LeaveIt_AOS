@@ -7,20 +7,33 @@ import kotlinx.coroutines.Deferred
 
 data class PlaceDomainModel(
     val addr : String,
-    val areacode : Int,
-    val cat1 : String,
-    val cat2 : String,
-    val cat3 : String,
+    val areacode : String,
+    val cat : String,
     val contentId : String,
     val contenttypeid : String,
     val image : String,
-    val image2 : String,
     val mapx: String,
     val mapy : String,
-    val sigungucode : Int,
     val tel : String,
     val title : String
-)
+) : ShowPlaceModelMapper {
+    override suspend fun toPlaceModel(temp: Deferred<PlaceDomainListModel>): SelectRegionModelList {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun toPlaceModel(): SelectRegionModel {
+        return SelectRegionModel(
+            address = addr,
+            contentId = contentId,
+            contentTypeId = contenttypeid,
+            title = title,
+            image = image,
+            areaCode = areacode,
+            mapx = mapx,
+            mapy = mapy
+        )
+    }
+}
 
 data class PlaceDomainListModel(
     val placeDomainEntity : List<PlaceDomainModel>
@@ -40,5 +53,9 @@ data class PlaceDomainListModel(
         }
 
         return SelectRegionModelList(placeViewEntity = result)
+    }
+
+    override suspend fun toPlaceModel(): SelectRegionModel {
+        TODO("Not yet implemented")
     }
 }
