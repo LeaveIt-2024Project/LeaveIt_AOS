@@ -24,4 +24,10 @@ interface PlaceApi {
         @Query("areaCode") areaCode : String,
         @Query("num") num : Int
     ): Response<List<PlaceEntity>>
+
+    @GET("tour/area/search/input/{query}")
+    suspend fun getSearchPlaceData(
+        @Path("query", encoded = true) query : String,
+        @Query("num") num : Int
+    ) : Response<List<PlaceEntity>>
 }

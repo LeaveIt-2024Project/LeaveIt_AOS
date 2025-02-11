@@ -3,9 +3,21 @@ package com.example.leaveit.presentation.placeview.place.showplaceview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
 import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShowPlaceViewModel : ViewModel() {
+@HiltViewModel
+class ShowPlaceViewModel@Inject constructor(
+    private val placeUseCase : GetPlaceUseCaseInterface
+) : ViewModel() {
+
 
     private val _tourAttractionData: MutableLiveData<List<CategoryDto>?> by lazy { MutableLiveData() }
     val tourAttractionData: LiveData<List<CategoryDto>?> = _tourAttractionData
@@ -19,6 +31,11 @@ class ShowPlaceViewModel : ViewModel() {
     private val _topAppBarText: MutableLiveData<String> by lazy { MutableLiveData() }
     var topAppBarText: LiveData<String> = _topAppBarText
 
+    private val _searchData : MutableLiveData<PagingData<CategoryDto>> by lazy { MutableLiveData() }
+    var searchData : LiveData<PagingData<CategoryDto>> = _searchData
+
+
+
     fun categoryData() {
         _tourAttractionData.apply {
             value = initPlaceCategoryData()
@@ -30,6 +47,14 @@ class ShowPlaceViewModel : ViewModel() {
 
         _festivalData.apply {
             value = initFestivalCategoryData()
+        }
+    }
+
+    fun getSearchData(query : String){
+        viewModelScope.launch {
+            placeUseCase.getSearchPlaceUseCase(query).cachedIn(viewModelScope).collectLatest {data ->
+                _searchData.value = data
+            }
         }
     }
 

@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
 import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ShowPlaceView : Fragment() {
@@ -93,6 +96,12 @@ class ShowPlaceView : Fragment() {
         viewModel.festivalData.observe(this) {
             festivalAdapter.submitList(it)
         }
+
+        viewModel.searchData.observe(this){
+            lifecycleScope.launch {
+                searchAdapter.submitData(it)
+            }
+        }
     }
 
     private fun moveToSelectRegionView(context: Context, contentTypeId: String,isSearch : Boolean) {
@@ -139,6 +148,11 @@ class ShowPlaceView : Fragment() {
             searchView.layoutParams = params
 
             binding.viewScrollView.visibility = View.VISIBLE
+
+            lifecycleScope.launch {
+                searchAdapter.submitData(PagingData.empty())
+            }
+
             false
 
         }
@@ -153,7 +167,11 @@ class ShowPlaceView : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                TODO("Not yet implemented")
+                if(newText != null){
+                    viewModel.getSearchData(newText)
+                }
+
+                return true
             }
 
         })

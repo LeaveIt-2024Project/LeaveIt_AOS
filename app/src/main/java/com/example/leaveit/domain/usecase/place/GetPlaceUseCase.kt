@@ -3,6 +3,7 @@ package com.example.leaveit.domain.usecase.place
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -34,6 +35,14 @@ class GetPlaceUseCase @Inject constructor(
                 it.toPlaceModel()
             }
         }
+    }
+
+    override suspend fun getSearchPlaceUseCase(query: String): Flow<PagingData<CategoryDto>> {
+       return bindPlaceViewRepositoryImpl.getSearchPlaceData(query).map {pagingData ->
+           pagingData.map {
+               it.toSearchModel()
+           }
+       }
     }
 
     companion object {
