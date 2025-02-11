@@ -18,9 +18,10 @@ interface PlaceApi {
     ) : Response<List<PlaceEntity>>
 
 
-    @GET("tour/area/cat/{cat}/")
-    suspend fun testAPI(
+    @GET("tour/area/type/{cat}")
+    suspend fun getSortByRegionPlaceData(
         @Path("cat", encoded = true) cat : String,
+        @Query("areaCode") areaCode : String,
         @Query("num") num : Int
-    ): Response<PlaceEntity>
+    ): Response<List<PlaceEntity>>
 }

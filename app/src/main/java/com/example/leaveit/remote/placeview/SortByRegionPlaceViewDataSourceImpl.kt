@@ -9,23 +9,28 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-class PlaceViewDataSourceImpl @AssistedInject constructor(
-    @Assisted private val service: PlaceApi,
-    @Assisted private val category: String
+class SortByRegionPlaceViewDataSourceImpl @AssistedInject constructor(
+    @Assisted("Service") private val service: PlaceApi,
+    @Assisted("Category") private val category: String,
+    @Assisted("AreaCode") private val areaCode: String
 ) : PagingSource<Int, PlaceDataModel>() {
 
-    //관광지 정보 호출 데이터소스 인터페이스 구현체
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PlaceDataModel> {
         return try {
             // 페이징 숫자 설정
             // 페이징 숫자가 null이라면 1로 설정
             val pageNumber = params.key ?: 1
-            Log.d(TAG,category)
+            Log.d(TAG, category)
+            Log.d(TAG, areaCode)
 
             // 서버에서 응답 받아오기
-            val response = service.getAllRegionPlaceData(cat = category , num = pageNumber)
+            val response = service.getSortByRegionPlaceData(
+                cat = category,
+                areaCode = areaCode,
+                num = pageNumber
+            )
             if (response.isSuccessful) {
-                Log.d(TAG,"호출성공")
+                Log.d(TAG, "호출성공")
                 val body = response.body()
                 val places = body?.map { it.toData() } ?: emptyList()
 
@@ -45,10 +50,9 @@ class PlaceViewDataSourceImpl @AssistedInject constructor(
             }
 
         } catch (e: Exception) {
-            Log.d(TAG,e.message.toString())
+            Log.d(AllPlaceViewDataSourceImpl.TAG, e.message.toString())
             LoadResult.Error(e)
         }
-
     }
 
     override fun getRefreshKey(state: PagingState<Int, PlaceDataModel>): Int? {
@@ -59,14 +63,16 @@ class PlaceViewDataSourceImpl @AssistedInject constructor(
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
         }
     }
-
-
     companion object {
-        val TAG = "PlaceViewDataSourceImpl"
+        val TAG = "SortByRegionPlaceViewDataSourceImpl"
     }
 }
 
 @AssistedFactory
-interface PlaceViewDataSourceAsstiedFactory {
-    fun create(category: String, service: PlaceApi): PlaceViewDataSourceImpl
+interface SortByRegionPlaceViewDataSourceAsstiedFactory {
+    fun create(
+        @Assisted("Category") category: String,
+        @Assisted("AreaCode") areaCode: String,
+        @Assisted("Service") service: PlaceApi
+    ): SortByRegionPlaceViewDataSourceImpl
 }

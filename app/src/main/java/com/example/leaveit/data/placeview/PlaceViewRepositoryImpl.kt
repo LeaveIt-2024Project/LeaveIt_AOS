@@ -9,6 +9,7 @@ import com.example.leaveit.domain.model.PlaceDomainModel
 import com.example.leaveit.domain.usecase.place.GetPlaceRepositoryInterface
 import com.example.leaveit.remote.api.place.PlaceApi
 import com.example.leaveit.remote.placeview.PlaceViewDataSourceAsstiedFactory
+import com.example.leaveit.remote.placeview.SortByRegionPlaceViewDataSourceAsstiedFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 class PlaceViewRepositoryImpl @Inject constructor(
     private val service: PlaceApi,
-    private val PlaceViewDataSourceAsstiedFactory: PlaceViewDataSourceAsstiedFactory
+    private val SortByRegionPlaceViewDataSourceAsstiedFactory: SortByRegionPlaceViewDataSourceAsstiedFactory,
+    private val PlaceViewDataSourceAsstiedFactory : PlaceViewDataSourceAsstiedFactory
 ) : GetPlaceRepositoryInterface {
     // 관광지 레포지 인터페이스 구현 뷰
     override suspend fun getAllPlaceData(category: String): Flow<PagingData<PlaceDomainModel>> {
@@ -41,7 +43,34 @@ class PlaceViewRepositoryImpl @Inject constructor(
             }
             .catch { e ->
                 emit(PagingData.empty())
-                Log.e("PlaceViewRepositoryImpl", "데이터 로드 실패: ${e.message}", e)
+                Log.e("PlaceViewRepositoryImpl", "전체 데이터 로드 실패: ${e.message}", e)
+            }
+            .flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getSortByRegionPlaceData(
+        areadCode: String,
+        category: String
+    ): Flow<PagingData<PlaceDomainModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                SortByRegionPlaceViewDataSourceAsstiedFactory.create(
+                    category = category,
+                    areaCode = areadCode,
+                    service = service
+                )
+            }
+        ).flow
+            .map { pagingData ->
+                pagingData.map { it.toDomain() }
+            }
+            .catch { e ->
+                emit(PagingData.empty())
+                Log.e("PlaceViewRepositoryImpl", "지역별 데이터 로드 실패: ${e.message}", e)
             }
             .flowOn(Dispatchers.IO)
     }

@@ -105,6 +105,14 @@ class SelectRegionViewModel @Inject constructor(
         }
     }
 
+    fun getSortByRigionData(regionStr: String,areaCode : String){
+        viewModelScope.launch {
+            getFeedUseCase.getSortByRegionUseCase(contentTypedId = regionStr,areaCode = areaCode).cachedIn(viewModelScope).collectLatest {data ->
+                _placeData.value = data
+            }
+        }
+    }
+
     companion object {
         val TAG = "SelectRegionViewModel"
     }

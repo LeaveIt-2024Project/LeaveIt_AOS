@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
@@ -20,6 +19,7 @@ import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SortRegionFragment : Fragment() {
@@ -105,17 +105,8 @@ class SortRegionFragment : Fragment() {
 
                     1 -> {
                         Log.d(TAG, "${position} 위치")
-                       /*
-                       * TODO 카테고리의 지역별 관광지 호출
-                       *  어댑터가 비어있는지 확인 후 메서드 호출할 것
-                       * */
-                        lifecycleScope.launch {
-                            if(adapter.itemCount > 0){
-                                adapter.submitData(PagingData.empty())
-                            }else{
+                        callSortByPlaceData()
 
-                            }
-                        }
                     }
 
                     2 -> {
@@ -177,6 +168,17 @@ class SortRegionFragment : Fragment() {
             }
         }
     }
+
+    private fun callSortByPlaceData(){
+        runBlocking {
+            val firstJob = launch {
+                viewModel.getSortByRigionData("산","1")
+            }
+            firstJob.join()
+            observeAllPlaceData()
+        }
+    }
+
 
     private fun branchFragment(value: String): Fragment {
         var fragment = Fragment()
