@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
+import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -89,6 +90,9 @@ class ShowPlaceView : Fragment() {
 
         // 선택된 카테고리의 contentTypeId 넘기기
         downloadIntent.putExtra("contentTypeId",contentTypeId)
+
+        // SharedPreferences에 선택한 데이터 넣기
+        sharedPreferencesUtill.setData(context,"showPlaceViewContentTypeId",contentTypeId)
         startActivity(downloadIntent)
     }
 

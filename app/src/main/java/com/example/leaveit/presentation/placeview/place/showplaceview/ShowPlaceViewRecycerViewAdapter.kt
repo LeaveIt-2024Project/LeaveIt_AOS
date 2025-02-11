@@ -48,7 +48,7 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit)) :
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                onClick(model.contentTypeId) // 클릭 시 호출자(View)에 아이템의 contentId 전달
+                onClick(model.contentTypeId) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
             }
         }
     }

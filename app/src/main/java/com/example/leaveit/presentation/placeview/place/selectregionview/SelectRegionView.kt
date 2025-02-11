@@ -6,7 +6,6 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.leaveit.BuildConfig
 import com.example.leaveit.R
 import com.example.leaveit.databinding.ActivitySelectregionviewBinding
 import com.google.android.material.tabs.TabLayout
@@ -19,13 +18,9 @@ class SelectRegionView : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO ShowPlaceView에서 전달받은 ContentTypeID를 기반으로
-        //TODO 카테고리 별 API 호출 진행하기
 
         binding = ActivitySelectregionviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         // 처음 보여줄 프레그먼트 설정
         if(savedInstanceState == null){
@@ -33,9 +28,6 @@ class SelectRegionView : AppCompatActivity() {
                 .add(R.id.selectregion_fragment_container, SortRegionFragment())
                 .commit()
         }
-
-
-        Log.d(TAG,"TEST : ${BuildConfig.TOUR_API_KEY}")
 
         binding.topTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 

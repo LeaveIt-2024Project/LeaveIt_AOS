@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
@@ -15,7 +16,7 @@ import com.example.leaveit.databinding.FragmentSortregionBinding
 import com.example.leaveit.presentation.placeview.place.detailview.DetailCultureView
 import com.example.leaveit.presentation.placeview.place.detailview.DetailFestivalView
 import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceView
-import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
+import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,19 +35,20 @@ class SortRegionFragment : Fragment() {
         binding = FragmentSortregionBinding.inflate(layoutInflater)
 
         initAdapter()
+        observeAllPlaceData()
         handleTabLayout()
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllPlaceData("산")
+
+        // 선택한 데이터 받아오기
+        val data = sharedPreferencesUtill.getData(requireContext(),"showPlaceViewContentTypeId")
+
+        viewModel.getAllPlaceData(data)
         viewModel.setIsMoveDetailView(true)
         viewModel.setTopTapContent("카테고리를 선택하세요")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
 
@@ -56,39 +58,6 @@ class SortRegionFragment : Fragment() {
         binding.sortRecyclerView.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL, false
-        )
-
-        val testData = listOf(
-            SelectRegionModel(
-                contentId = "2733967",
-                title = "관광지",
-                contentTypeId = "12",
-                areaCode = "1",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
-                mapx = "126.9846616856",
-                mapy = "37.5820858828",
-                address = "서울특별시 종로구 북촌로 57 (가회동)"
-            ),
-            SelectRegionModel(
-                contentId = "3351675",
-                title = "축제",
-                contentTypeId = "15",
-                areaCode = "1",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
-                mapx = "126.9846616856",
-                mapy = "37.5820858828",
-                address = "서울특별시 종로구 북촌로 57 (가회동)"
-            ),
-            SelectRegionModel(
-                contentId = "130446",
-                title = "문화",
-                contentTypeId = "14",
-                areaCode = "1",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
-                mapx = "126.9846616856",
-                mapy = "37.5820858828",
-                address = "서울특별시 종로구 북촌로 57 (가회동)"
-            )
         )
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
@@ -121,18 +90,6 @@ class SortRegionFragment : Fragment() {
     }
 
     private fun handleTabLayout() {
-        val testData = listOf(
-            SelectRegionModel(
-                contentId = "2733967",
-                title = "가회동 성당",
-                contentTypeId = "1",
-                areaCode = "2",
-                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
-                mapx = "126.9846616856",
-                mapy = "37.5820858828",
-                address = "서울특별시 종로구 북촌로 57 (가회동)"
-            )
-        )
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -143,18 +100,22 @@ class SortRegionFragment : Fragment() {
                         //TODO 카테고리 선택에 해당하는 API 호출 후
                         // 비동기로 API 호출이 끝나면 adapter.submitList() 호출하게 만들기
                         Log.d(TAG, "${position} 위치")
-                        viewModel.placeData.observe(viewLifecycleOwner) {
-                            lifecycleScope.launch {
-                                it.map {
-                                    Log.d(TAG,it.title)
-                                }
-                                adapter.submitData(it)
-                            }
-                        }
+                        observeAllPlaceData()
                     }
 
                     1 -> {
                         Log.d(TAG, "${position} 위치")
+                       /*
+                       * TODO 카테고리의 지역별 관광지 호출
+                       *  어댑터가 비어있는지 확인 후 메서드 호출할 것
+                       * */
+                        lifecycleScope.launch {
+                            if(adapter.itemCount > 0){
+                                adapter.submitData(PagingData.empty())
+                            }else{
+
+                            }
+                        }
                     }
 
                     2 -> {
@@ -205,7 +166,19 @@ class SortRegionFragment : Fragment() {
         })
     }
 
-    fun branchFragment(value: String): Fragment {
+
+    private fun observeAllPlaceData(){
+        viewModel.placeData.observe(viewLifecycleOwner) {
+            lifecycleScope.launch {
+                it.map {
+                    Log.d(TAG,it.title)
+                }
+                adapter.submitData(it)
+            }
+        }
+    }
+
+    private fun branchFragment(value: String): Fragment {
         var fragment = Fragment()
 
         if (value == "12") {
