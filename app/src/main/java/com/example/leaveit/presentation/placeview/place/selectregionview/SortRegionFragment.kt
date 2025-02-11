@@ -19,13 +19,13 @@ import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SortRegionFragment : Fragment() {
     private lateinit var binding: FragmentSortregionBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
     private val viewModel: SelectRegionViewModel by activityViewModels()
+    private lateinit var category: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,20 +33,17 @@ class SortRegionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSortregionBinding.inflate(layoutInflater)
+        category = getCategoryData()
 
         initAdapter()
-        observeAllPlaceData()
         handleTabLayout()
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-
-        // 선택한 데이터 받아오기
-        val data = sharedPreferencesUtill.getData(requireContext(),"showPlaceViewContentTypeId")
-
-        viewModel.getAllPlaceData(data)
+        observeAllPlaceData()
+        viewModel.getAllPlaceData(category)
         viewModel.setIsMoveDetailView(true)
         viewModel.setTopTapContent("카테고리를 선택하세요")
     }
@@ -100,49 +97,85 @@ class SortRegionFragment : Fragment() {
                         //TODO 카테고리 선택에 해당하는 API 호출 후
                         // 비동기로 API 호출이 끝나면 adapter.submitList() 호출하게 만들기
                         Log.d(TAG, "${position} 위치")
-                        observeAllPlaceData()
+                        callAllPlaceData(category = category)
                     }
 
                     1 -> {
                         Log.d(TAG, "${position} 위치")
-                        callSortByPlaceData()
-
+                        callSortByPlaceData(category = category, "1")
                     }
 
                     2 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "2")
                     }
 
                     3 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "31")
                     }
 
                     4 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "32")
                     }
 
                     5 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "3")
                     }
 
                     6 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "4")
                     }
 
                     7 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "5")
                     }
 
                     8 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "6")
                     }
 
                     9 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "7")
                     }
 
                     10 -> {
                         Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "8")
+                    }
+                    11 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "33")
+                    }
+                    12 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "34")
+                    }
+                    13 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "35")
+                    }
+                    14 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "36")
+                    }
+                    15 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "37")
+                    }
+                    16 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "38")
+                    }
+                    17 -> {
+                        Log.d(TAG, "${position} 위치")
+                        callSortByPlaceData(category = category, "39")
                     }
                 }
 
@@ -158,25 +191,23 @@ class SortRegionFragment : Fragment() {
     }
 
 
-    private fun observeAllPlaceData(){
+    private fun observeAllPlaceData() {
         viewModel.placeData.observe(viewLifecycleOwner) {
             lifecycleScope.launch {
                 it.map {
-                    Log.d(TAG,it.title)
+                    Log.d(TAG, it.title)
                 }
                 adapter.submitData(it)
             }
         }
     }
 
-    private fun callSortByPlaceData(){
-        runBlocking {
-            val firstJob = launch {
-                viewModel.getSortByRigionData("산","1")
-            }
-            firstJob.join()
-            observeAllPlaceData()
-        }
+    private fun callSortByPlaceData(category: String, areaCode: String) {
+        viewModel.getSortByRigionData(category, areaCode) // 데이터 호출
+    }
+
+    private fun callAllPlaceData(category: String) {
+        viewModel.getAllPlaceData(category) // 데이터 호출
     }
 
 
@@ -192,6 +223,11 @@ class SortRegionFragment : Fragment() {
         }
 
         return fragment
+    }
+
+    private fun getCategoryData(): String {
+        val data = sharedPreferencesUtill.getData(requireContext(), "showPlaceViewContentTypeId")
+        return data
     }
 
     companion object {
