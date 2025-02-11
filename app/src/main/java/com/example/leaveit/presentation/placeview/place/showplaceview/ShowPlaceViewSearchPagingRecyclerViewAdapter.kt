@@ -2,8 +2,8 @@ package com.example.leaveit.presentation.placeview.place.showplaceview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
@@ -12,17 +12,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.leaveit.databinding.ItemShowplaceRecyclerviewBinding
 import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 
-class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), val isSearch : Boolean) :
-    ListAdapter<CategoryDto, ShowPlaceViewRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(
-        diffUtil
-    ) {
+class ShowPlaceViewSearchPagingRecyclerViewAdapter(
+    val onClick: (String, Boolean) -> (Unit), val isSearch: Boolean
+) : PagingDataAdapter<CategoryDto, ShowPlaceViewSearchPagingRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(
+    diffUtil
+) {
     private val multioption = MultiTransformation(RoundedCorners(36))
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ShowPlaceViewRecyclerViewHolder {
+    ): ShowPlaceViewSearchPagingRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder {
         return ShowPlaceViewRecyclerViewHolder(
+
+            // 정의한 아이템 뷰에 inflate
             ItemShowplaceRecyclerviewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -31,9 +34,16 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), 
         )
     }
 
-    override fun onBindViewHolder(holder: ShowPlaceViewRecyclerViewHolder, position: Int) {
+
+    override fun onBindViewHolder(
+        holder: ShowPlaceViewSearchPagingRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder,
+        position: Int
+    ) {
         //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
-        holder.bind(currentList[position])
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class ShowPlaceViewRecyclerViewHolder(private val binding: ItemShowplaceRecyclerviewBinding) :
@@ -48,7 +58,7 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), 
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                onClick(model.contentTypeId,isSearch) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
+                onClick(model.contentTypeId, isSearch) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
             }
         }
     }
@@ -73,4 +83,5 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), 
 
         }
     }
+
 }
