@@ -24,7 +24,8 @@ class ShowPlaceView : Fragment() {
     private lateinit var tourAdapter: ShowPlaceViewRecyclerViewAdapter
     private lateinit var cultureAdapter: ShowPlaceViewRecyclerViewAdapter
     private lateinit var festivalAdapter: ShowPlaceViewRecyclerViewAdapter
-    private lateinit var searchAdapter : ShowPlaceViewSearchPagingRecyclerViewAdapter
+    private lateinit var searchAdapter: ShowPlaceViewSearchPagingRecyclerViewAdapter
+
     private val viewModel: ShowPlaceViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -54,24 +55,32 @@ class ShowPlaceView : Fragment() {
         binding.festival.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.searchDataView.layoutManager =
-            LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        tourAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId,isSearch ->
+        tourAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId ->
             // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentTypeId,isSearch)
-        },false)
-        festivalAdapter = ShowPlaceViewRecyclerViewAdapter ({ contentTypeId,isSearch ->
+            moveToSelectRegionView(requireContext(), contentTypeId)
+        }, false)
+        festivalAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId ->
             // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentTypeId,isSearch)
-        },false)
-        cultureAdapter = ShowPlaceViewRecyclerViewAdapter ({ contentTypeId,isSearch ->
+            moveToSelectRegionView(requireContext(), contentTypeId)
+        }, false)
+        cultureAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId ->
             // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentTypeId,isSearch)
-        },false)
-        searchAdapter = ShowPlaceViewSearchPagingRecyclerViewAdapter({ contentTypeId,isSearch ->
-            // SelectRegionView로 이동
-            moveToSelectRegionView(requireContext(), contentTypeId,isSearch)
-        },true)
+            moveToSelectRegionView(requireContext(), contentTypeId)
+        }, false)
+        searchAdapter =
+            ShowPlaceViewSearchPagingRecyclerViewAdapter { contentTypeId, contentId, mapx, mapy,image,addr,title ->
+                // SelectRegionView로 이동
+                moveToDetailview(requireContext(),
+                    contentTypeId,
+                    contentId,
+                    mapx,
+                    mapy,
+                    image,
+                    addr,
+                    title)
+            }
 
 
         binding.tourAttraction.adapter = tourAdapter
@@ -97,26 +106,79 @@ class ShowPlaceView : Fragment() {
             festivalAdapter.submitList(it)
         }
 
-        viewModel.searchData.observe(this){
+        viewModel.searchData.observe(this) {
             lifecycleScope.launch {
                 searchAdapter.submitData(it)
             }
         }
     }
 
-    private fun moveToSelectRegionView(context: Context, contentTypeId: String,isSearch : Boolean) {
-        if(isSearch != true){
-            val downloadIntent = Intent(context, SelectRegionView::class.java)
+    private fun moveToSelectRegionView(context: Context, contentTypeId: String) {
 
-            // 선택된 카테고리의 contentTypeId 넘기기
-            downloadIntent.putExtra("contentTypeId", contentTypeId)
+        val downloadIntent = Intent(context, SelectRegionView::class.java)
 
-            // SharedPreferences에 선택한 데이터 넣기
-            sharedPreferencesUtill.setData(context, "showPlaceViewContentTypeId", contentTypeId)
-            startActivity(downloadIntent)
-        }else{
-            //TODO 검색 아이템 클릭 리스너이므로 바로 Deatil로 넘어가기
+        // 선택된 카테고리의 contentTypeId 넘기기
+        downloadIntent.putExtra("contentTypeId", contentTypeId)
+
+        // SharedPreferences에 선택한 데이터 넣기
+        sharedPreferencesUtill.setData(context, "showPlaceViewContentTypeId", contentTypeId)
+        startActivity(downloadIntent)
+    }
+
+    private fun moveToDetailview(
+        context: Context,
+        contentTypeId: String,
+        contentId: String,
+        mapx: String,
+        mapy: String,
+        imageUrl : String,
+        addr : String,
+        title : String
+    ) {
+
+        // 선택한 아이템의 contentTypeId에 따라 DetailPage로 넘어감
+        when (contentTypeId) {
+            "12" -> {// 관광지
+                val moveToPlaceView = Intent(context, SelectRegionView::class.java)
+                moveToPlaceView.putExtra("isSearch", true)
+                moveToPlaceView.putExtra("searchContentId", contentId)
+                moveToPlaceView.putExtra("searchMapx", mapx)
+                moveToPlaceView.putExtra("searchMapy", mapy)
+                moveToPlaceView.putExtra("searchImage", imageUrl)
+                moveToPlaceView.putExtra("searchAddr", addr)
+                moveToPlaceView.putExtra("searchTitle", title)
+                moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                startActivity(moveToPlaceView)
+            }
+
+            "14" -> {// 문화시설
+                val moveToPlaceView = Intent(context, SelectRegionView::class.java)
+                moveToPlaceView.putExtra("isSearch", true)
+                moveToPlaceView.putExtra("searchContentId", contentId)
+                moveToPlaceView.putExtra("searchMapx", mapx)
+                moveToPlaceView.putExtra("searchMapy", mapy)
+                moveToPlaceView.putExtra("searchImage", imageUrl)
+                moveToPlaceView.putExtra("searchAddr", addr)
+                moveToPlaceView.putExtra("searchTitle", title)
+                moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                startActivity(moveToPlaceView)
+            }
+
+            "15" -> { //행사,공연,축제
+                val moveToPlaceView = Intent(context, SelectRegionView::class.java)
+                moveToPlaceView.putExtra("isSearch", true)
+                moveToPlaceView.putExtra("searchContentId", contentId)
+                moveToPlaceView.putExtra("searchMapx", mapx)
+                moveToPlaceView.putExtra("searchMapy", mapy)
+                moveToPlaceView.putExtra("searchImage", imageUrl)
+                moveToPlaceView.putExtra("searchAddr", addr)
+                moveToPlaceView.putExtra("searchTitle", title)
+                moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                startActivity(moveToPlaceView)
+            }
+
         }
+
     }
 
     private fun initSearchView() {
@@ -167,7 +229,7 @@ class ShowPlaceView : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if(newText != null){
+                if (newText != null) {
                     viewModel.getSearchData(newText)
                 }
 

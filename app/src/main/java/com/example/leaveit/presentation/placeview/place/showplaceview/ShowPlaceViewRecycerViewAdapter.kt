@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.leaveit.databinding.ItemShowplaceRecyclerviewBinding
 import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 
-class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), val isSearch : Boolean) :
+class ShowPlaceViewRecyclerViewAdapter(val onClick: (String) -> (Unit), val isSearch : Boolean) :
     ListAdapter<CategoryDto, ShowPlaceViewRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder>(
         diffUtil
     ) {
@@ -48,7 +48,7 @@ class ShowPlaceViewRecyclerViewAdapter(val onClick: (String,Boolean) -> (Unit), 
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                onClick(model.contentTypeId,isSearch) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
+                onClick(model.contentTypeId) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
             }
         }
     }

@@ -35,14 +35,13 @@ class DetailFestivalView : Fragment() {
     ): View? {
         binding = FragmentDetailfestivalviewBinding.inflate(layoutInflater)
         placeContentId = rootViewModel.placeContentId.value.toString()
-        placeType = rootViewModel.contentTypeId.value.toString()
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getDetailFestivalData(id = placeContentId, type = placeType)
+        viewModel.getDetailFestivalData(id = placeContentId, type = "15")
 
         rootViewModel.setIsMoveDetailView(false)
         moveToRestrauntViewEventListener()

@@ -52,7 +52,7 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
         val mapy = rootViewModel.mapy.value.toString()
 
         // 관광지 좌표 기반 근처 음식점 데이터 불러오기
-        viewModel.getRestrauntList(mapx, mapy)
+        viewModel.getRestrauntList(mapy, mapx)
 
         initTopAppBarText()
 
@@ -130,7 +130,7 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
     // 지도 설정 함수
     private fun setUtillFunctionMap(map: NaverMap) {
         val latLng =
-            LatLng(rootViewModel.mapy.value!!.toDouble(), rootViewModel.mapx.value!!.toDouble())
+            LatLng(rootViewModel.mapx.value!!.toDouble(), rootViewModel.mapy.value!!.toDouble())
 
         val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 15.0)
         map.moveCamera(cameraUpdate)

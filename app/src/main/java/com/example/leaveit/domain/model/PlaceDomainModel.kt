@@ -20,7 +20,7 @@ data class PlaceDomainModel(
        return CategoryDto(
             title = title,
            image = image,
-           contentTypeId = contenttypeid
+           contentTypeId = contenttypeid,
        )
     }
 

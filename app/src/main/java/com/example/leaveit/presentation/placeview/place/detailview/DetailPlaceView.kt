@@ -25,7 +25,6 @@ class DetailPlaceView : Fragment() {
     private val rootViewModel: SelectRegionViewModel by activityViewModels()
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var placeContentId: String
-    private lateinit var placeType: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,8 +33,7 @@ class DetailPlaceView : Fragment() {
     ): View? {
         binding = FragmentDetailplaceviewBinding.inflate(layoutInflater)
         placeContentId = rootViewModel.placeContentId.value.toString()
-        placeType = rootViewModel.contentTypeId.value.toString()
-        Log.d(TAG,placeType)
+        Log.d(TAG,placeContentId)
 
         return binding.root
     }
@@ -141,13 +139,19 @@ class DetailPlaceView : Fragment() {
         rootViewModel.imageUrl.observe(viewLifecycleOwner) {
             Glide.with(this)
                 .load(it)
-                .fallback(R.drawable.null_image)
+                .error(R.drawable.null_image)
                 .override(binding.imageLayer.width, binding.imageLayer.height)
                 .into(binding.placeImage)
         }
         rootViewModel.placeTitle.observe(viewLifecycleOwner) {
             binding.placeTitleText.text = it
             rootViewModel.setTopTapContent(it)
+        }
+        rootViewModel.addressInfo.observe(viewLifecycleOwner){
+            binding.addressInfo.text = it
+        }
+        rootViewModel.placeTitle.observe(viewLifecycleOwner){
+            binding.placeTitleText.text = it
         }
     }
 
