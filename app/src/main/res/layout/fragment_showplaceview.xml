@@ -17,6 +17,90 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="0.1" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recentSearchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/hotSearchKeywordLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        app:layout_constraintVertical_weight="0.3">
+
+        <TextView
+            android:id="@+id/recentSearchTopText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|start"
+            android:text="최근 검색 기록"
+            android:textAppearance="@style/searchPlaceForTopText"
+            app:layout_constraintBottom_toTopOf="@id/recentSearchRecyclerView"
+            app:layout_constraintEnd_toStartOf="@id/recentSearchAllDeleteBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.15" />
+
+        <TextView
+            android:id="@+id/recentSearchAllDeleteBtn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="end|center"
+            android:text="전체 삭제"
+            app:layout_constraintBottom_toTopOf="@id/recentSearchRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recentSearchTopText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.15" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recentSearchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchAllDeleteBtn"
+            app:layout_constraintVertical_weight="0.7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hotSearchKeywordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recentSearchLayout"
+        app:layout_constraintVertical_weight="0.7">
+
+        <TextView
+            android:id="@+id/hotSearchKeywordTopText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="인기 검색어"
+            android:textAppearance="@style/searchPlaceForTopText"
+            app:layout_constraintBottom_toTopOf="@id/hotSearchKeyWordRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hotSearchKeyWordRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hotSearchKeywordTopText"
+            app:layout_constraintVertical_weight="0.9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <ScrollView
         android:id="@+id/searchParentView"
         android:layout_width="match_parent"
@@ -46,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +147,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:text="관광지"
+                android:textColor="#959393"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@id/tourAttraction"
                 app:layout_constraintEnd_toEndOf="parent"
