@@ -74,7 +74,7 @@ class ShowPlaceViewModel @Inject constructor(
                         Log.d(TAG,"검색어 저장 로딩중")
                     }
                     is DataResource.Success -> {
-                        Log.d(TAG,"검색어 저장 로딩중 : ${it.data}")
+                        Log.d(TAG,"검색어 저장 성공 : ${it.data}")
                     }
                 }
             }

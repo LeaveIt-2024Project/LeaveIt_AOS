@@ -11,11 +11,13 @@ class StoreLogSearchKeywordRepositoryImpl @Inject constructor(
     private val bindStoreLogSearchKeywordDataSourceImpl: StoreLogSearchKeywordDataSourceInterface
 ) : StoreLogSearchKeywordRespoitory {
 
-    override suspend fun setLog(value: String): Flow<DataResource<ResponseData>> = flow {
+    override suspend fun setLog(value: String): Flow<DataResource<Boolean>> = flow {
         emit(DataResource.Loading())
         try {
             val data = bindStoreLogSearchKeywordDataSourceImpl.setLog(value)
-            emit(DataResource.success(data))
+            if(data.isSuccessful){
+                emit(DataResource.success(true))
+            }
         } catch (e: Exception) {
             emit(DataResource.error(e))
         }

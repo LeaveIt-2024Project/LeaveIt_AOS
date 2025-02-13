@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface StoreLogSearchKeywordRespoitory {
 
-    suspend fun setLog(value : String) : Flow<DataResource<ResponseData>>
+    suspend fun setLog(value : String) : Flow<DataResource<Boolean>>
 }

@@ -1,7 +1,7 @@
 package com.example.leaveit.remote.api.place
 
 import com.example.leaveit.remote.entity.PlaceEntity
-import com.google.android.gms.fido.u2f.api.common.ResponseData
+import com.example.leaveit.remote.entity.SearchBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -32,6 +32,6 @@ interface PlaceApi {
 
     @POST("/tour/area/log")
     suspend fun setSearchLog(
-        @Body log : String
-    ) : ResponseData
+        @Body log : SearchBody
+    ) : Response<Unit>
 }
