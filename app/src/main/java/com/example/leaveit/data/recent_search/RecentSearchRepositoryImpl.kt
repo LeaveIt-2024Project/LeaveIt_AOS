@@ -3,7 +3,7 @@ package com.example.leaveit.data.recent_search
 import android.util.Log
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.repository.RecentSearchRepository
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject

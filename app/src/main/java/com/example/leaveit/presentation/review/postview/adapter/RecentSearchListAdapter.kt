@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.leaveit.databinding.ItemRecentSearchRecyclerviewBinding
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 
 class RecentSearchListAdapter(
     private val deleteRecentData: () -> Unit

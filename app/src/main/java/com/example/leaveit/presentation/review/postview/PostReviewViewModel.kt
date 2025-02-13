@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.leaveit.data.recent_search.RecentSearchRepositoryImpl
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.usecase.recent_data.RecentSearchUseCase
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

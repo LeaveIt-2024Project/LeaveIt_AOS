@@ -1,7 +1,7 @@
 package com.example.leaveit.domain.repository
 
 import com.example.leaveit.dataResource.DataResource
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import kotlinx.coroutines.flow.Flow
 
 interface RecentSearchRepository {

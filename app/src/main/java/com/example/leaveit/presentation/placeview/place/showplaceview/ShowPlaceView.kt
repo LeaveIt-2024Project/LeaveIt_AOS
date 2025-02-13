@@ -148,6 +148,7 @@ class ShowPlaceView : Fragment() {
                 moveToPlaceView.putExtra("searchAddr", addr)
                 moveToPlaceView.putExtra("searchTitle", title)
                 moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                //TODO 최근 검색 기록 Start Point
                 viewModel.storeKeyWord(title)
                 startActivity(moveToPlaceView)
             }
@@ -162,6 +163,7 @@ class ShowPlaceView : Fragment() {
                 moveToPlaceView.putExtra("searchAddr", addr)
                 moveToPlaceView.putExtra("searchTitle", title)
                 moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                viewModel.storeKeyWord(title)
                 startActivity(moveToPlaceView)
             }
 
@@ -175,6 +177,7 @@ class ShowPlaceView : Fragment() {
                 moveToPlaceView.putExtra("searchAddr", addr)
                 moveToPlaceView.putExtra("searchTitle", title)
                 moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                viewModel.storeKeyWord(title)
                 startActivity(moveToPlaceView)
             }
 

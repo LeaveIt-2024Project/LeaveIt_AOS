@@ -1,4 +1,4 @@
-package com.example.leaveit.local
+package com.example.leaveit.local.RecentSearch
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

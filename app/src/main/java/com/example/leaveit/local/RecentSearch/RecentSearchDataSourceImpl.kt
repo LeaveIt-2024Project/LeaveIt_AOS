@@ -1,7 +1,8 @@
-package com.example.leaveit.local
+package com.example.leaveit.local.RecentSearch
 
 import com.example.leaveit.data.recent_search.RecentSearchDataSource
 import com.example.leaveit.dataResource.DataResource
+import com.example.leaveit.local.AppDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
