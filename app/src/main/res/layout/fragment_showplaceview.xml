@@ -18,6 +18,7 @@
         app:layout_constraintVertical_weight="0.1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
         android:id="@+id/recentSearchLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -66,6 +67,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
         android:id="@+id/hotSearchKeywordLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -130,7 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

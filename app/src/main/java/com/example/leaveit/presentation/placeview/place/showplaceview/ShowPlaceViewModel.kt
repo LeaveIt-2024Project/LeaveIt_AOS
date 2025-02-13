@@ -1,13 +1,16 @@
 package com.example.leaveit.presentation.placeview.place.showplaceview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.model.PlaceDomainModel
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
+import com.example.leaveit.domain.usecase.place.searchPlace.StoreLogSearchKeywordUseCase
 import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShowPlaceViewModel @Inject constructor(
-    private val placeUseCase: GetPlaceUseCaseInterface
+    private val placeUseCase: GetPlaceUseCaseInterface,
+    private val storeUseCase : StoreLogSearchKeywordUseCase
 ) : ViewModel() {
 
 
@@ -56,6 +60,24 @@ class ShowPlaceViewModel @Inject constructor(
                 .collectLatest { data ->
                     _searchData.value = data
                 }
+        }
+    }
+
+    fun storeKeyWord(query: String){
+        viewModelScope.launch {
+            storeUseCase.excute(query).collect{
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"검색어 저장 실패 : ${it.throwable.message}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"검색어 저장 로딩중")
+                    }
+                    is DataResource.Success -> {
+                        Log.d(TAG,"검색어 저장 로딩중 : ${it.data}")
+                    }
+                }
+            }
         }
     }
 
@@ -270,5 +292,9 @@ class ShowPlaceViewModel @Inject constructor(
 
                 )
         )
+    }
+
+    companion object{
+        const val TAG = "ShowPlaceViewModel"
     }
 }

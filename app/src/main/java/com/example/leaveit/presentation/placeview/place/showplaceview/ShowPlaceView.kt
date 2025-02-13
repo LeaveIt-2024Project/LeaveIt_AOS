@@ -148,6 +148,7 @@ class ShowPlaceView : Fragment() {
                 moveToPlaceView.putExtra("searchAddr", addr)
                 moveToPlaceView.putExtra("searchTitle", title)
                 moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
+                viewModel.storeKeyWord(title)
                 startActivity(moveToPlaceView)
             }
 
