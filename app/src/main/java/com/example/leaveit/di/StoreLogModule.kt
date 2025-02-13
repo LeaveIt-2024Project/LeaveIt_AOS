@@ -13,7 +13,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class SearchModule {
+abstract class StoreLogModule {
 
     @Binds
     abstract fun bindStoreLogSearchKeywordDataSourceImpl(bindStoreLogSearchKeywordDataSourceImpl : StoreLogSearchKeywordDataSourceImpl) : StoreLogSearchKeywordDataSourceInterface

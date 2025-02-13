@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 
 @Entity
-data class PlaceSearchEntity(
+data class RecentSearchPlaceEntity(
     @PrimaryKey val uid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "searchIndex") var searchIndex: Int?,
     @ColumnInfo(name = "title") var title: String,

@@ -2,7 +2,7 @@ package com.example.leaveit.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.example.leaveit.local.PlaceSearch.PlaceSearchEntity
+import com.example.leaveit.local.PlaceSearch.RecentSearchPlaceEntity
 import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -41,26 +41,26 @@ class DataConverter {
 
     // PlaceSearchEntity → String (저장 시)
     @TypeConverter
-    fun fromPlaceSearchEntity(value: PlaceSearchEntity?): String {
+    fun fromPlaceSearchEntity(value: RecentSearchPlaceEntity?): String {
         return gson.toJson(value)
     }
 
     // String → PlaceSearchEntity (가져올 때)
     @TypeConverter
-    fun toPlaceSearchEntity(value: String): PlaceSearchEntity {
-        return gson.fromJson(value, PlaceSearchEntity::class.java)
+    fun toPlaceSearchEntity(value: String): RecentSearchPlaceEntity {
+        return gson.fromJson(value, RecentSearchPlaceEntity::class.java)
     }
 
     // List<PlaceSearchEntity> → String (저장 시)
     @TypeConverter
-    fun fromPlaceSearchEntityList(value: List<PlaceSearchEntity>?): String {
+    fun fromPlaceSearchEntityList(value: List<RecentSearchPlaceEntity>?): String {
         return gson.toJson(value)
     }
 
     // String → List<PlaceSearchEntity> (읽을 때)
     @TypeConverter
-    fun toPlaceSearchEntityList(value: String): List<PlaceSearchEntity>? {
-        val type = object : TypeToken<List<PlaceSearchEntity>>() {}.type
+    fun toPlaceSearchEntityList(value: String): List<RecentSearchPlaceEntity>? {
+        val type = object : TypeToken<List<RecentSearchPlaceEntity>>() {}.type
         return gson.fromJson(value, type)
     }
 

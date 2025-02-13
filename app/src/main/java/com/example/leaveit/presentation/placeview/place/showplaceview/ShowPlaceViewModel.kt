@@ -10,7 +10,9 @@ import androidx.paging.cachedIn
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.model.PlaceDomainModel
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
+import com.example.leaveit.domain.usecase.place.recentSearchPlace.RecentSearchPlaceUseCase
 import com.example.leaveit.domain.usecase.place.searchPlace.StoreLogSearchKeywordUseCase
+import com.example.leaveit.local.PlaceSearch.RecentSearchPlaceEntity
 import com.example.leaveit.presentation.placeview.place.showplaceview.DTO.CategoryDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ShowPlaceViewModel @Inject constructor(
     private val placeUseCase: GetPlaceUseCaseInterface,
-    private val storeUseCase : StoreLogSearchKeywordUseCase
+    private val storeUseCase : StoreLogSearchKeywordUseCase,
+    private val recentSearchPlaceUseCase : RecentSearchPlaceUseCase
 ) : ViewModel() {
 
 
@@ -38,6 +41,9 @@ class ShowPlaceViewModel @Inject constructor(
 
     private val _searchData: MutableLiveData<PagingData<PlaceDomainModel>> by lazy { MutableLiveData() }
     var searchData: LiveData<PagingData<PlaceDomainModel>> = _searchData
+
+    private val _recentSearchData: MutableLiveData<List<RecentSearchPlaceEntity>> by lazy { MutableLiveData() }
+    var recentSearchData: LiveData<List<RecentSearchPlaceEntity>> = _recentSearchData
 
 
     fun categoryData() {
@@ -83,6 +89,83 @@ class ShowPlaceViewModel @Inject constructor(
 
     fun setTopAppBarTitleText(value: String) {
         _topAppBarText.value = value
+    }
+
+    fun getRecentSearchData(){
+        viewModelScope.launch {
+            recentSearchPlaceUseCase.getData().collect{
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"최근 검색 기록 불러오기 실패 : ${it.throwable.message.toString()}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"최근 검색 기록 불러오는 중")
+                    }
+                    is DataResource.Success -> {
+                        _recentSearchData.value = it.data
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    fun setRecentSearchData(value : RecentSearchPlaceEntity){
+        viewModelScope.launch {
+            recentSearchPlaceUseCase.setData(value).collect{
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"최근 검색 기록 저장 실패 : ${it.throwable.message.toString()}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"최근 검색 기록 저장 중")
+                    }
+                    is DataResource.Success -> {
+                      Log.d(TAG,"최근 검색 기록 저장 성공")
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun deleteRecentSearchData(value : String){
+        viewModelScope.launch {
+            recentSearchPlaceUseCase.getData().collect{
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"$value 최근 검색 기록 삭제 실패 : ${it.throwable.message.toString()}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"$value 최근 검색 기록 삭제 중")
+                    }
+                    is DataResource.Success -> {
+                        Log.d(TAG,"$value 최근 검색 기록 삭제 성공")
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun deleteAllRecentSearchData(){
+        viewModelScope.launch {
+            recentSearchPlaceUseCase.getData().collect{
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"최근 검색 기록 전체 삭제 실패 : ${it.throwable.message.toString()}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"최근 검색 기록 전체 삭제 중")
+                    }
+                    is DataResource.Success -> {
+                        Log.d(TAG,"최근 검색 기록 전체 삭제 성공")
+                    }
+                }
+
+            }
+        }
     }
 
     fun initFestivalCategoryData(): List<CategoryDto> {
