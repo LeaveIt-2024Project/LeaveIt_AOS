@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.place.showplaceview
+package com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

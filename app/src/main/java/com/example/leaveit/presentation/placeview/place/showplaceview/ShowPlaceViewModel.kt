@@ -22,8 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ShowPlaceViewModel @Inject constructor(
     private val placeUseCase: GetPlaceUseCaseInterface,
-    private val storeUseCase : StoreLogSearchKeywordUseCase,
-    private val recentSearchPlaceUseCase : RecentSearchPlaceUseCase
+    private val storeUseCase: StoreLogSearchKeywordUseCase,
+    private val recentSearchPlaceUseCase: RecentSearchPlaceUseCase
 ) : ViewModel() {
 
 
@@ -62,25 +62,26 @@ class ShowPlaceViewModel @Inject constructor(
 
     fun getSearchData(query: String) {
         viewModelScope.launch {
-            placeUseCase.getSearchPlaceUseCase(query).cachedIn(viewModelScope)
-                .collectLatest { data ->
-                    _searchData.value = data
+            placeUseCase.getSearchPlaceUseCase(query).cachedIn(viewModelScope).collectLatest {
+                    _searchData.value = it
                 }
         }
     }
 
-    fun storeKeyWord(query: String){
+    fun storeKeyWord(query: String) {
         viewModelScope.launch {
-            storeUseCase.excute(query).collect{
-                when(it){
+            storeUseCase.excute(query).collect {
+                when (it) {
                     is DataResource.Error -> {
-                        Log.d(TAG,"검색어 저장 실패 : ${it.throwable.message}")
+                        Log.d(TAG, "검색어 저장 실패 : ${it.throwable.message}")
                     }
+
                     is DataResource.Loading -> {
-                        Log.d(TAG,"검색어 저장 로딩중")
+                        Log.d(TAG, "검색어 저장 로딩중")
                     }
+
                     is DataResource.Success -> {
-                        Log.d(TAG,"검색어 저장 성공 : ${it.data}")
+                        Log.d(TAG, "검색어 저장 성공 : ${it.data}")
                     }
                 }
             }
@@ -91,16 +92,18 @@ class ShowPlaceViewModel @Inject constructor(
         _topAppBarText.value = value
     }
 
-    fun getRecentSearchData(){
+    fun getRecentSearchData() {
         viewModelScope.launch {
-            recentSearchPlaceUseCase.getData().collect{
-                when(it){
+            recentSearchPlaceUseCase.getData().collect {
+                when (it) {
                     is DataResource.Error -> {
-                        Log.d(TAG,"최근 검색 기록 불러오기 실패 : ${it.throwable.message.toString()}")
+                        Log.d(TAG, "최근 검색 기록 불러오기 실패 : ${it.throwable.message.toString()}")
                     }
+
                     is DataResource.Loading -> {
-                        Log.d(TAG,"최근 검색 기록 불러오는 중")
+                        Log.d(TAG, "최근 검색 기록 불러오는 중")
                     }
+
                     is DataResource.Success -> {
                         _recentSearchData.value = it.data
                     }
@@ -111,18 +114,21 @@ class ShowPlaceViewModel @Inject constructor(
 
     }
 
-    fun setRecentSearchData(value : RecentSearchPlaceEntity){
+    fun setRecentSearchData(value: RecentSearchPlaceEntity) {
         viewModelScope.launch {
-            recentSearchPlaceUseCase.setData(value).collect{
-                when(it){
+            recentSearchPlaceUseCase.setData(value).collect {
+                when (it) {
                     is DataResource.Error -> {
-                        Log.d(TAG,"최근 검색 기록 저장 실패 : ${it.throwable.message.toString()}")
+                        Log.d(TAG, "최근 검색 기록 저장 실패 : ${it.throwable.message.toString()}")
                     }
+
                     is DataResource.Loading -> {
-                        Log.d(TAG,"최근 검색 기록 저장 중")
+                        Log.d(TAG, "최근 검색 기록 저장 중")
                     }
+
                     is DataResource.Success -> {
-                      Log.d(TAG,"최근 검색 기록 저장 성공")
+                        Log.d(TAG, "최근 검색 기록 저장 성공")
+                        getRecentSearchData() // 저장 성공 후 데이터 최신화
                     }
                 }
 
@@ -130,18 +136,21 @@ class ShowPlaceViewModel @Inject constructor(
         }
     }
 
-    fun deleteRecentSearchData(value : String){
+    fun deleteRecentSearchData(value: String) {
         viewModelScope.launch {
-            recentSearchPlaceUseCase.getData().collect{
-                when(it){
+            recentSearchPlaceUseCase.deleteData(value).collect {
+                when (it) {
                     is DataResource.Error -> {
-                        Log.d(TAG,"$value 최근 검색 기록 삭제 실패 : ${it.throwable.message.toString()}")
+                        Log.d(TAG, "$value 최근 검색 기록 삭제 실패 : ${it.throwable.message.toString()}")
                     }
+
                     is DataResource.Loading -> {
-                        Log.d(TAG,"$value 최근 검색 기록 삭제 중")
+                        Log.d(TAG, "$value 최근 검색 기록 삭제 중")
                     }
+
                     is DataResource.Success -> {
-                        Log.d(TAG,"$value 최근 검색 기록 삭제 성공")
+                        Log.d(TAG, "$value 최근 검색 기록 삭제 성공")
+                        getRecentSearchData() // 삭제 성공 후 데이터 최신화
                     }
                 }
 
@@ -149,18 +158,21 @@ class ShowPlaceViewModel @Inject constructor(
         }
     }
 
-    fun deleteAllRecentSearchData(){
+    fun deleteAllRecentSearchData() {
         viewModelScope.launch {
-            recentSearchPlaceUseCase.getData().collect{
-                when(it){
+            recentSearchPlaceUseCase.deleteAllData().collect {
+                when (it) {
                     is DataResource.Error -> {
-                        Log.d(TAG,"최근 검색 기록 전체 삭제 실패 : ${it.throwable.message.toString()}")
+                        Log.d(TAG, "최근 검색 기록 전체 삭제 실패 : ${it.throwable.message.toString()}")
                     }
+
                     is DataResource.Loading -> {
-                        Log.d(TAG,"최근 검색 기록 전체 삭제 중")
+                        Log.d(TAG, "최근 검색 기록 전체 삭제 중")
                     }
+
                     is DataResource.Success -> {
-                        Log.d(TAG,"최근 검색 기록 전체 삭제 성공")
+                        Log.d(TAG, "최근 검색 기록 전체 삭제 성공")
+                        getRecentSearchData() // 삭제 성공 후 데이터 최신화
                     }
                 }
 
@@ -377,7 +389,7 @@ class ShowPlaceViewModel @Inject constructor(
         )
     }
 
-    companion object{
+    companion object {
         const val TAG = "ShowPlaceViewModel"
     }
 }

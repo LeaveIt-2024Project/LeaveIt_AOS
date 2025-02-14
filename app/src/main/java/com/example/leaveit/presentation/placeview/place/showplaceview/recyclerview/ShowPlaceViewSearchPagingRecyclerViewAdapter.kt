@@ -1,4 +1,4 @@
-package com.example.leaveit.presentation.placeview.place.showplaceview
+package com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -27,7 +27,7 @@ class ShowPlaceViewSearchPagingRecyclerViewAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ShowPlaceViewSearchPagingRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder {
+    ): ShowPlaceViewRecyclerViewHolder {
         return ShowPlaceViewRecyclerViewHolder(
 
             // 정의한 아이템 뷰에 inflate
@@ -41,7 +41,7 @@ class ShowPlaceViewSearchPagingRecyclerViewAdapter(
 
 
     override fun onBindViewHolder(
-        holder: ShowPlaceViewSearchPagingRecyclerViewAdapter.ShowPlaceViewRecyclerViewHolder,
+        holder: ShowPlaceViewRecyclerViewHolder,
         position: Int
     ) {
         //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능

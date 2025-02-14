@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/testid"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,11 +18,11 @@
         app:layout_constraintVertical_weight="0.1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="invisible"
         android:id="@+id/recentSearchLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/hotSearchKeywordLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,7 @@
             android:id="@+id/recentSearchAllDeleteBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clickable="true"
             android:gravity="end|center"
             android:text="전체 삭제"
             app:layout_constraintBottom_toTopOf="@id/recentSearchRecyclerView"
@@ -67,11 +68,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="invisible"
         android:id="@+id/hotSearchKeywordLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +150,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:text="관광지"
-                android:textColor="#959393"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@id/tourAttraction"
                 app:layout_constraintEnd_toEndOf="parent"

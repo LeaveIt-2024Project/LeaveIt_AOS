@@ -13,7 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
+import com.example.leaveit.local.PlaceSearch.RecentSearchPlaceEntity
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
+import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.RecentPlaceLogViewAdapter
+import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.ShowPlaceViewRecyclerViewAdapter
+import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.ShowPlaceViewSearchPagingRecyclerViewAdapter
 import com.example.leaveit.utill.sharedpreferences.sharedPreferencesUtill
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,6 +29,7 @@ class ShowPlaceView : Fragment() {
     private lateinit var cultureAdapter: ShowPlaceViewRecyclerViewAdapter
     private lateinit var festivalAdapter: ShowPlaceViewRecyclerViewAdapter
     private lateinit var searchAdapter: ShowPlaceViewSearchPagingRecyclerViewAdapter
+    private lateinit var recentSearchAdapter: RecentPlaceLogViewAdapter
 
     private val viewModel: ShowPlaceViewModel by activityViewModels()
 
@@ -36,16 +41,18 @@ class ShowPlaceView : Fragment() {
         binding = FragmentShowplaceviewBinding.inflate(getLayoutInflater())
         initAdapter()
         initSearchView()
+        initClickListener()
         setTopAppBarText("관광지를 선택해주세요")
 
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         observeData()
-
+        viewModel.getRecentSearchData()
     }
+
 
     private fun initAdapter() {
         binding.tourAttraction.layoutManager =
@@ -56,6 +63,9 @@ class ShowPlaceView : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.searchDataView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recentSearchRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
 
         tourAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId ->
             // SelectRegionView로 이동
@@ -70,19 +80,26 @@ class ShowPlaceView : Fragment() {
             moveToSelectRegionView(requireContext(), contentTypeId)
         }, false)
         searchAdapter =
-            ShowPlaceViewSearchPagingRecyclerViewAdapter { contentTypeId, contentId, mapx, mapy,image,addr,title ->
+            ShowPlaceViewSearchPagingRecyclerViewAdapter { contentTypeId, contentId, mapx, mapy, image, addr, title ->
                 // SelectRegionView로 이동
-                moveToDetailview(requireContext(),
+                moveToDetailview(
+                    requireContext(),
                     contentTypeId,
                     contentId,
                     mapx,
                     mapy,
                     image,
                     addr,
-                    title)
+                    title
+                )
+            }
+        recentSearchAdapter =
+            RecentPlaceLogViewAdapter { selectUid ->
+                viewModel.deleteRecentSearchData(selectUid) // 선택한 검색 기록 삭제 이벤트 설정
+                recentSearchAdapter.submitList(viewModel.recentSearchData.value)
             }
 
-
+        binding.recentSearchRecyclerView.adapter = recentSearchAdapter
         binding.tourAttraction.adapter = tourAdapter
         binding.culture.adapter = cultureAdapter
         binding.festival.adapter = festivalAdapter
@@ -91,6 +108,7 @@ class ShowPlaceView : Fragment() {
 
     private fun observeData() {
         viewModel.categoryData() // 관광지 카테고리 초기화
+        viewModel.getRecentSearchData()
 
 
         // 옵저버 패턴으로 데이터 변경 감지 후 각 어댑터에 데이터 넣기
@@ -110,6 +128,10 @@ class ShowPlaceView : Fragment() {
             lifecycleScope.launch {
                 searchAdapter.submitData(it)
             }
+        }
+
+        viewModel.recentSearchData.observe(this) {
+            recentSearchAdapter.submitList(it)
         }
     }
 
@@ -131,9 +153,9 @@ class ShowPlaceView : Fragment() {
         contentId: String,
         mapx: String,
         mapy: String,
-        imageUrl : String,
-        addr : String,
-        title : String
+        imageUrl: String,
+        addr: String,
+        title: String
     ) {
 
         // 선택한 아이템의 contentTypeId에 따라 DetailPage로 넘어감
@@ -148,7 +170,20 @@ class ShowPlaceView : Fragment() {
                 moveToPlaceView.putExtra("searchAddr", addr)
                 moveToPlaceView.putExtra("searchTitle", title)
                 moveToPlaceView.putExtra("searchContentTypeId", contentTypeId)
-                //TODO 최근 검색 기록 Start Point
+
+                //최근 검색 기록 저장
+                viewModel.setRecentSearchData(
+                    initRecentEntity(
+                        title = title,
+                        contentTypeId = contentTypeId,
+                        contentId = contentId,
+                        image = imageUrl,
+                        addr = addr,
+                        mapx = mapx,
+                        mapy = mapy
+                    )
+                )
+
                 viewModel.storeKeyWord(title)
                 startActivity(moveToPlaceView)
             }
@@ -184,21 +219,28 @@ class ShowPlaceView : Fragment() {
         }
 
     }
+    /*
+    * 1. viewScrollView 보임
+    * 2. 검색 버튼 클릭 시 처음엔 recentSearchLayout가 보임
+    * 3. 검색을 하면 searchParentView가 보임
+    * 4. 검색을 마무리하면 viewScrollView가 보임
+    * */
 
     private fun initSearchView() {
 
         binding.searchView.setOnQueryTextFocusChangeListener { _, hasfocus ->
-            if (hasfocus) {
+            if (hasfocus) { // 처음 검색 클릭 시 인기검색어, 최근검색어 보이기
                 binding.viewScrollView.visibility = View.GONE
 
                 // viewScrollView가 사라지면서 searchView의 bottom_top의
                 // view가 사라지므로 이를 대체하는 뷰 설정
                 val searchView = binding.searchView
                 val params = searchView.layoutParams as ConstraintLayout.LayoutParams
-                params.bottomToTop = binding.searchParentView.id
+                params.bottomToTop = binding.recentSearchLayout.id
                 searchView.layoutParams = params
 
-                binding.searchParentView.visibility = View.VISIBLE
+                binding.recentSearchLayout.visibility = View.VISIBLE
+                binding.hotSearchKeywordLayout.visibility = View.VISIBLE
             }
 
         }
@@ -206,7 +248,12 @@ class ShowPlaceView : Fragment() {
         binding.searchView.setOnCloseListener {
             // searchView의 X 버튼 누르면 기존 창으로 다시 복귀
 
-            binding.searchParentView.visibility = View.GONE
+            if (binding.searchParentView.visibility == View.VISIBLE) { // 검색 view가 활성화 되어있다면 숨김
+                binding.searchParentView.visibility = View.GONE
+            } else if (binding.recentSearchLayout.visibility == View.VISIBLE) { // 최근검색어 view가 활성화 되어있다면 숨김
+                binding.recentSearchLayout.visibility = View.GONE
+                binding.hotSearchKeywordLayout.visibility = View.GONE
+            }
 
             val searchView = binding.searchView
             val params = searchView.layoutParams as ConstraintLayout.LayoutParams
@@ -233,8 +280,30 @@ class ShowPlaceView : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
+                if (!newText.isNullOrEmpty()) { // 텍스트가 입력된다면,
                     viewModel.getSearchData(newText)
+                    binding.recentSearchLayout.visibility = View.INVISIBLE
+                    binding.hotSearchKeywordLayout.visibility = View.INVISIBLE
+
+                    val searchView = binding.searchView
+                    val params = searchView.layoutParams as ConstraintLayout.LayoutParams
+                    params.bottomToTop = binding.recentSearchLayout.id
+                    searchView.layoutParams = params
+
+                    // 검색 view 보이기
+                    binding.searchParentView.visibility = View.VISIBLE
+
+                } else { // 텍스트가 입력되지 않았다면,
+                    binding.searchParentView.visibility = View.INVISIBLE
+
+                    val searchView = binding.searchView
+                    val params = searchView.layoutParams as ConstraintLayout.LayoutParams
+                    params.bottomToTop = binding.recentSearchLayout.id
+                    searchView.layoutParams = params
+
+                    // 최근 검색어, 인기 검색어 보이기
+                    binding.recentSearchLayout.visibility = View.VISIBLE
+                    binding.hotSearchKeywordLayout.visibility = View.VISIBLE
                 }
 
                 return true
@@ -245,6 +314,36 @@ class ShowPlaceView : Fragment() {
 
     private fun setTopAppBarText(text: String) {
         viewModel.setTopAppBarTitleText(text)
+    }
+
+    private fun initClickListener() {
+
+        binding.recentSearchAllDeleteBtn.setOnClickListener {
+            viewModel.deleteAllRecentSearchData()
+            recentSearchAdapter.submitList(viewModel.recentSearchData.value)
+        }
+    }
+
+    private fun initRecentEntity(
+        contentId: String,
+        mapx: String,
+        mapy: String,
+        image: String,
+        addr: String,
+        title: String,
+        contentTypeId: String
+
+    ): RecentSearchPlaceEntity {
+        return RecentSearchPlaceEntity(
+            title = title,
+            addr = addr,
+            contentTypeId = contentTypeId,
+            imageUrl = image,
+            mapx = mapx,
+            mapy = mapy,
+            searchContentId = contentId
+        )
+
     }
 
     companion object {
