@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.leaveit.dataResource.DataResource
+import com.example.leaveit.domain.model.HotKeyWordDomainModel
 import com.example.leaveit.domain.model.PlaceDomainModel
 import com.example.leaveit.domain.usecase.hotkeyword_place.HotKeyWordPlaceUseCase
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
@@ -47,8 +48,8 @@ class ShowPlaceViewModel @Inject constructor(
     private val _recentSearchData: MutableLiveData<List<RecentSearchPlaceEntity>> by lazy { MutableLiveData() }
     var recentSearchData: LiveData<List<RecentSearchPlaceEntity>> = _recentSearchData
 
-    private val _hotkeyword : MutableLiveData<List<String>> by lazy { MutableLiveData() }
-    val hotkeyword : LiveData<List<String>> = _hotkeyword
+    private val _hotkeyword : MutableLiveData<HotKeyWordDomainModel> by lazy { MutableLiveData() }
+    val hotkeyword : LiveData<HotKeyWordDomainModel> = _hotkeyword
     fun categoryData() {
         _tourAttractionData.apply {
             value = initPlaceCategoryData()

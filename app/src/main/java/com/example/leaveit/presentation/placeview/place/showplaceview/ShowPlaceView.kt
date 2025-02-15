@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.databinding.FragmentShowplaceviewBinding
 import com.example.leaveit.local.PlaceSearch.RecentSearchPlaceEntity
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionView
+import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.HotKeyWorldViewAdapter
 import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.RecentPlaceLogViewAdapter
 import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.ShowPlaceViewRecyclerViewAdapter
 import com.example.leaveit.presentation.placeview.place.showplaceview.recyclerview.ShowPlaceViewSearchPagingRecyclerViewAdapter
@@ -30,6 +32,7 @@ class ShowPlaceView : Fragment() {
     private lateinit var festivalAdapter: ShowPlaceViewRecyclerViewAdapter
     private lateinit var searchAdapter: ShowPlaceViewSearchPagingRecyclerViewAdapter
     private lateinit var recentSearchAdapter: RecentPlaceLogViewAdapter
+    private lateinit var hotKeyWordAdapter : HotKeyWorldViewAdapter
 
     private val viewModel: ShowPlaceViewModel by activityViewModels()
 
@@ -66,6 +69,8 @@ class ShowPlaceView : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recentSearchRecyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.hotSearchKeyWordRecyclerView.layoutManager =
+            GridLayoutManager(context,2)
 
 
         tourAdapter = ShowPlaceViewRecyclerViewAdapter({ contentTypeId ->
@@ -104,12 +109,17 @@ class ShowPlaceView : Fragment() {
                 * */
                 binding.searchView.setQuery(selectTitle,true)
             })
+        hotKeyWordAdapter = HotKeyWorldViewAdapter { selectedItem ->
+            binding.searchView.setQuery(selectedItem, true)
+        }
+
 
         binding.recentSearchRecyclerView.adapter = recentSearchAdapter
         binding.tourAttraction.adapter = tourAdapter
         binding.culture.adapter = cultureAdapter
         binding.festival.adapter = festivalAdapter
         binding.searchDataView.adapter = searchAdapter
+        binding.hotSearchKeyWordRecyclerView.adapter = hotKeyWordAdapter
     }
 
     private fun observeData() {
@@ -139,6 +149,11 @@ class ShowPlaceView : Fragment() {
         viewModel.recentSearchData.observe(this) {
             recentSearchAdapter.submitList(it)
         }
+
+        viewModel.hotkeyword.observe(this){
+            hotKeyWordAdapter.submitList(it.data)
+        }
+
     }
 
     private fun moveToSelectRegionView(context: Context, contentTypeId: String) {
