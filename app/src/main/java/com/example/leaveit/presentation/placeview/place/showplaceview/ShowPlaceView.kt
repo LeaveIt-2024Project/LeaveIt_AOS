@@ -51,6 +51,7 @@ class ShowPlaceView : Fragment() {
         super.onStart()
         observeData()
         viewModel.getRecentSearchData()
+        viewModel.getHotKeyWord()
     }
 
 
@@ -236,6 +237,7 @@ class ShowPlaceView : Fragment() {
         binding.searchView.setOnQueryTextFocusChangeListener { _, hasfocus ->
             if (hasfocus) { // 처음 검색 클릭 시 인기검색어, 최근검색어 보이기
                 binding.viewScrollView.visibility = View.GONE
+
 
                 // viewScrollView가 사라지면서 searchView의 bottom_top의
                 // view가 사라지므로 이를 대체하는 뷰 설정

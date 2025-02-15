@@ -9,6 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.model.PlaceDomainModel
+import com.example.leaveit.domain.usecase.hotkeyword_place.HotKeyWordPlaceUseCase
 import com.example.leaveit.domain.usecase.place.GetPlaceUseCaseInterface
 import com.example.leaveit.domain.usecase.place.recentSearchPlace.RecentSearchPlaceUseCase
 import com.example.leaveit.domain.usecase.place.searchPlace.StoreLogSearchKeywordUseCase
@@ -23,7 +24,8 @@ import javax.inject.Inject
 class ShowPlaceViewModel @Inject constructor(
     private val placeUseCase: GetPlaceUseCaseInterface,
     private val storeUseCase: StoreLogSearchKeywordUseCase,
-    private val recentSearchPlaceUseCase: RecentSearchPlaceUseCase
+    private val recentSearchPlaceUseCase: RecentSearchPlaceUseCase,
+    private val hotKeyWordPlaceUseCase: HotKeyWordPlaceUseCase
 ) : ViewModel() {
 
 
@@ -45,7 +47,8 @@ class ShowPlaceViewModel @Inject constructor(
     private val _recentSearchData: MutableLiveData<List<RecentSearchPlaceEntity>> by lazy { MutableLiveData() }
     var recentSearchData: LiveData<List<RecentSearchPlaceEntity>> = _recentSearchData
 
-
+    private val _hotkeyword : MutableLiveData<List<String>> by lazy { MutableLiveData() }
+    val hotkeyword : LiveData<List<String>> = _hotkeyword
     fun categoryData() {
         _tourAttractionData.apply {
             value = initPlaceCategoryData()
@@ -176,6 +179,25 @@ class ShowPlaceViewModel @Inject constructor(
                     }
                 }
 
+            }
+        }
+    }
+
+    fun getHotKeyWord(){
+        viewModelScope.launch {
+            hotKeyWordPlaceUseCase.getHotKeyWord().collectLatest {
+                when(it){
+                    is DataResource.Error -> {
+                        Log.d(TAG,"인기 검색어 불러오기 실패 : ${it.throwable.message.toString()}")
+                    }
+                    is DataResource.Loading -> {
+                        Log.d(TAG,"인기 검색어 불러오는 중")
+                    }
+                    is DataResource.Success -> {
+                        Log.d(TAG,"인기 검색어 불러오기 성공")
+                        _hotkeyword.value = it.data
+                    }
+                }
             }
         }
     }

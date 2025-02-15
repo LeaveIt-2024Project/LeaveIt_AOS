@@ -34,4 +34,7 @@ interface PlaceApi {
     suspend fun setSearchLog(
         @Body log : SearchBody
     ) : Response<Unit>
+
+    @GET("/tour/area/populars")
+    suspend fun getHotKeyWordPlace() : List<String>
 }
