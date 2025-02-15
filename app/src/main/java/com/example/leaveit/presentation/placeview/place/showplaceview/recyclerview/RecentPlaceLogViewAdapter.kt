@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.leaveit.databinding.ItemRecentplacelogRecyclerviewBinding
 import com.example.leaveit.local.PlaceSearch.RecentSearchPlaceEntity
 
-class RecentPlaceLogViewAdapter(val onClick: (String) -> (Unit)) :
+class RecentPlaceLogViewAdapter(
+    val deleteLogClickListener: (String) -> (Unit),
+    val gotoDetailPlaceView : (String) -> (Unit)) :
     ListAdapter<RecentSearchPlaceEntity, RecentPlaceLogViewAdapter.RecentPlaceLogViewHolder>(
         diffUtil
     ) {
@@ -16,11 +18,14 @@ class RecentPlaceLogViewAdapter(val onClick: (String) -> (Unit)) :
         inner class RecentPlaceLogViewHolder(private val binding: ItemRecentplacelogRecyclerviewBinding) :
             RecyclerView.ViewHolder(binding.root) {
             fun bind(model: RecentSearchPlaceEntity) {
+                binding.root.setOnClickListener {
+                    gotoDetailPlaceView(model.title)
+                }
                binding.recentPlaceLogText.text = model.title
 
                 // 클릭 리스너 설정
                 binding.recentPlaceLogBtn.setOnClickListener {
-                    onClick(model.uid) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
+                    deleteLogClickListener(model.uid) // 클릭 시 호출자(View)에 아이템의 contentTypeId 전달
                 }
             }
         }

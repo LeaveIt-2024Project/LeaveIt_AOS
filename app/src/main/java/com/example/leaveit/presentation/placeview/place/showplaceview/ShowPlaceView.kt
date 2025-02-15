@@ -94,10 +94,15 @@ class ShowPlaceView : Fragment() {
                 )
             }
         recentSearchAdapter =
-            RecentPlaceLogViewAdapter { selectUid ->
+            RecentPlaceLogViewAdapter( { selectUid ->
                 viewModel.deleteRecentSearchData(selectUid) // 선택한 검색 기록 삭제 이벤트 설정
                 recentSearchAdapter.submitList(viewModel.recentSearchData.value)
-            }
+            },{selectTitle ->
+                /*
+                * 검색 기록 누르면 해당 이름의 관광지 검색
+                * */
+                binding.searchView.setQuery(selectTitle,true)
+            })
 
         binding.recentSearchRecyclerView.adapter = recentSearchAdapter
         binding.tourAttraction.adapter = tourAdapter
