@@ -2,7 +2,7 @@ package com.example.leaveit.domain.usecase.recent_data
 
 import com.example.leaveit.dataResource.DataResource
 import com.example.leaveit.domain.repository.RecentSearchRepository
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

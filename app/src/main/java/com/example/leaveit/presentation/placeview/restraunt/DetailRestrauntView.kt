@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentDetailrestrauntviewBinding
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 
@@ -42,9 +43,10 @@ class DetailRestrauntView : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner) {
             if (it != null) {
-                binding.playTimeInfo.text = it.opentimefood
-                binding.representativeMenuText.text = it.firstmenu
-                binding.mainIntroText.text = it.treatmenu
+                binding.playTimeInfo2.text = it.opentimefood
+                binding.representativeMenuText2.text = it.firstmenu
+                binding.menuText2.text = it.treatmenu
+                binding.restDayInfo2.text = it.restdatefood
             }
         }
     }
@@ -60,6 +62,7 @@ class DetailRestrauntView : Fragment() {
             Glide.with(binding.root)
                 .load(data.image)
                 .fitCenter()
+                .fallback(R.drawable.null_image)
                 .into(binding.placeImage)
 
         }

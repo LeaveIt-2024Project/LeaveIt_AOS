@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSearchPlaceForReviewBinding
-import com.example.leaveit.local.RecentSearchEntity
+import com.example.leaveit.local.RecentSearch.RecentSearchEntity
 import com.example.leaveit.presentation.review.postview.adapter.RecentSearchListAdapter
 import com.example.leaveit.presentation.review.postview.adapter.SelectPlaceAdapter
 import com.example.leaveit.presentation.review.postview.data.SelectPlaceData

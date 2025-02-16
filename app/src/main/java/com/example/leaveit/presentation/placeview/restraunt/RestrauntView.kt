@@ -52,10 +52,20 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
         val mapy = rootViewModel.mapy.value.toString()
 
         // 관광지 좌표 기반 근처 음식점 데이터 불러오기
-        viewModel.getRestrauntList(mapx, mapy)
+        viewModel.getRestrauntList(mapy, mapx)
+
+        initTopAppBarText()
 
         binding.naverMap.onCreate(savedInstanceState)
         binding.naverMap.getMapAsync(this) // naverMap 객체 가져오기
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+
+        initTopAppBarText()
 
     }
 
@@ -91,6 +101,7 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
                     override fun updateLeafMarker(info: LeafMarkerInfo, marker: Marker) {
                         super.updateLeafMarker(info, marker)
 
+
                         val selectedRestrauntData =
                             info.tag as RestrauntDomainModel // 마커 데이터 접근을 위한 형변환
 
@@ -119,7 +130,7 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
     // 지도 설정 함수
     private fun setUtillFunctionMap(map: NaverMap) {
         val latLng =
-            LatLng(rootViewModel.mapy.value!!.toDouble(), rootViewModel.mapx.value!!.toDouble())
+            LatLng(rootViewModel.mapx.value!!.toDouble(), rootViewModel.mapy.value!!.toDouble())
 
         val cameraUpdate = CameraUpdate.scrollAndZoomTo(latLng, 15.0)
         map.moveCamera(cameraUpdate)
@@ -142,6 +153,10 @@ class RestrauntView : Fragment(), OnMapReadyCallback {
                 DetailRestrauntView()
             )
             .commit()
+    }
+
+    private fun initTopAppBarText() {
+        rootViewModel.setTopTapContent("음식점을 선택하세요")
     }
 
     companion object {

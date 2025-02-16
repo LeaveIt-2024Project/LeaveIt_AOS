@@ -5,7 +5,7 @@ import com.example.leaveit.data.recent_search.RecentSearchRepositoryImpl
 import com.example.leaveit.domain.repository.RecentSearchRepository
 import com.example.leaveit.domain.usecase.recent_data.RecentSearchUseCase
 import com.example.leaveit.domain.usecase.recent_data.RecentSearchUseCaseImpl
-import com.example.leaveit.local.RecentSearchDataSourceImpl
+import com.example.leaveit.local.RecentSearch.RecentSearchDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

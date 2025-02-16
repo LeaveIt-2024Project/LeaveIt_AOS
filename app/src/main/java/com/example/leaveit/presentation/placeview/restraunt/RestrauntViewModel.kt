@@ -58,6 +58,7 @@ class RestrauntViewModel @Inject constructor(
         }
     }
 
+
     fun setRestrauntData(value : RestrauntDomainModel ){
         _selectRestrauntData.value = value
     }

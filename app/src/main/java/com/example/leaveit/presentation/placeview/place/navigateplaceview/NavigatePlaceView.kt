@@ -19,7 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentNavigatePathBinding
-import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.SelectRegionViewModel
 import com.example.leaveit.utill.location.LocationProvider
 import com.naver.maps.geometry.LatLng
@@ -104,8 +104,8 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
                 viewModel.setCenterLocation(
                     LatLng(userLocationLat, userLocationLong),
                     LatLng(
-                        rootViewModel.mapy.value!!.toDouble(),
-                        rootViewModel.mapx.value!!.toDouble()
+                        rootViewModel.mapx.value!!.toDouble(),
+                        rootViewModel.mapy.value!!.toDouble()
                     )
                 )
 
@@ -205,8 +205,8 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
         val start = "${longtitude.toString()}," +
                 latitude.toString()
 
-        val goal = "${rootViewModel.mapx.value.toString()}," +
-                rootViewModel.mapy.value.toString()
+        val goal = "${rootViewModel.mapy.value.toString()}," +
+                rootViewModel.mapx.value.toString()
 
 
         viewModel.getPath(start, goal) // 합친 데이터를 기반으로 경로 가져오기
@@ -234,7 +234,6 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
 
         rootViewModel.placeLocation.observe(viewLifecycleOwner) {
             goalMarker.position = it
-            Log.d(TAG, "goalMarker : ${it.latitude}${it.longitude}")
             goalMarker.map = naverMap
         }
 
@@ -254,7 +253,6 @@ class NavigatePlaceView : Fragment(), OnMapReadyCallback {
 
         viewModel.locationDataForMap.observe(viewLifecycleOwner) { (center, zoomLevel) ->
             val cameraUpdate = CameraUpdate.scrollAndZoomTo(center, zoomLevel)
-            Log.d(TAG, "실제 줌 거리 : $zoomLevel")
             map.moveCamera(cameraUpdate)
             map.uiSettings.isRotateGesturesEnabled = false // 회전 비활성화
             map.uiSettings.isTiltGesturesEnabled = false   // 기울이기 비활성화

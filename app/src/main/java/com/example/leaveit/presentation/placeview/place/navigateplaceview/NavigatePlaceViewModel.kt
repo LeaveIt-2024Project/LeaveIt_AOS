@@ -66,7 +66,7 @@ class NavigatePlaceViewModel @Inject constructor(
             getCurrentLocationAddress.getReverseGeoCodingData(value).collect { state ->
                 when (state) {
                     is DataResource.Error -> {
-                        Log.e(TAG, state.throwable.toString())
+                        Log.e(TAG, "현 위치 찾아오기 실패 : ${state.throwable}")
                     }
 
                     is DataResource.Loading -> {
@@ -88,7 +88,7 @@ class NavigatePlaceViewModel @Inject constructor(
             getPathUseCase.getPath(start, goal).collect { state ->
                 when (state) {
                     is DataResource.Error -> {
-                        Log.e(TAG, state.throwable.toString())
+                        Log.e(TAG, "경로 요청 실패 : ${state.throwable}")
                     }
 
                     is DataResource.Loading -> {

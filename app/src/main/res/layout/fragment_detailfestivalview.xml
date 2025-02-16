@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/imageLayer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/addressInfoLayer"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.5">
+
+            <ImageView
+                android:id="@+id/placeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/star_icon" />
+
+            <TextView
+                android:id="@+id/placeTitleText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:gravity="bottom"
+                android:text="경복궁"
+                android:textColor="@color/white"
+                android:textSize="24dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/addressInfoLayer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/functionInfoLayer"
+            app:layout_constraintDimensionRatio="24:2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageLayer"
+            app:layout_constraintVertical_weight="0.02">
+
+            <TextView
+                android:id="@+id/addressInfo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.3"
+                android:text="서울 종로구 사직로 161 경복궁"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/functionInfoLayer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/playTimeInfoLayer"
+            app:layout_constraintDimensionRatio="24:5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addressInfoLayer"
+            app:layout_constraintVertical_weight="0.15">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/itemBtn1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:src="@drawable/navigation_24dp_000000_fill0_wght400_grad0_opsz24_1"
+                    app:layout_constraintBottom_toTopOf="@id/itemBtnText1"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtn2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="0.6" />
+
+                <TextView
+                    android:id="@+id/itemBtnText1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="길찾기"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtnText2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/itemBtn1"
+                    app:layout_constraintVertical_weight="0.4" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/itemBtn2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:src="@drawable/restaurant_24dp_000000_fill0_wght400_grad0_opsz24_1"
+                    app:layout_constraintBottom_toTopOf="@id/itemBtnText2"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtn3"
+                    app:layout_constraintStart_toEndOf="@id/itemBtn1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="0.6" />
+
+                <TextView
+                    android:id="@+id/itemBtnText2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="주변 음식점"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtnText3"
+                    app:layout_constraintStart_toEndOf="@id/itemBtnText1"
+                    app:layout_constraintTop_toBottomOf="@id/itemBtn2"
+                    app:layout_constraintVertical_weight="0.4" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/itemBtn3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:src="@drawable/famicons_home"
+                    app:layout_constraintBottom_toTopOf="@id/itemBtnText3"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtn4"
+                    app:layout_constraintStart_toEndOf="@id/itemBtn2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="0.6" />
+
+                <TextView
+                    android:id="@+id/itemBtnText3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="예매처"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/itemBtnText4"
+                    app:layout_constraintStart_toEndOf="@id/itemBtnText2"
+                    app:layout_constraintTop_toBottomOf="@id/itemBtn3"
+                    app:layout_constraintVertical_weight="0.4" />
+
+                <ImageView
+                    android:id="@+id/itemBtn4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:src="@drawable/info_icon"
+                    app:layout_constraintBottom_toTopOf="@id/itemBtnText4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/itemBtn3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="0.6" />
+
+                <TextView
+                    android:id="@+id/itemBtnText4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="문의"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/itemBtnText3"
+                    app:layout_constraintTop_toBottomOf="@id/itemBtn4"
+                    app:layout_constraintVertical_weight="0.4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/playTimeInfoLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/useTimeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/functionInfoLayer">
+
+            <TextView
+                android:id="@+id/playTimeInfoText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이용시간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/playTimeInfoText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/useTimeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/playAgeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playTimeInfoLayer">
+
+            <TextView
+                android:id="@+id/userTimeText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="관람 소요 시간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/userTimeText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/playAgeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/useTimeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FestivalDateLayer">
+
+            <TextView
+                android:id="@+id/playAgeLayerText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="관람 가능 연령"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/playAgeLayerText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/FestivalDateLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/FestivalFeeLayer"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/playAgeLayer">
+
+            <TextView
+                android:id="@+id/FestivalDateText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="축제 기간"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/FestivalDateText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/FestivalFeeLayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FestivalDateLayer">
+
+            <TextView
+                android:id="@+id/FestivalFeeText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이용 요금"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/FestivalFeeText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="asd"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

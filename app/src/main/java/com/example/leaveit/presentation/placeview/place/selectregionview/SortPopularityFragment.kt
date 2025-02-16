@@ -1,5 +1,6 @@
 package com.example.leaveit.presentation.placeview.place.selectregionview
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,16 +11,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.leaveit.R
 import com.example.leaveit.databinding.FragmentSortpopularityBinding
-import com.example.leaveit.presentation.placeview.place.detailplaceview.DetailPlaceView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailCultureView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailFestivalView
+import com.example.leaveit.presentation.placeview.place.detailview.DetailPlaceView
 import com.example.leaveit.presentation.placeview.place.selectregionview.data.SelectRegionModel
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SortPopularityFragment : Fragment() {
-    private lateinit var binding : FragmentSortpopularityBinding
+    private lateinit var binding: FragmentSortpopularityBinding
     private lateinit var adapter: SelectRegionRecyclerAdapter
-    private val viewModel : SelectRegionViewModel by activityViewModels()
+    private val viewModel: SelectRegionViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,33 +43,65 @@ class SortPopularityFragment : Fragment() {
         viewModel.setTopTapContent("카테고리를 선택하세요")
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
 
         //리사이클러뷰에 레이아웃매니저 설정
-        binding.sortRecyclerView.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.VERTICAL, false)
+        binding.sortRecyclerView.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL, false
+        )
 
         val testInitdata1 = listOf(
-            SelectRegionModel(contentId = "2733967" ,
-                title =  "가회동성당",
+            SelectRegionModel(
+                contentId = "2733967",
+                title = "관광지",
                 contentTypeId = "12",
-                areaCode = 1,
+                areaCode = "1",
                 image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                 mapx = "126.9846616856",
                 mapy = "37.5820858828",
                 address = "서울특별시 종로구 북촌로 57 (가회동)"
-                )
+            ),
+            SelectRegionModel(
+                contentId = "3351675",
+                title = "축제",
+                contentTypeId = "15",
+                areaCode = "1",
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            ),
+            SelectRegionModel(
+                contentId = "130446",
+                title = "문화",
+                contentTypeId = "14",
+                areaCode = "1",
+                image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
+                mapx = "126.9846616856",
+                mapy = "37.5820858828",
+                address = "서울특별시 종로구 북촌로 57 (가회동)"
+            )
         )
 
         adapter = SelectRegionRecyclerAdapter(moveToPlace = {
-            Log.d(TAG,"contentId : $it")
             viewModel.setContentId(it.contentId)
-            viewModel.setTopTapContent(it.title)
             viewModel.setMapX(it.mapx)
             viewModel.setMapY(it.mapy)
-            viewModel.setPlaceLocation(it.mapy,it.mapx)
+            viewModel.setPlaceLocation(it.mapy, it.mapx)
             viewModel.setPlaceImage(it.image)
             viewModel.setAddressInfo(it.address)
+            viewModel.setPlaceTitle(it.title)
+            viewModel.setContentTypeId(it.contentTypeId)
+            var fragment = Fragment()
+
+            if(it.contentTypeId == "12"){
+                fragment = DetailPlaceView()
+            }else if(it.contentTypeId == "14"){
+                fragment = DetailCultureView()
+            }else if(it.contentTypeId == "15"){
+                fragment = DetailFestivalView()
+            }
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .addToBackStack(null)
@@ -77,40 +113,45 @@ class SortPopularityFragment : Fragment() {
                 )
                 .replace(
                     R.id.selectregion_fragment_container,
-                    DetailPlaceView()
+                    fragment
                 )
                 .commit()
         })
-        adapter.submitList(testInitdata1)
+//        adapter.submitList(testInitdata1)
         binding.sortRecyclerView.adapter = adapter
     }
 
-    private fun handleTabLayout(){
+    private fun handleTabLayout() {
         binding.TabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             val testInitdata1 = listOf(
-                SelectRegionModel(contentId = "2733967" ,
-                    title =  "가회동 성당",
+                SelectRegionModel(
+                    contentId = "2733967",
+                    title = "가회동 성당",
                     contentTypeId = "12",
-                    areaCode = 2,
+                    areaCode = "2",
                     image = "http://tong.visitkorea.or.kr/cms/resource/09/3303909_image2_1.jpg",
                     mapx = "126.9846616856",
                     mapy = "37.5820858828",
                     address = "서울특별시 종로구 북촌로 57 (가회동)"
-                    )
+                )
             )
 
+            @SuppressLint("SuspiciousIndentation")
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val position = tab?.position // 현재 클릭한 탭의 포지션 가져오기
-                    when(position){ // 포지션 별 분기
-                        0 -> {
-                            Log.d(TAG,"${position} 위치")
-                            adapter.submitList(testInitdata1)}
-                        1 -> {
-                            Log.d(TAG,"${position} 위치")
-                            adapter.submitList(testInitdata1)}
+                when (position) { // 포지션 별 분기
+                    0 -> {
+                        Log.d(TAG, "${position} 위치")
+//                        adapter.submitList(testInitdata1)
                     }
 
-                Log.d(SelectRegionView.TAG,"${position}이 선택되었습니다")
+                    1 -> {
+                        Log.d(TAG, "${position} 위치")
+//                        adapter.submitList(testInitdata1)
+                    }
+                }
+
+                Log.d(SelectRegionView.TAG, "${position}이 선택되었습니다")
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -120,7 +161,8 @@ class SortPopularityFragment : Fragment() {
             }
         })
     }
-    companion object{
+
+    companion object {
         val TAG = "SortPopularityFragment"
     }
 }

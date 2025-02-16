@@ -1,8 +1,7 @@
 package com.example.leaveit.remote.placeview
 
-import com.example.leaveit.data.model.PlaceViewDataModelList
-import com.example.leaveit.remote.entity.response
+import com.example.leaveit.data.model.PlaceDataModel
 
-internal interface PlaceEntityMapper<PlaceDataModel> {
-    suspend fun toData(temp: response): PlaceViewDataModelList
+interface PlaceEntityMapper {
+    suspend fun toData(): PlaceDataModel
 }

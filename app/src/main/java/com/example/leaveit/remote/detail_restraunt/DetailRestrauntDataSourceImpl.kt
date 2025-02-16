@@ -8,6 +8,7 @@ import javax.inject.Inject
 class DetailRestrauntDataSourceImpl @Inject constructor(
     private val service : DetailRestrauntAPI
 ) : DetailRestrauntDataSource{
+
     override suspend fun getDetailRestrauntData(value : String): DetailRestrauntDataModel {
         return service.getDetailRestrauntData(contentId = value).response.body.items.item[0].toData()
     }
