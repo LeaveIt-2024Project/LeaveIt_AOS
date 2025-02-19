@@ -23,7 +23,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/tema0"
             android:minHeight="?attr/actionBarSize"
             app:title="샘플"
             app:titleCentered="true"
@@ -31,15 +31,32 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+<!--    (재건) 이곳부터 프레임레이아웃 수정 + 바텀네비게이션 뷰 추가 -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toTopOf="@id/bottomnavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbarlayout"
-        app:layout_constraintVertical_weight="0.93" />
+        app:layout_constraintVertical_weight="0.88" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomnavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/tema0"
+        app:layout_constraintVertical_weight="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottomnav"
+        app:itemIconSize="48dp"
+        app:labelVisibilityMode="unlabeled"
+        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/tema3"/>
+<!--    추가부분 종료-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

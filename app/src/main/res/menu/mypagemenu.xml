@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/myPage_gotoAlrams"
+        android:icon="@drawable/notifications_icon"
+        android:title="gotoMyPage"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/myPage_gotoSettings"
+        android:icon="@drawable/settings_icon"
+        android:title="addReview"
+        app:showAsAction="ifRoom"/>
+</menu>

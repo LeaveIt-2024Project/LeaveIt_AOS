@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/mainViewIntroduceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="12dp"
+            android:gravity="start|bottom"
+            app:layout_constraintDimensionRatio="20:1"
+            android:text="떠나고 싶은 순간, 여정을 함께"
+            android:textAppearance="@style/mainViewIntroduceText"
+            app:layout_constraintBottom_toTopOf="@id/mainViewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mainViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="3:2"
+            app:layout_constraintBottom_toTopOf="@id/mainViewIndicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainViewIntroduceTextView" />
+
+        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+            android:id="@+id/mainViewIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            app:dotsColor="@color/tema3"
+            app:dotsStrokeColor="@color/tema2"
+            app:layout_constraintBottom_toTopOf="@id/preferTop10TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainViewPager" />
+
+        <TextView
+            android:id="@+id/preferTop10TextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="40dp"
+            android:gravity="start|bottom"
+            app:layout_constraintDimensionRatio="12:1"
+            android:text="선호 지역 여행지 Best 10"
+            android:textAppearance="@style/preferTop10Text"
+            app:layout_constraintBottom_toTopOf="@id/preferRegion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainViewIndicator" />
+
+        <TextView
+            android:id="@+id/preferRegion"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:gravity="start|bottom"
+            app:layout_constraintDimensionRatio="16:1"
+            android:text="선호 지역 : 경기"
+            android:textAppearance="@style/preferRegion"
+            app:layout_constraintBottom_toTopOf="@id/preferTop10Regions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/preferTop10TextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/preferTop10Regions"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintBottom_toTopOf="@id/recommendAccommodation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/preferRegion"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/recommendAccommodation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="5:1"
+            app:layout_constraintBottom_toTopOf="@id/distanceMeasurement"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/preferTop10Regions">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/recommendImg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/recommend"
+                app:civ_circle_background_color="@color/tema3"
+                app:layout_constraintHorizontal_weight="0.15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/recommendSubs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recommendSubs"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                app:layout_constraintHorizontal_weight="0.65"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/enterImg"
+                app:layout_constraintStart_toEndOf="@id/recommendImg"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/recommendTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left|bottom"
+                    android:text="숙박시설 추천"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    app:layout_constraintVertical_weight="0.5"
+                    app:layout_constraintBottom_toTopOf="@id/recommendText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/recommendText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left"
+                    android:text="여행지 주변의 숙박시설을 추천해요"
+                    android:textColor="#434343"
+                    android:textSize="18sp"
+                    app:layout_constraintVertical_weight="0.5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recommendTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/enterImg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/recommendSubs"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/distanceMeasurement"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="5:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recommendAccommodation">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/measurementImg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/distance"
+                app:civ_circle_background_color="@color/tema3"
+                app:layout_constraintHorizontal_weight="0.15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/measurementSubs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/measurementSubs"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                app:layout_constraintHorizontal_weight="0.65"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/enterImg2"
+                app:layout_constraintStart_toEndOf="@id/measurementImg"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/measurementTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left|bottom"
+                    android:text="여행지 거리 측정"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    app:layout_constraintVertical_weight="0.5"
+                    app:layout_constraintBottom_toTopOf="@id/measurementText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/measurementText"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center|left"
+                    android:text="원하는 여행지의 거리를 측정해요"
+                    android:textColor="#434343"
+                    android:textSize="18sp"
+                    app:layout_constraintVertical_weight="0.5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/measurementTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/enterImg2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintHorizontal_weight="0.2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/measurementSubs"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

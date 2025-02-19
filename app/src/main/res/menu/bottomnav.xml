@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomMap"
+        android:icon="@drawable/btmap"
+        android:title="bottomMap" />
+    <item
+        android:id="@+id/bottomHome"
+        android:icon="@drawable/bthome"
+        android:title="bottomHome" />
+    <item
+        android:id="@+id/bottomMenu"
+        android:icon="@drawable/btmenu"
+        android:title="bottomMenu" />
+
+</menu>
