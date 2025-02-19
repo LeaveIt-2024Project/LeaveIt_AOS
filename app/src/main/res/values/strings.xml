@@ -76,4 +76,9 @@
         유명한 명소로는 한라산, 제주의 아름다운 폭포, 용암동굴, 그림 같은 성산일출봉 등이 있습니다.
     </string>
 
+    <!--  이미지 변경을 위한 string -->
+    <string name="change_Img">
+        <u>이미지 변경</u>
+    </string>
+
 </resources>
